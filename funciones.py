@@ -16,7 +16,7 @@ def tipoPalabra(arg):
             return "sustantivo"
         else:
             return "no_existe"
-
+#test
 
 #palabra = input("Ingrese la palabra a evaluar : ")
 #print(tipoPalabra(palabra))
