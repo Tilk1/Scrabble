@@ -20,3 +20,4 @@ def tipoPalabra(arg):
 
 #palabra = input("Ingrese la palabra a evaluar : ")
 #print(tipoPalabra(palabra))
+#aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
