@@ -20,3 +20,5 @@ def tipoPalabra(arg):
 #test 
 #test2
 #agus
+
+#agregando un cambio en funciones
