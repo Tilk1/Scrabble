@@ -16,5 +16,6 @@ def tipoPalabra(arg):
             return "sustantivo"
         else:
             return "no_existe"
-            
-#test
+
+#test 
+#test2
