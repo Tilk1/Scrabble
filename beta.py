@@ -31,3 +31,4 @@ while True:  # Event Loop
         window.hide()
        
 window.close()
+#test
