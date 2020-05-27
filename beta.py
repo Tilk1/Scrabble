@@ -31,4 +31,10 @@ while True:  # Event Loop
         window.hide()
        
 window.close()
-#test
+#test#kjasdjkadnkjansd probando mucho texto
+#kjasdjkadnkjansd probando mucho texto#kjasdjkadnkjansd probando mucho texto
+
+#kjasdjkadnkjansd probando mucho texto#kjasdjkadnkjansd probando 
+
+#kjasdjkadnkjansd probando mucho texto
+#kjasdjkadnkjansd probando mucho texto
