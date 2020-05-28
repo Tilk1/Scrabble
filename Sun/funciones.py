@@ -14,8 +14,7 @@ def tipoPalabra(arg):
         article=w.search(arg)
         if article!=None:
             return "sustantivo"
-        else:
-            return "no_existe"
+    return "no_existe"
 
 #test 
 #test2
