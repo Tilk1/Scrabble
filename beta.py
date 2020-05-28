@@ -19,6 +19,7 @@ layout = [[sg.Text('Saber si existe la palabra:'), sg.Text(size=(12,1), key='-OU
 
 window = sg.Window('Window Title', layout)
 
+#cambioaca
 
 layout = [[sg.Text('Your typed chars appear here:'), sg.Text(size=(12,1), key='-OUTPUT-'), sg.Button('Show'),],
           [ sg.Button('Volver')]]
