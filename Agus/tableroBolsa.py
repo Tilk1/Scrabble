@@ -1,38 +1,40 @@
 import funciones
 import PySimpleGUI as sg
 import random
-sg.theme('LightGrey1')  # please make your windows colorful
+sg.theme('LightGray1')  # please make your windows colorful
 
 def repartir(letras, bolsa, window):
 	for x in letras:
+		print(x)
 		if(letras[x]==''):
 			otro=True
 			while(otro):
 				letra=random.choice(list(bolsa))
 				if(bolsa[letra]['cant']>0):
 					otro=False
-			window[x].update(letra)
+			if(x.find('u')):
+				window[x].update(image_filename=letra)
 			letras[x]=letra
 
 tablero = []      ########GENERA TABLERO#######
 for x in range(10):
 	row = []
 	for y in range(10):
-		row.append(sg.RButton('',size=(4,2),pad=(0,0),key= (x,y))) ##el filename no funciona
+		row.append(sg.RButton('',image_filename='vacio.png',image_size=(50, 50),size=(50,50),pad=(0,0),key= (x,y))) ##el filename no funciona
 	tablero.append(row)
 
-bolsa={'A':{'cant':11,'valor':1}, 'B':{'cant':11,'valor':3}, 'C':{'cant':8,'valor':1},'D':{'cant':7,'valor':1}, 'E':{'cant':7,'valor':1}, 'F':{'cant':7,'valor':1}, 'G':{'cant':7,'valor':1}, 'H':{'cant':5,'valor':1}, 'I':{'cant':7,'valor':1}, 'J':{'cant':7,'valor':1}, 'K':{'cant':7,'valor':1}, 'L':{'cant':7,'valor':1},'M':{'cant':7,'valor':1},'N':{'cant':7,'valor':1},'Ñ':{'cant':7,'valor':1},'O':{'cant':7,'valor':1},'P':{'cant':7,'valor':1},'Q':{'cant':7,'valor':1},'R':{'cant':7,'valor':1},'S':{'cant':7,'valor':1},'T':{'cant':7,'valor':1},'U':{'cant':7,'valor':1},'V':{'cant':7,'valor':1},'W':{'cant':7,'valor':1},'X':{'cant':7,'valor':1},'Y':{'cant':7,'valor':1},'Z':{'cant':7,'valor':1}}
+bolsa={'A.png':{'cant':11,'valor':1}, 'B.png':{'cant':11,'valor':3}, 'C.png':{'cant':8,'valor':1},'D.png':{'cant':7,'valor':1}, 'E.png':{'cant':7,'valor':1}, 'F.png':{'cant':7,'valor':1}, 'G.png':{'cant':7,'valor':1}, 'H.png':{'cant':5,'valor':1}, 'I.png':{'cant':7,'valor':1}, 'J.png':{'cant':7,'valor':1}, 'K.png':{'cant':7,'valor':1}, 'L.png':{'cant':7,'valor':1},'M.png':{'cant':7,'valor':1},'N.png':{'cant':7,'valor':1},'Ñ.png':{'cant':7,'valor':1},'O.png':{'cant':7,'valor':1},'P.png':{'cant':7,'valor':1},'Q.png':{'cant':7,'valor':1},'R.png':{'cant':7,'valor':1},'S.png':{'cant':7,'valor':1},'T.png':{'cant':7,'valor':1},'U.png':{'cant':7,'valor':1},'V.png':{'cant':7,'valor':1},'W.png':{'cant':7,'valor':1},'X.png':{'cant':7,'valor':1},'Y.png':{'cant':7,'valor':1},'Z.png':{'cant':7,'valor':1},'LL.png':{'cant':7,'valor':1},'RR.png':{'cant':7,'valor':1}}
 letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}
 letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
-layout = [[sg.Text('Saber si existe la palabra:'), sg.Text(size=(12,1), key='-OUTPUT-'), sg.Button('Show'),],
-		  [sg.Input(key='-IN-')],
-		  [sg.Text('  '),sg.Button('', key='m0',size=(4,2)),sg.Button('',key='m1', size=(4,2)),sg.Button('',key='m2', size=(4,2)),sg.Button('',key='m3', size=(4,2)),sg.Button('',key='m4', size=(4,2)),sg.Button('',key='m5',size=(4,2)),sg.Button('',key='m6', size=(4,2))],
+layout = [
+		  [sg.Text('ma'),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='m0',size=(50,50)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='m1', size=(4,2)),sg.Button('',image_filename='color3.png',image_size=(50, 50),key='m2', size=(4,2)),sg.Button('',image_filename='color4.png',image_size=(50, 50),key='m3', size=(4,2)),sg.Button('',image_filename='color5.png',image_size=(50, 50),key='m4', size=(4,2)),sg.Button('',image_filename='color1.png',image_size=(50, 50),key='m5',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='m6', size=(4,2))],
 		  [sg.Image(filename= '',key='image')],
-		  [sg.Button('COMENZAR'),sg.Column(tablero)], ##tablero aca
-		  [sg.Text('  '),sg.Button('', key='u0',size=(4,2)),sg.Button('',key='u1', size=(4,2)),sg.Button('',key='u2', size=(4,2)),sg.Button('',key='u3', size=(4,2)),sg.Button('',key='u4', size=(4,2)),sg.Button('',key='u5',size=(4,2)),sg.Button('',key='u6', size=(4,2))],
+		  [sg.Column(tablero),sg.Button('COMENZAR')], ##tablero aca
+		  [sg.Text('us'),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='u0',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='u1', size=(4,2)),sg.Button('',image_filename='color3.png',image_size=(50, 50), key='u2', size=(4,2)),sg.Button('',image_filename='color4.png',image_size=(50, 50), key='u3', size=(4,2)),sg.Button('',image_filename='color5.png',image_size=(50, 50), key='u4', size=(4,2)),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='u5',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50), key='u6', size=(4,2))],
 		  [ sg.Button('Exit'), sg.Button('palabra')]
 		  ]
 
+colores= ['color1.png','color2.png','color3.png','color4.png','color5.png',]
 window = sg.Window('tablero', layout)
 event, values = window.read()
 
@@ -44,10 +46,11 @@ while True:
 	print(event, values)
 	if event in ('u0', 'u1','u2','u3','u4','u5','u6'):
 		letra=letrasU[event]
-		window[event].update('')
+		print(letra)
+		window[event].update(image_filename=random.choice(colores))
 		letrasU[event]=''
 		event, values = window.read()
-		window[event].update(letra)
+		window[event].update(image_filename=letra)
 	elif(event=='palabra'):
 		repartir(letrasU, bolsa, window)
 	if event in (None, 'Exit'):
