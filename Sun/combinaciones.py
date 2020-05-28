@@ -1,5 +1,5 @@
 from itertools import permutations
-from pattern.es import *
+from pattern.text.es import *
 from pattern.web import Wiktionary
 import funciones
 
