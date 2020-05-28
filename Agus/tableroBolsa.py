@@ -12,7 +12,7 @@ def repartir(letras, bolsa, window):
 				letra=random.choice(list(bolsa))
 				if(bolsa[letra]['cant']>0):
 					otro=False
-			if(x.find('u')):
+			if(x.find('u')!=-1):
 				window[x].update(image_filename=letra)
 			letras[x]=letra
 
@@ -50,8 +50,9 @@ while True:
 		window[event].update(image_filename=random.choice(colores))
 		letrasU[event]=''
 		event, values = window.read()
-		window[event].update(image_filename=letra)
-	elif(event=='palabra'):
+		if not event in (None, 'u0', 'u1','u2','u3','u4','u5','u6', 'palabra', 'exit'):
+			window[event].update(image_filename=letra)
+	if(event=='palabra'):
 		repartir(letrasU, bolsa, window)
 	if event in (None, 'Exit'):
 		break 	
