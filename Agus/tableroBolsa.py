@@ -48,7 +48,8 @@ def intercambiarFichas(letras, bolsa, window, cant):
 			bolsa[letras[event]]['cant']=bolsa[letras[event]]['cant']+1
 	sg.popup('Intercambio realizado!')
 
-def ponerFicha(window,letra, tableroF, puestas):
+def ponerFicha(window,letra, tableroF, puestas, event):
+	print(letra)
 	window[event].update(image_filename=letra)
 	puestas[event]=letra
 	tableroF[event]=letra
@@ -58,42 +59,55 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 	puestas=dict()
 	poner=False
 	letra=''
-	while True:
-		event, values = window.read()
-		print(event,values)
+	ficha=(0,0)
+	event, values = window.read()
+	while not event in (None,'Exit'):
+		print('comienzo')
 		if event in ('u0', 'u1','u2','u3','u4','u5','u6'):
 			if ((letras[event] in colores) and (originales[event]==letra)):
-				window[event].update(image_filename=letras[event])
-				letras[event]=originales[event]
-			else:
+				window[event].update(image_filename=letra)
+				letras[event]=letra
+				letra=''
+			elif((not letras[event] in colores) and (letra=='')):
 				letra=letras[event]
+				print(letra)
 				color=random.choice(colores)
 				window[event].update(image_filename=color)
 				letras[event]=color
 				poner=True
 		elif(isinstance(event, tuple)):
+			print((event[0]+1,event[1]))
+			print((event[0],event[1]+1))
 			if(poner):
 				if(primerF):
 					if(event==(0,0)):
-						poner=ponerFicha(window, letra, tableroF, puestas)
-						primerF=True
-				elif((event==(event[0]+1,event[1])) or (event==(event[0],event[1]+1))):
+						print('dentro de poner')
+						poner=ponerFicha(window, letra, tableroF, puestas, event)
+						ficha=event
+						primerF=False
+						letra=''
+				elif((event==(ficha[0]+1,ficha[1])) or (event==(ficha[0],ficha[1]+1))):
 					if(event in puestas):
 						sg.popup('No puede colocar una ficha sobre una ya puesta, retirela si quiere cambiarla')
 					elif(event in tableroF):
 						sg.popup('No puede colocar una ficha sobre una de una jugada anterior')
 					else:
-						poner=ponerFicha(window, letra, tableroF, puestas)
+						poner=ponerFicha(window, letra, tableroF, puestas, event)
+						ficha=event
+						letra=''
 			else:
 				if(event in puestas):
 					sacar=sg.popup_yes_no('Quiere sacar la ficha?')
 					if(sacar=='Yes'):
 						window[event].update(image_filename=tableroI[event])
-						l=list(filter(lambda x:x[1]==puestas[event],originales))[0][0]
+						l=list(filter(lambda x:x[1]==puestas[event],list(originales.items())))[0][0]
 						window[l].update(image_filename=puestas[event])
 						puestas.pop(event)
 				elif(not event in tableroF):
 					sg.popup('No ha seleccionado una ficha para colocar')
+		elif(event in (None, 'Exit')):
+			break
+		event, values = window.read()
 	return primerF
 puntajeM='0'
 puntajeU='0'
