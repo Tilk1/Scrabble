@@ -92,7 +92,6 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 					if(nro==0 or nro==1):
 						if(nro==0):
 							ficha=event
-							poner=ponerFicha(window, letra, tableroF, puestas, ficha)
 						else:
 							if(event==(ficha[0]+1,ficha[1])):
 								direc='abajo'
