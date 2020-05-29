@@ -49,10 +49,8 @@ def intercambiarFichas(letras, bolsa, window, cant):
 	sg.popup('Intercambio realizado!')
 
 def ponerFicha(window,letra, tableroF, puestas, event):
-	print(letra)
 	window[event].update(image_filename=letra)
 	puestas[event]=letra
-	tableroF[event]=letra
 	return False
 def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 	originales=letras.copy()
@@ -62,8 +60,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 	direc='definir'
 	nro=0
 	event, values = window.read()
-	while not event in (None,'Exit'):
-		print('comienzo')
+	while not event in (None,'Exit','palabra'):
 		if event in ('u0', 'u1','u2','u3','u4','u5','u6'):
 			if ((letras[event] in colores) and (originales[event]==letra)):
 				window[event].update(image_filename=letra)
@@ -71,24 +68,20 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 				letra=''
 			elif((not letras[event] in colores) and (letra=='')):
 				letra=letras[event]
-				print(letra)
 				color=random.choice(colores)
 				window[event].update(image_filename=color)
 				letras[event]=color
 				poner=True
 		elif(isinstance(event, tuple)):
-			print(event)
 			if(poner and letra!=''):
 				if(primerF):
 					if(event==(0,0)):
-						print('dentro de poner')
 						poner=ponerFicha(window, letra, tableroF, puestas, event)
 						nro=nro+1
 						primerF=False
 						letra=''
 						ficha=event
 				elif(not event in tableroF):
-					print(direc)
 					if(nro==0 or nro==1):
 						if(nro==0):
 							ficha=event
@@ -124,8 +117,11 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 						l=list(filter(lambda x:x[1]==puestas[event],list(originales.items())))[0][0]
 						window[l].update(image_filename=puestas[event])
 						letras[l]=puestas[event]
-						tableroF.pop(event)
 						puestas.pop(event)
+						if(direc=='izq'):
+							ficha=(ficha[0],ficha[1]-1)
+						elif(direc=='abajo'):
+							ficha=(ficha[0]-1,ficha[1])
 				elif(not event in tableroF):
 					sg.popup('No ha seleccionado una ficha para colocar')
 		elif(event in (None, 'Exit', 'Palabra')):
