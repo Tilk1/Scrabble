@@ -59,7 +59,8 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 	puestas=dict()
 	poner=False
 	letra=''
-	ficha=(0,0)
+	direc='definir'
+	nro=0
 	event, values = window.read()
 	while not event in (None,'Exit'):
 		print('comienzo')
@@ -76,25 +77,40 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 				letras[event]=color
 				poner=True
 		elif(isinstance(event, tuple)):
-			print((event[0]+1,event[1]))
-			print((event[0],event[1]+1))
-			if(poner):
+			print(event)
+			if(poner and letra!=''):
 				if(primerF):
 					if(event==(0,0)):
 						print('dentro de poner')
 						poner=ponerFicha(window, letra, tableroF, puestas, event)
-						ficha=event
+						nro=nro+1
 						primerF=False
 						letra=''
-				elif((event==(ficha[0]+1,ficha[1])) or (event==(ficha[0],ficha[1]+1))):
-					if(event in puestas):
-						sg.popup('No puede colocar una ficha sobre una ya puesta, retirela si quiere cambiarla')
-					elif(event in tableroF):
-						sg.popup('No puede colocar una ficha sobre una de una jugada anterior')
-					else:
-						poner=ponerFicha(window, letra, tableroF, puestas, event)
 						ficha=event
-						letra=''
+				elif(not event in (puestas,tableroF)):
+					print(direc)
+					if(nro==0):
+						ficha=event
+					elif(nro==1):
+						print('entro al 2')
+						if(event==(ficha[0]+1,ficha[1])):
+							direc='abajo'
+							ficha=(ficha[0]+1,ficha[1])
+						else:
+							direc='izq'
+							ficha=(ficha[0],ficha[1]+1)	
+					elif((nro>2) and (direc=='abajo') and (event==(ficha[0]+1,ficha[1]))):
+						ficha=(ficha[0]+1,ficha[1])
+					elif((nro>2) and(direc=='izq') and (event==(ficha[0],ficha[1]+1))):
+						ficha=(ficha[0],ficha[1]+1)
+					print(ficha)
+					poner=ponerFicha(window, letra, tableroF, puestas, ficha)
+					nro+1
+					letra=''
+				elif(event in puestas):
+					sg.popup('No puede colocar una ficha sobre una ya puesta, retirela si quiere cambiarla')
+				elif(event in tableroF):
+					sg.popup('No puede colocar una ficha sobre una de una jugada anterior')
 			else:
 				if(event in puestas):
 					sacar=sg.popup_yes_no('Quiere sacar la ficha?')
@@ -105,7 +121,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 						puestas.pop(event)
 				elif(not event in tableroF):
 					sg.popup('No ha seleccionado una ficha para colocar')
-		elif(event in (None, 'Exit')):
+		elif(event in (None, 'Exit', 'Palabra')):
 			break
 		event, values = window.read()
 	return primerF
