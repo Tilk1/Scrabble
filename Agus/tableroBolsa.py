@@ -2,16 +2,20 @@ import funciones
 import PySimpleGUI as sg
 import random
 sg.theme_background_color(color='Lavender')
-sg.theme_button_color(color=('Lavender','Lavender'))
+sg.theme_button_color(color=('Lavender', 'Lavender'))
 sg.theme_element_background_color(color='Lavender')
+
+
 def randomLetra(bolsa):
-	otro=True
-	while(otro):
-		letra=random.choice(list(bolsa))
-		if(bolsa[letra]['cant']>0):
-			otro=False
-			bolsa[letra]['cant']=bolsa[letra]['cant']-1
-	return letra
+    otro = True
+    while(otro):
+        letra = random.choice(list(bolsa))
+        if(bolsa[letra]['cant'] > 0):
+            otro = False
+            bolsa[letra]['cant'] = bolsa[letra]['cant']-1
+    return letra
+
+
 def repartir(letras, bolsa, window):
 	for x in letras:
 		print(x)
@@ -20,6 +24,7 @@ def repartir(letras, bolsa, window):
 			if(x.find('u')!=-1):
 				window[x].update(image_filename=letra)
 			letras[x]=letra
+
 def intercambiarFichas(letras, bolsa, window, cant):
 	if(cant==7):
 		for x in letras:
@@ -42,6 +47,7 @@ def intercambiarFichas(letras, bolsa, window, cant):
 			letras[event]=letra
 			bolsa[letras[event]]['cant']=bolsa[letras[event]]['cant']+1
 	sg.popup('Intercambio realizado!')
+
 def colocarFicha(tableroI,tableroF,letras, window):
 	originales=letras[:]
 	puestas=dict()
@@ -55,8 +61,9 @@ def colocarFicha(tableroI,tableroF,letras, window):
 				letrasU[event]=letra
 			else:
 				letra=letrasU[event]
-				window[event].update(image_filename=random.choice(colores))
-				letrasU[event]=''
+				color=random.choice(colores)
+				window[event].update(image_filename=color)
+				letrasU[event]=color
 				poner=True
 		elif(isinstance(event, tuple)):
 			if(poner):
@@ -75,7 +82,7 @@ def colocarFicha(tableroI,tableroF,letras, window):
 					sacar=sg.popup_yes_no('Quiere sacar la ficha?')
 					if(sacar=='Yes'):
 						window[event].update(image_filename=tableroI[event])
-						l=list(filter(lambda x:x[1]==puestas[event],original))[0][0]
+						l=list(filter(lambda x:x[1]==puestas[event],originales))[0][0]
 						window[l].update(image_filename=puestas[event])
 						puestas.pop(event)
 				elif(not event in tableroF):
@@ -116,23 +123,13 @@ intercambiar=[
 			]
 
 window = sg.Window('tablero', layout)
-popinter= sg.Window('intercambio', intercambiar)
+popinter = sg.Window('intercambio', intercambiar)
 event, values = window.read()
 
-repartir(letrasU,bolsa, window)
-repartir(letrasM,bolsa, window)
-hide=False
+repartir(letrasU, bolsa, window)
+repartir(letrasM, bolsa, window)
+hide = False
 while True:
-	event, values = window.read()
-	print(event, values)
-	if event in ('u0', 'u1','u2','u3','u4','u5','u6'):
-		letra=letrasU[event]
-		window[event].update(image_filename=random.choice(colores))
-		letrasU[event]=''
-		event, values = window.read()
-		print(event, values)
-		if not event in (None, 'u0', 'u1','u2','u3','u4','u5','u6', 'palabra', 'exit'):
-			
 	if(event=='palabra'):
 		repartir(letrasU, bolsa, window)
 	if(event=='intercambiar'):

@@ -16,8 +16,11 @@ def tipoPalabra(arg):
             return "sustantivo"
     return "no_existe"
 
-#test 
-#test2
-#agus
-
-#agregando un cambio en funciones
+def calcular_puntaje(palabra):
+    i = 0
+    suma = 0
+    for char in palabra:
+        letra = (palabra[i] + ".png")
+        suma = suma + (bolsa[letra]['valor'])
+        i = i+1
+    print(suma)
