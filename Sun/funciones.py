@@ -16,6 +16,8 @@ def tipoPalabra(arg):
             return "sustantivo"
     return "no_existe"
 
+
+
 def calcular_puntaje(palabra):
     i = 0
     suma = 0

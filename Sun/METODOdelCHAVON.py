@@ -6,7 +6,7 @@ def clasificar(palabra):
 	print()
 
 
-palabra = 'Camino'
+palabra = 'atuo'
 print(palabra)
 while palabra != 'q':
 	if not palabra.lower() in verbs:
