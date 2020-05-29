@@ -1,5 +1,5 @@
 #"windows" if "win" in sys.platform else "linux"
-from pattern.es import *
+from pattern.text.es import *
 from pattern.web import Wiktionary
 
 w = Wiktionary(language="es")
