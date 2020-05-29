@@ -48,35 +48,42 @@ def intercambiarFichas(letras, bolsa, window, cant):
 			bolsa[letras[event]]['cant']=bolsa[letras[event]]['cant']+1
 	sg.popup('Intercambio realizado!')
 
-def colocarFicha(tableroI,tableroF,letras, window):
-	originales=letras[:]
+def ponerFicha(window,letra, tableroF, puestas):
+	window[event].update(image_filename=letra)
+	puestas[event]=letra
+	tableroF[event]=letra
+	return False
+def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
+	originales=letras.copy()
 	puestas=dict()
-	colores= ['color1.png','color2.png','color3.png','color4.png','color5.png']
 	poner=False
+	letra=''
 	while True:
 		event, values = window.read()
+		print(event,values)
 		if event in ('u0', 'u1','u2','u3','u4','u5','u6'):
-			if(window[event].image_filename in colores):
-				window[event].update(image_filename=letra)
-				letrasU[event]=letra
+			if ((letras[event] in colores) and (originales[event]==letra)):
+				window[event].update(image_filename=letras[event])
+				letras[event]=originales[event]
 			else:
-				letra=letrasU[event]
+				letra=letras[event]
 				color=random.choice(colores)
 				window[event].update(image_filename=color)
-				letrasU[event]=color
+				letras[event]=color
 				poner=True
 		elif(isinstance(event, tuple)):
 			if(poner):
-				if((event==(event[0]+1,event[1])) or (event==(event[0],event[1]+1))):
+				if(primerF):
+					if(event==(0,0)):
+						poner=ponerFicha(window, letra, tableroF, puestas)
+						primerF=True
+				elif((event==(event[0]+1,event[1])) or (event==(event[0],event[1]+1))):
 					if(event in puestas):
 						sg.popup('No puede colocar una ficha sobre una ya puesta, retirela si quiere cambiarla')
 					elif(event in tableroF):
 						sg.popup('No puede colocar una ficha sobre una de una jugada anterior')
 					else:
-						window[event].update(image_filename=letra)
-						puestas[event]=letra
-						tableroF[event]=letra
-						poner=False
+						poner=ponerFicha(window, letra, tableroF, puestas)
 			else:
 				if(event in puestas):
 					sacar=sg.popup_yes_no('Quiere sacar la ficha?')
@@ -87,6 +94,7 @@ def colocarFicha(tableroI,tableroF,letras, window):
 						puestas.pop(event)
 				elif(not event in tableroF):
 					sg.popup('No ha seleccionado una ficha para colocar')
+	return primerF
 puntajeM='0'
 puntajeU='0'
 tableroIm=dict()
@@ -122,14 +130,18 @@ intercambiar=[
 			[sg.Button('Aceptar')]
 			]
 
+colores= ['color1.png','color2.png','color3.png','color4.png','color5.png']
+
 window = sg.Window('tablero', layout)
 popinter = sg.Window('intercambio', intercambiar)
 event, values = window.read()
-
+primer=True
 repartir(letrasU, bolsa, window)
 repartir(letrasM, bolsa, window)
 hide = False
 while True:
+	if(event=='comenzar'):
+		primer=colocarFicha(tableroIm,tableroFichas,letrasU, window,colores, primer)
 	if(event=='palabra'):
 		repartir(letrasU, bolsa, window)
 	if(event=='intercambiar'):
