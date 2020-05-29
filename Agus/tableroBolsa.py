@@ -2,19 +2,45 @@ import funciones
 import PySimpleGUI as sg
 import random
 sg.theme('LightGray1')  # please make your windows colorful
-
+sg.theme_background_color('White')
+def randomLetra(bolsa):
+	otro=True
+	while(otro):
+		letra=random.choice(list(bolsa))
+		if(bolsa[letra]['cant']>0):
+			otro=False
+			bolsa[letra]['cant']=bolsa[letra]['cant']-1
+	return letra
 def repartir(letras, bolsa, window):
 	for x in letras:
 		print(x)
 		if(letras[x]==''):
-			otro=True
-			while(otro):
-				letra=random.choice(list(bolsa))
-				if(bolsa[letra]['cant']>0):
-					otro=False
+			letra=randomLetra(bolsa)
 			if(x.find('u')!=-1):
 				window[x].update(image_filename=letra)
 			letras[x]=letra
+def intercambiarFichas(letras, bolsa, window, cant):
+	if(cant==7):
+		for _ in (cant):
+			letra=randomLetra(bolsa)
+			window[event].update(image_filename=letra)
+			letras[event]=letra
+			bolsa[letras[event]]['cant']=bolsa[letras[event]]['cant']+1
+	else:
+		cambios=list()
+		for _ in range(cant):
+			sigo=True
+			while(sigo):
+				event, values=window.read()
+				if not event in cambios:
+					cambios.append(event)
+					sigo=False
+			print(event, values)
+			letra=randomLetra(bolsa)
+			window[event].update(image_filename=letra)
+			letras[event]=letra
+			bolsa[letras[event]]['cant']=bolsa[letras[event]]['cant']+1
+	sg.popup('Intercambio realizado!')
 
 tablero = []      ########GENERA TABLERO#######
 for x in range(10):
@@ -29,31 +55,46 @@ letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
 layout = [
 		  [sg.Text('ma'),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='m0',size=(50,50)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='m1', size=(4,2)),sg.Button('',image_filename='color3.png',image_size=(50, 50),key='m2', size=(4,2)),sg.Button('',image_filename='color4.png',image_size=(50, 50),key='m3', size=(4,2)),sg.Button('',image_filename='color5.png',image_size=(50, 50),key='m4', size=(4,2)),sg.Button('',image_filename='color1.png',image_size=(50, 50),key='m5',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='m6', size=(4,2))],
 		  [sg.Image(filename= '',key='image')],
-		  [sg.Column(tablero),sg.Button('COMENZAR')], ##tablero aca
-		  [sg.Text('us'),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='u0',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='u1', size=(4,2)),sg.Button('',image_filename='color3.png',image_size=(50, 50), key='u2', size=(4,2)),sg.Button('',image_filename='color4.png',image_size=(50, 50), key='u3', size=(4,2)),sg.Button('',image_filename='color5.png',image_size=(50, 50), key='u4', size=(4,2)),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='u5',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50), key='u6', size=(4,2))],
-		  [ sg.Button('Exit'), sg.Button('palabra')]
+		  [sg.Column(tablero),sg.Button('COMENZAR'),sg.Button('intercambiar')], ##tablero aca
+		  [sg.Text('us'),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='u0',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='u1', size=(4,2)),sg.Button('',image_filename='color3.png',image_size=(50, 50), key='u2', size=(4,2)),sg.Button('',image_filename='color4.png',image_size=(50, 50), key='u3', size=(4,2)),sg.Button('',image_filename='color5.png',image_size=(50, 50), key='u4', size=(4,2)),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='u5',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50), key='u6', size=(4,2)),sg.Text('              '),sg.Image('bolsachica.png',background_color='White')],
+		  [sg.Button('Exit'), sg.Button('palabra')]
 		  ]
-
+intercambiar=[
+		[sg.Text('Cant de fichas a intercambiar')],
+		[sg.Spin([i for i in range(1,8)], initial_value=1,key='cant')],
+		[sg.Button('Aceptar')]
+		]
 colores= ['color1.png','color2.png','color3.png','color4.png','color5.png',]
+
 window = sg.Window('tablero', layout)
+popinter= sg.Window('intercambio', intercambiar)
 event, values = window.read()
 
 repartir(letrasU,bolsa, window)
 repartir(letrasM,bolsa, window)
-
+hide=False
 while True:
 	event, values = window.read()
 	print(event, values)
 	if event in ('u0', 'u1','u2','u3','u4','u5','u6'):
 		letra=letrasU[event]
-		print(letra)
 		window[event].update(image_filename=random.choice(colores))
 		letrasU[event]=''
 		event, values = window.read()
+		print(event, values)
 		if not event in (None, 'u0', 'u1','u2','u3','u4','u5','u6', 'palabra', 'exit'):
 			window[event].update(image_filename=letra)
 	if(event=='palabra'):
 		repartir(letrasU, bolsa, window)
+	if(event=='intercambiar'):
+		if(hide):
+			popinter.UnHide()
+		event, values= popinter.read()
+		print(event, values)
+		popinter.Hide()
+		hide=True
+		intercambiarFichas(letrasU, bolsa, window, values['cant'])
+		print(event,values)
 	if event in (None, 'Exit'):
 		break 	
 window.close()
