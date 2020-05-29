@@ -44,7 +44,9 @@ def intercambiarFichas(letras, bolsa, window, cant):
 			bolsa[letras[event]]['cant']=bolsa[letras[event]]['cant']+1
 	sg.popup('Intercambio realizado!')
 
-vacios= ['vacio.png','vacio1.png','vacio2.png','vacio3.png','vacio4.png']
+puntajeM='0'
+puntajeU='0'
+vacios= ['vacio.png','vacio1.png','vacio2.png','vacio3.png','vacio4.png','vacio5.png','vacio6.png','vacio7.png']
 tablero = []      ########GENERA TABLERO#######
 for x in range(10):
 	row = []
@@ -56,14 +58,17 @@ bolsa={'A.png':{'cant':11,'valor':1}, 'B.png':{'cant':11,'valor':3}, 'C.png':{'c
 letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}
 letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
 column1=[
+		[sg.Button('Exit',font=('Fixedsys'), size=(20,3))], 
+		[sg.Button('palabra',font=('Fixedsys'))],
 		[sg.Image('bolsachica.png')],
 		[sg.Button('',image_filename='intercambiar.png',border_width=0,font=('Fixedsys'), key='intercambiar')]
 		]
 layout =[
-		[sg.Image('robot.png'),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='m0',size=(50,50)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='m1', size=(4,2)),sg.Button('',image_filename='color3.png',image_size=(50, 50),key='m2', size=(4,2)),sg.Button('',image_filename='color4.png',image_size=(50, 50),key='m3', size=(4,2)),sg.Button('',image_filename='color5.png',image_size=(50, 50),key='m4', size=(4,2)),sg.Button('',image_filename='color1.png',image_size=(50, 50),key='m5',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='m6', size=(4,2)),sg.Text('      '),sg.Button('',image_filename='comenzar.png',border_width=0,font=('Fixedsys',18), key='comenzar')],
+		[sg.Text('Puntaje: '),sg.Text(puntajeM)],
+		[sg.Image('robot.png'),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='m0',size=(50,50)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='m1', size=(4,2)),sg.Button('',image_filename='color3.png',image_size=(50, 50),key='m2', size=(4,2)),sg.Button('',image_filename='color4.png',image_size=(50, 50),key='m3', size=(4,2)),sg.Button('',image_filename='color5.png',image_size=(50, 50),key='m4', size=(4,2)),sg.Button('',image_filename='color1.png',image_size=(50, 50),key='m5',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='m6', size=(4,2)),sg.Text(' ', background_color='Lavender'),sg.Button('',image_filename='comenzar.png',border_width=0,font=('Fixedsys',18), key='comenzar')],
 		[sg.Column(tablero),sg.Column(column1)], ##tablero aca
 		[sg.Image('jugador.png'),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='u0',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50),key='u1', size=(4,2)),sg.Button('',image_filename='color3.png',image_size=(50, 50), key='u2', size=(4,2)),sg.Button('',image_filename='color4.png',image_size=(50, 50), key='u3', size=(4,2)),sg.Button('',image_filename='color5.png',image_size=(50, 50), key='u4', size=(4,2)),sg.Button('',image_filename='color1.png',image_size=(50, 50), key='u5',size=(4,2)),sg.Button('',image_filename='color2.png',image_size=(50, 50), key='u6', size=(4,2))],
-		[sg.Button('Exit',font=('Fixedsys'), size=(20,3)), sg.Button('palabra',font=('Fixedsys'))]
+		[sg.Text('Puntaje: '),sg.Text(puntajeU)]
 		]
 intercambiar=[
 			[sg.Text('Cant de fichas a intercambiar')],
