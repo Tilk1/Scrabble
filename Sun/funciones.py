@@ -24,3 +24,5 @@ def calcular_puntaje(palabra):
         suma = suma + (bolsa[letra]['valor'])
         i = i+1
     print(suma)
+
+    #test quitar esto revertir commit
