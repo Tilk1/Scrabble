@@ -50,7 +50,6 @@ def intercambiarFichas(letras, bolsa, window, cant):
             bolsa[letras[event]]['cant'] = bolsa[letras[event]]['cant']+1
     sg.popup('Intercambio realizado!')
 
-
 puntajeM = '0'
 puntajeU = '0'
 vacios = ['vacio.png', 'vacio1.png', 'vacio2.png', 'vacio3.png',
