@@ -21,11 +21,12 @@ def repartir(letras, bolsa, window):
 			letras[x]=letra
 def intercambiarFichas(letras, bolsa, window, cant):
 	if(cant==7):
-		for _ in (cant):
+		for x in letras:
 			letra=randomLetra(bolsa)
-			window[event].update(image_filename=letra)
-			letras[event]=letra
-			bolsa[letras[event]]['cant']=bolsa[letras[event]]['cant']+1
+			window[x].update(image_filename=letra)
+			print(letras[x])
+			bolsa[letras[x]]['cant']=bolsa[letras[x]]['cant']+1
+			letras[x]=letra
 	else:
 		cambios=list()
 		for _ in range(cant):
