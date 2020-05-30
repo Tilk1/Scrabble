@@ -100,6 +100,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 				if(tableroF=={}):														#Si saco todas las fichas y era la primera jugada entonces la pos en donde poner si o si tiene que ser la de inicio
 					primerF=True
 		event,_= window.read()
+		print(event)
 	if(event=='palabra'):
 		for x in puestas:
 			tableroF[x]=puestas[x]

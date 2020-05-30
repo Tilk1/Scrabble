@@ -2,10 +2,11 @@ import funciones
 import PySimpleGUI as sg
 import colocarFichas as colocar
 import random 
+import tableros
 
-sg.theme_background_color(color='Lavender')
-sg.theme_button_color(color=('Black', 'Lavender'))
-sg.theme_element_background_color(color='Lavender')
+sg.theme_background_color(color='Salmon')
+sg.theme_button_color(color=('Black', 'Salmon'))
+sg.theme_element_background_color(color='Salmon')
 
 
 def randomLetra(bolsa):
@@ -57,7 +58,14 @@ tablero = []      ########GENERA TABLERO#######
 for x in range(15):
 	row = []
 	for y in range(15):
-		im=random.choice(vacios)
+		if((x,y) in tableros.letraDoble):
+			im=tableros.letraDoble[0]
+		elif((x,y) in tableros.letraTriple):
+			im=tableros.letraTriple[0]
+		elif((x,y) in tableros.palabraDoble):
+			im=tableros.palabraDoble[0]
+		else:
+			im='vacio1.png'
 		tableroIm[(x,y)]=im
 		row.append(sg.RButton('',image_filename=im,border_width=0,image_size=(46, 46),pad=(0,0),key=(x,y))) ##el filename no funciona
 	tablero.append(row)
