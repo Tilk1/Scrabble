@@ -4,7 +4,7 @@ import colocarFichas as colocar
 import random 
 
 sg.theme_background_color(color='Lavender')
-sg.theme_button_color(color=('Lavender', 'Lavender'))
+sg.theme_button_color(color=('Black', 'Lavender'))
 sg.theme_element_background_color(color='Lavender')
 
 
@@ -66,7 +66,8 @@ bolsa={'A.png':{'cant':11,'valor':1}, 'B.png':{'cant':11,'valor':3}, 'C.png':{'c
 letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}
 letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
 column1=[
-		[sg.Button('Exit',font=('Fixedsys'), size=(20,3))], 
+		[sg.Button('Exit',font=('Fixedsys'), size=(20,3))],
+		[sg.Button('Sacar Todas',font=('Fixedsys'), size=(20,3), key='sacar')], 
 		[sg.Button('palabra',font=('Fixedsys'))],
 		[sg.Image('bolsachica.png')],
 		[sg.Button('',image_filename='intercambiar.png',border_width=0,font=('Fixedsys'), key='intercambiar')]

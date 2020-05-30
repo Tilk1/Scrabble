@@ -1,11 +1,27 @@
 import random
 import PySimpleGUI as sg
+
 def ponerFicha(window,letra, tableroF, puestas, event):
 	window[event].update(image_filename=letra)
 	puestas[event]=letra
 	return False
+
+def sacarFicha(tableroI, puestas, originales, letras, event, window):
+	if(event=='sacar'):
+		for y in puestas:
+			for x in originales:
+				if (originales[x]==puestas[y]):
+					window[y].update(image_filename=tableroI[y])							#Pongo en donde estaba la ficha, la imagen del tablero original sin nada
+					window[x].update(image_filename=originales[x])							#Pongo en el atril la ficha en la interfaz
+					letras[x]=originales[x]    												#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
+		puestas.clear()
+	else:
+		window[event].update(image_filename=tableroI[event])  					            #Pongo en donde estaba la ficha, la imagen del tablero original sin nada
+		l=list(filter(lambda x:x[1]==puestas[event],list(originales.items())))[0][0]  		#Busco en el dict originales, cual de las fichas del atril, tenia la letra que puse en el tablero, y en l queda la key de la ficha, por ejemplo 'u2'
+		window[l].update(image_filename=puestas[event])   									#Pongo en el atril la ficha en la interfaz
+		letras[l]=puestas[event]    														#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
+		puestas.pop(event)          														#sacas la letra de las que pusiste en el tablero, ya que no esta mas
 def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
-	print(tableroF)
 	originales=letras.copy()  #Fichas del atril que tenia en el comienzo de la jugada
 	puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada
 	poner=False				  #Poner va a ser True cuando tenga una letra en mano para poner en el tablero
@@ -64,20 +80,25 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 						letra=''
 			else:                            
 				if((event in puestas) and (event==ficha)):        													#Si no tengo una ficha en mano, pero toco una ficha colocada en el tablero
-					sacar=sg.popup_yes_no('Quiere sacar la ficha?')
-					if(sacar=='Yes'):    														#Si quiero sacar la ficha
-						window[event].update(image_filename=tableroI[event])  					#Pongo en donde estaba la ficha, la imagen del tablero original sin nada
-						l=list(filter(lambda x:x[1]==puestas[event],list(originales.items())))[0][0]  		#Busco en el dict originales, cual de las fichas del atril, tenia la letra que puse en el tablero, y en l queda la key de la ficha, por ejemplo 'u2'
-						window[l].update(image_filename=puestas[event])   									#Pongo en el atril la ficha en la interfaz
-						letras[l]=puestas[event]    														#Vuelvo a poner en e dict de letras la letra segun corresponda a su posicion en el atril
-						puestas.pop(event)          														#sacas la letra de las que pusiste en el tablero, ya que no esta mas
+					s1=sg.popup_yes_no('Quiere sacar la ficha?')
+					if(s1=='Yes'):    														#Si quiero sacar la ficha
+						sacarFicha(tableroI, puestas, originales,letras, event, window)
 						if(direc=='izq'):      																#la pos del tablero en donde podes poner va a ser -1 ya que en donde estaba la ficha ya no esta
 							ficha=(ficha[0],ficha[1]-1)
 						elif(direc=='abajo'):
 							ficha=(ficha[0]-1,ficha[1])
 						nro=nro-1																			#Como saco una ficha, el nro de ficha puesto es -1, de esta forma puedo volver a elegir la direccion si saco la 2da ficha de la palabra y si saco la primera ficha, poder seguir poniendo fichas(Si saco la primera y nro es >2 va  asuponer que hay una direccion o que habia una ficha previa puesta con la cual calcularla)
+						if(nro==0 and tableroF=={}):
+							primerF=True
 				elif(not event in (tableroF, puestas)):      												#Si no tenes una letra en mano y estas tocando un lugar en donde no hay nada
 					sg.popup('No ha seleccionado una ficha para colocar')
+		elif(event=='sacar'):
+			s2=sg.popup_yes_no('Quiere sacar todas las fichas?')
+			if(s2=='Yes'): 
+				sacarFicha(tableroI, puestas, originales, letras, event, window)
+				nro=0
+				if(tableroF=={}):
+					primerF=True
 		event,_= window.read()
 	if(event=='palabra'):
 		for x in puestas:
