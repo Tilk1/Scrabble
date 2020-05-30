@@ -4,9 +4,9 @@ import colocarFichas as colocar
 import random 
 import tableros
 
-sg.theme_background_color(color='Salmon')
-sg.theme_button_color(color=('Black', 'Salmon'))
-sg.theme_element_background_color(color='Salmon')
+sg.theme_background_color(color='DarkGrey')
+sg.theme_button_color(color=('Black', 'DarkGrey'))
+sg.theme_element_background_color(color='DarkGrey')
 
 
 def randomLetra(bolsa):
@@ -64,6 +64,10 @@ for x in range(15):
 			im=tableros.letraTriple[0]
 		elif((x,y) in tableros.palabraDoble):
 			im=tableros.palabraDoble[0]
+		elif((x,y) in tableros.descuento2):
+			im=tableros.descuento2[0]
+		elif((x,y) in tableros.descuento1):
+			im=tableros.descuento1[0]
 		else:
 			im='vacio1.png'
 		tableroIm[(x,y)]=im
