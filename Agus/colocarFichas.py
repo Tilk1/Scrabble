@@ -1,9 +1,10 @@
 import random
+import PySimpleGUI as sg
 def ponerFicha(window,letra, tableroF, puestas, event):
 	window[event].update(image_filename=letra)
 	puestas[event]=letra
 	return False
-def colocarFicha(tableroI,tableroF,letras, window, colores, primerF, sg):
+def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 	print(tableroF)
 	originales=letras.copy()  #Fichas del atril que tenia en el comienzo de la jugada
 	puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada
@@ -11,7 +12,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF, sg):
 	letra=''		          #No tengo ninguna letra en mano, lo inicializo en ''
 	direc='definir'
 	nro=0						#Nro de ficha que esta poniendo
-	event= window.read()
+	event,_= window.read()
 	while not event in (None,'Exit','palabra','intercambiar'):
 		if event in ('u0', 'u1','u2','u3','u4','u5','u6'):  				#Si selecciono una letra
 			if ((letras[event] in colores) and (originales[event]==letra)):  #Si en el diccionario letras que guarda la imagen actual de la ficha, es un color, pero lo estoy selecionando, signofica que quiero volver a poner la letra en su lugar
@@ -77,7 +78,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF, sg):
 						nro=nro-1																			#Como saco una ficha, el nro de ficha puesto es -1, de esta forma puedo volver a elegir la direccion si saco la 2da ficha de la palabra y si saco la primera ficha, poder seguir poniendo fichas(Si saco la primera y nro es >2 va  asuponer que hay una direccion o que habia una ficha previa puesta con la cual calcularla)
 				elif(not event in (tableroF, puestas)):      												#Si no tenes una letra en mano y estas tocando un lugar en donde no hay nada
 					sg.popup('No ha seleccionado una ficha para colocar')
-		event= window.read()
+		event,_= window.read()
 	if(event=='palabra'):
 		for x in puestas:
 			tableroF[x]=puestas[x]

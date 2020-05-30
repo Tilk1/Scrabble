@@ -38,7 +38,7 @@ def intercambiarFichas(letras, bolsa, window, cant):
 		for _ in range(cant):
 			sigo=True
 			while(sigo):
-				event, values=window.read()
+				event,_=window.read()
 				if not event in cambios:
 					cambios.append(event)
 					sigo=False
@@ -95,7 +95,7 @@ if(event=='comenzar'):
 	repartir(letrasM, bolsa, window, colores)
 	hide = False
 	while True:
-		primer, event=colocar.colocarFicha(tableroIm,tableroFichas,letrasU, window,colores, primer, sg)
+		primer, event=colocar.colocarFicha(tableroIm,tableroFichas,letrasU, window,colores, primer)
 		if(event=='palabra'):
 			repartir(letrasU, bolsa, window, colores)
 		if(event=='intercambiar'):
