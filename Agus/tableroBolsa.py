@@ -16,10 +16,10 @@ def randomLetra(bolsa):
     return letra
 
 
-def repartir(letras, bolsa, window):
+def repartir(letras, bolsa, window, colores):
 	for x in letras:
 		print(x)
-		if(not letras[x] in bolsa):
+		if(letras[x] in colores):
 			letra=randomLetra(bolsa)
 			if(x.find('u')!=-1):
 				window[x].update(image_filename=letra)
@@ -180,7 +180,7 @@ while True:
 		primer, event=colocarFicha(tableroIm,tableroFichas,letrasU, window,colores, primer)
 	print('SALIO')
 	if(event=='palabra'):
-		repartir(letrasU, bolsa, window)
+		repartir(letrasU, bolsa, window, colores)
 	if(event=='intercambiar'):
 		if(hide):
 			popinter.UnHide()
@@ -192,4 +192,5 @@ while True:
 		print(event,values)
 	if event in (None, 'Exit'):
 		break 	
+	event, values = window.read()
 window.close()
