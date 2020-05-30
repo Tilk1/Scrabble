@@ -49,9 +49,12 @@ def intercambiarFichas(letras, bolsa, window, cant):
 	sg.popup('Intercambio realizado!')
 
 def ponerFicha(window,letra, tableroF, puestas, event):
-	window[event].update(image_filename=letra)
-	puestas[event]=letra
-	return False
+	if(event in puestas):
+		sg.popup('No puede colocar la letra en un lugar ocupado')
+	else:
+		window[event].update(image_filename=letra)
+		puestas[event]=letra
+		return False
 def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 	originales=letras.copy()
 	puestas=dict()
@@ -127,7 +130,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 		elif(event in (None, 'Exit', 'Palabra')):
 			break
 		event, values = window.read()
-	return primerF
+	return primerF, event
 puntajeM='0'
 puntajeU='0'
 tableroIm=dict()
@@ -174,7 +177,8 @@ repartir(letrasM, bolsa, window)
 hide = False
 while True:
 	if(event=='comenzar'):
-		primer=colocarFicha(tableroIm,tableroFichas,letrasU, window,colores, primer)
+		primer, event=colocarFicha(tableroIm,tableroFichas,letrasU, window,colores, primer)
+	print('SALIO')
 	if(event=='palabra'):
 		repartir(letrasU, bolsa, window)
 	if(event=='intercambiar'):
