@@ -18,7 +18,6 @@ def randomLetra(bolsa):
 
 def repartir(letras, bolsa, window, colores):
 	for x in letras:
-		print(x)
 		if(letras[x]=='' or letras[x] in colores):
 			letra=randomLetra(bolsa)
 			if(x.find('u')!=-1):
@@ -41,7 +40,6 @@ def intercambiarFichas(letras, bolsa, window, cant):
 				if not event in cambios:
 					cambios.append(event)
 					sigo=False
-			print(event, values)
 			letra=randomLetra(bolsa)
 			window[event].update(image_filename=letra)
 			letras[event]=letra
@@ -49,12 +47,9 @@ def intercambiarFichas(letras, bolsa, window, cant):
 	sg.popup('Intercambio realizado!')
 
 def ponerFicha(window,letra, tableroF, puestas, event):
-	if(event in puestas):   #Si intento poner la ficha arriba de una anterior
-		sg.popup('No puede colocar la letra en un lugar ocupado')
-	else:
-		window[event].update(image_filename=letra)
-		puestas[event]=letra
-		return False
+	window[event].update(image_filename=letra)
+	puestas[event]=letra
+	return False
 def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 	originales=letras.copy()  #Fichas del atril que tenia en el comienzo de la jugada
 	puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada
@@ -63,42 +58,42 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 	direc='definir'
 	nro=0						#Nro de ficha que esta poniendo
 	event, values = window.read()
-	while not event in (None,'Exit','palabra'):
-		if event in ('u0', 'u1','u2','u3','u4','u5','u6'):  #Si selecciono una letra
+	while not event in (None,'Exit','palabra','intercambiar'):
+		if event in ('u0', 'u1','u2','u3','u4','u5','u6'):  				#Si selecciono una letra
 			if ((letras[event] in colores) and (originales[event]==letra)):  #Si en el diccionario letras que guarda la imagen actual de la ficha, es un color, pero lo estoy selecionando, signofica que quiero volver a poner la letra en su lugar
 				window[event].update(image_filename=letra)					 #originales[event]==letra corrobora que la estoy poniendo en la misma pos original. Hago un update de la ficha en la interfaz con la letra
 				letras[event]=letra
-				letra=''   #Como no tengo ninguna letra en mano, la pongo en ''
+				letra=''   													#Como no tengo ninguna letra en mano, la pongo en ''
 			elif((not letras[event] in colores) and (letra=='')):   #Si la ficha tiene una aletra y no tiene un color, y no tengo ninguna letra en mano(corroboro esto asi no la pierdo en caso de haber agarrado una y no haber hecho nada con ella), entonces la agarro
-				letra=letras[event]   #letra la actualizo con la de la ficha
-				color=random.choice(colores)    #pongo un color en la ficha que agarre, "queda vacia"
+				letra=letras[event]   								#letra la actualizo con la de la ficha
+				color=random.choice(colores)   						#pongo un color en la ficha que agarre, "queda vacia"
 				window[event].update(image_filename=color)
-				letras[event]=color    #en el diccionario donde tengo las imag de las fichas pongo que tengo un color
+				letras[event]=color    								#en el diccionario donde tengo las imag de las fichas pongo que tengo un color
 				poner=True
-		elif(isinstance(event, tuple)):    #Si toco el tablero
-			if(poner and letra!=''):    #Si tengo una ficha en mano (poner=True) y (letra!='')
-				if(primerF):            #Si es la primera ficha de toda la partida entonces la puedo poner solo en UN lugar
+		elif(isinstance(event, tuple)):    							#Si toco el tablero
+			if(poner and letra!=''):    							#Si tengo una ficha en mano (poner=True) y (letra!='')
+				if(primerF):            							#Si es la primera ficha de toda la partida entonces la puedo poner solo en UN lugar
 					if(event==(0,0)):
 						poner=ponerFicha(window, letra, tableroF, puestas, event)   #Llamo al metodo ponerFicha que actualiza en el tablero la letra
-						nro=nro+1    #Sumo +1 porq agregue una ficha al tablero
-						primerF=False  #Como ya lo puse en el lugar inicial lo pongo en falso
-						letra=''       #No tengo ninguna ficha en mano porq la puse en el tablero, entonces letra=''
-						ficha=event    #ficha la uso para saber en que pos puedo poner la siguiente letra
-				elif(not event in tableroF):   #Si no seleccione un lugar en el tablero que tenia fichas de jugadas pasadas
-					if(nro==0 or nro==1):      #Cuando coloco la primera y segunda ficha. La primera es en caso de cuando no es la primera jugada de toda la partida
+						nro=nro+1    												#Sumo +1 porq agregue una ficha al tablero
+						primerF=False  												#Como ya lo puse en el lugar inicial lo pongo en falso
+						letra=''      												#No tengo ninguna ficha en mano porq la puse en el tablero, entonces letra=''
+						ficha=event    												#ficha la uso para saber en que pos puedo poner la siguiente letra
+				elif(not event in (tableroF, puestas)):   							#Si no seleccione un lugar en el tablero que tenia fichas de jugadas pasadas
+					if(nro==0 or nro==1):      										#Cuando coloco la primera y segunda ficha. La primera es en caso de cuando no es la primera jugada de toda la partida
 						if(nro==0):			   
 							ficha=event
 						else:
-							if(event==(ficha[0]+1,ficha[1])):   #La segunda ficha determina en que dieccion voy a poner el resto, si a izquierda o derecha
+							if(event==(ficha[0]+1,ficha[1])):   					#La segunda ficha determina en que dieccion voy a poner el resto, si a izquierda o derecha
 								direc='abajo'
 								ficha=(ficha[0]+1,ficha[1])
-							else:
+							elif(event==(ficha[0],ficha[1]+1)):
 								direc='izq'
 								ficha=(ficha[0],ficha[1]+1)	
 						poner=ponerFicha(window, letra, tableroF, puestas, ficha)  #llamo a ponerFicha para colocarla
 						nro=nro+1
 						letra=''
-					else:   #Si estoy colocando las fichas que sean a partir de la 2>=
+					else:   														#Si estoy colocando las fichas que sean a partir de la 2>=
 						distinto=True
 						if((nro>=2) and (direc=='abajo') and (event==(ficha[0]+1,ficha[1]))):  #Si la ficha la estoy queriendo poner a izquierda y la direccion es a la izquierda
 							ficha=(ficha[0]+1,ficha[1])                                        #actualizo la ficha, donde voy a ponerla en el tablero, ya que la estaba intentando poner correctamente
@@ -106,30 +101,34 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 						elif((nro>=2) and(direc=='izq') and (event==(ficha[0],ficha[1]+1))):    #Lo mismo pero para abajo
 							ficha=(ficha[0],ficha[1]+1)
 							distinto=False
-						if(distinto==False):         #Si ino intente poner una ficha en una direccion incorrecta
-							poner=ponerFicha(window, letra, tableroF, puestas, ficha)    #La coloco en el tablero segun la ficha que use 
+						if(distinto==False):         											#Si ino intente poner una ficha en una direccion incorrecta
+							poner=ponerFicha(window, letra, tableroF, puestas, ficha)    		#La coloco en el tablero segun la ficha que use 
 							nro=nro+1
 							letra=''
-				elif(event in tableroF):     #Si estoy intentando poner la ficha arriba de una de otra partida
+				elif(event in tableroF):    													#Si estoy intentando poner la ficha arriba de una de otra partida
 					sg.popup('No puede colocar una ficha sobre una de una jugada anterior')
+				elif(event in puestas):
+						sg.popup('No puede colocar la letra en un lugar ocupado')
 			else:                            
-				if(event in puestas):        #Si no tengo una ficha en mano, pero toco una ficha colocada en el tablero
+				if(event in puestas):        													#Si no tengo una ficha en mano, pero toco una ficha colocada en el tablero
 					sacar=sg.popup_yes_no('Quiere sacar la ficha?')
-					if(sacar=='Yes'):    #Si quiero sacar la ficha
-						window[event].update(image_filename=tableroI[event])  #Pongo en donde estaba la ficha, la imagen del tablero original sin nada
-						l=list(filter(lambda x:x[1]==puestas[event],list(originales.items())))[0][0]  #Busco en el dict originales, cual de las fichas del atril, tenia la letra que puse en el tablero, y en l queda la key de la ficha, por ejemplo 'u2'
-						window[l].update(image_filename=puestas[event])   #Pongo en el atril la ficha en la interfaz
-						letras[l]=puestas[event]    #Vuelvo a poner en e dict de letras la letra segun corresponda a su posicion en el atril
-						puestas.pop(event)          #sacas la letra de las que pusiste en el tablero, ya que no esta mas
-						if(direc=='izq'):      #la pos del tablero en donde podes poner va a ser -1 ya que en donde estaba la ficha ya no esta
+					if(sacar=='Yes'):    														#Si quiero sacar la ficha
+						window[event].update(image_filename=tableroI[event])  					#Pongo en donde estaba la ficha, la imagen del tablero original sin nada
+						l=list(filter(lambda x:x[1]==puestas[event],list(originales.items())))[0][0]  		#Busco en el dict originales, cual de las fichas del atril, tenia la letra que puse en el tablero, y en l queda la key de la ficha, por ejemplo 'u2'
+						window[l].update(image_filename=puestas[event])   									#Pongo en el atril la ficha en la interfaz
+						letras[l]=puestas[event]    														#Vuelvo a poner en e dict de letras la letra segun corresponda a su posicion en el atril
+						puestas.pop(event)          														#sacas la letra de las que pusiste en el tablero, ya que no esta mas
+						if(direc=='izq'):      																#la pos del tablero en donde podes poner va a ser -1 ya que en donde estaba la ficha ya no esta
 							ficha=(ficha[0],ficha[1]-1)
 						elif(direc=='abajo'):
 							ficha=(ficha[0]-1,ficha[1])
-				elif(not event in (tableroF, puestas)):      #Si no tenes una letra en mano y estas tocando un lugar en donde no hay nada
+				elif(not event in (tableroF, puestas)):      												#Si no tenes una letra en mano y estas tocando un lugar en donde no hay nada
 					sg.popup('No ha seleccionado una ficha para colocar')
-		elif(event in (None, 'Exit', 'Palabra')):
-			break
 		event, values = window.read()
+		print(event)
+	if(event=='palabra'):
+		for x in puestas:
+			tableroF[x]=puestas[x]
 	return primerF, event
 puntajeM='0'
 puntajeU='0'
@@ -172,25 +171,21 @@ window = sg.Window('tablero', layout)
 popinter = sg.Window('intercambio', intercambiar)
 event, values = window.read()
 primer=True
-repartir(letrasU, bolsa, window, colores)
-repartir(letrasM, bolsa, window, colores)
-hide = False
-while True:
-	if(event=='comenzar'):
+if(event=='comenzar'):
+	repartir(letrasU, bolsa, window, colores)
+	repartir(letrasM, bolsa, window, colores)
+	hide = False
+	while True:
 		primer, event=colocarFicha(tableroIm,tableroFichas,letrasU, window,colores, primer)
-	print('SALIO')
-	if(event=='palabra'):
-		repartir(letrasU, bolsa, window, colores)
-	if(event=='intercambiar'):
-		if(hide):
-			popinter.UnHide()
-		event, values= popinter.read()
-		print(event, values)
-		popinter.Hide()
-		hide=True
-		intercambiarFichas(letrasU, bolsa, window, values['cant'])
-		print(event,values)
-	if event in (None, 'Exit'):
-		break 	
-	event, values = window.read()
+		if(event=='palabra'):
+			repartir(letrasU, bolsa, window, colores)
+		if(event=='intercambiar'):
+			if(hide):
+				popinter.UnHide()
+			event, values= popinter.read()
+			popinter.Hide()
+			hide=True
+			intercambiarFichas(letrasU, bolsa, window, values['cant'])
+		if event in (None, 'Exit'):
+			break 	
 window.close()
