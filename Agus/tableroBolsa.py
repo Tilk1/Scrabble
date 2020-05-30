@@ -79,40 +79,37 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 						nro=nro+1    												#Sumo +1 porq agregue una ficha al tablero
 						primerF=False  												#Como ya lo puse en el lugar inicial lo pongo en falso
 						letra=''      												#No tengo ninguna ficha en mano porq la puse en el tablero, entonces letra=''
-						ficha=event 
+						ficha=event 												#ficha la uso para saber en que pos puedo poner la siguiente letra
 				elif(event in tableroF):    													#Si estoy intentando poner la ficha arriba de una de otra partida
 					sg.popup('No puede colocar una ficha sobre una de una jugada anterior')
 				elif(event in puestas):
-					sg.popup('No puede colocar la letra en un lugar ocupado')   												#ficha la uso para saber en que pos puedo poner la siguiente letra
-				else:
-					print('entro en not puestas')  									#Si no seleccione un lugar en el tablero que tenia fichas de jugadas pasadas
-					if(nro==0 or nro==1):      										#Cuando coloco la primera y segunda ficha. La primera es en caso de cuando no es la primera jugada de toda la partida
-						if(nro==0):			   
-							ficha=event
+					sg.popup('No puede colocar la letra en un lugar ocupado, retirela si lo desea')   	#Si intento poner una ficha sobre las ya puestas en esa jugada
+				else: 									
+					correcta=True											#correcta me dice si elegi un lugar del tablero correcto para poner la ficha
+					if(nro==0):      										#La primera es en caso de cuando no es la primera jugada de toda la partida
+						ficha=event
+					elif(nro==1):											#La segunda ficha determina en que dieccion voy a poner el resto, si a izquierda o derecha
+						if(event==(ficha[0]+1,ficha[1])):   					
+							direc='abajo'
+							ficha=(ficha[0]+1,ficha[1])
+						elif(event==(ficha[0],ficha[1]+1)):
+							direc='izq'
+							ficha=(ficha[0],ficha[1]+1)
 						else:
-							if(event==(ficha[0]+1,ficha[1])):   					#La segunda ficha determina en que dieccion voy a poner el resto, si a izquierda o derecha
-								direc='abajo'
-								ficha=(ficha[0]+1,ficha[1])
-							elif(event==(ficha[0],ficha[1]+1)):
-								direc='izq'
-								ficha=(ficha[0],ficha[1]+1)	
-						poner=ponerFicha(window, letra, tableroF, puestas, ficha)  #llamo a ponerFicha para colocarla
+							correcta=False													#correcto es False cuando intento poner una ficha en un lugar que no sea abajo o a izq de la primera ficha
+					elif(nro>=2):   														#Si estoy colocando las fichas que sean a partir de la 2>=
+						if((direc=='abajo') and (event==(ficha[0]+1,ficha[1]))):  			#Si la ficha la estoy queriendo poner a izquierda y la direccion es a la izquierda
+							ficha=(ficha[0]+1,ficha[1])                                     #actualizo la ficha, donde voy a ponerla en el tablero, ya que la estaba intentando poner correctamente
+						elif((direc=='izq') and (event==(ficha[0],ficha[1]+1))):    		#Lo mismo pero para abajo
+							ficha=(ficha[0],ficha[1]+1)
+						else:
+							correcta=False													#correcto es False cuando intento poner una ficha en un lugar que no sea abajo o a izq de la 2 ficha o mayores
+					if(correcta):         													#Si ino intente poner una ficha en una direccion incorrecta
+						poner=ponerFicha(window, letra, tableroF, puestas, ficha)    		#La coloco en el tablero segun la ficha que use 
 						nro=nro+1
 						letra=''
-					else:   														#Si estoy colocando las fichas que sean a partir de la 2>=
-						distinto=True
-						if((nro>=2) and (direc=='abajo') and (event==(ficha[0]+1,ficha[1]))):  #Si la ficha la estoy queriendo poner a izquierda y la direccion es a la izquierda
-							ficha=(ficha[0]+1,ficha[1])                                        #actualizo la ficha, donde voy a ponerla en el tablero, ya que la estaba intentando poner correctamente
-							distinto=False
-						elif((nro>=2) and(direc=='izq') and (event==(ficha[0],ficha[1]+1))):    #Lo mismo pero para abajo
-							ficha=(ficha[0],ficha[1]+1)
-							distinto=False
-						if(distinto==False):         											#Si ino intente poner una ficha en una direccion incorrecta
-							poner=ponerFicha(window, letra, tableroF, puestas, ficha)    		#La coloco en el tablero segun la ficha que use 
-							nro=nro+1
-							letra=''
 			else:                            
-				if(event in puestas):        													#Si no tengo una ficha en mano, pero toco una ficha colocada en el tablero
+				if((event in puestas) and (event==ficha)):        													#Si no tengo una ficha en mano, pero toco una ficha colocada en el tablero
 					sacar=sg.popup_yes_no('Quiere sacar la ficha?')
 					if(sacar=='Yes'):    														#Si quiero sacar la ficha
 						window[event].update(image_filename=tableroI[event])  					#Pongo en donde estaba la ficha, la imagen del tablero original sin nada
@@ -128,10 +125,6 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 				elif(not event in (tableroF, puestas)):      												#Si no tenes una letra en mano y estas tocando un lugar en donde no hay nada
 					sg.popup('No ha seleccionado una ficha para colocar')
 		event, values = window.read()
-		print(puestas)
-		print(event)
-		if(event in puestas):
-			print(True)
 	if(event=='palabra'):
 		for x in puestas:
 			tableroF[x]=puestas[x]
