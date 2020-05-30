@@ -172,8 +172,8 @@ window = sg.Window('tablero', layout)
 popinter = sg.Window('intercambio', intercambiar)
 event, values = window.read()
 primer=True
-repartir(letrasU, bolsa, window)
-repartir(letrasM, bolsa, window)
+repartir(letrasU, bolsa, window, colores)
+repartir(letrasM, bolsa, window, colores)
 hide = False
 while True:
 	if(event=='comenzar'):
