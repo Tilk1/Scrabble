@@ -19,7 +19,7 @@ def randomLetra(bolsa):
 def repartir(letras, bolsa, window, colores):
 	for x in letras:
 		print(x)
-		if(letras[x] in colores):
+		if(letras[x]=='' or letras[x] in colores):
 			letra=randomLetra(bolsa)
 			if(x.find('u')!=-1):
 				window[x].update(image_filename=letra)
