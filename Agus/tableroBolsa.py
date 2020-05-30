@@ -68,6 +68,12 @@ for x in range(15):
 			im=tableros.descuento2[0]
 		elif((x,y) in tableros.descuento1):
 			im=tableros.descuento1[0]
+		elif((x,y) in tableros.descuento3):
+			im=tableros.descuento3[0]
+		elif((x,y) in tableros.palabraTriple):
+			im=tableros.palabraTriple[0]
+		elif((x,y)==(7,7)):
+			im='play.png'
 		else:
 			im='vacio1.png'
 		tableroIm[(x,y)]=im

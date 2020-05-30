@@ -44,7 +44,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 		elif(isinstance(event, tuple)):    							#Si toco el tablero
 			if(poner and letra!=''):    							#Si tengo una ficha en mano (poner=True) y (letra!='')
 				if(primerF):            							#Si es la primera ficha de toda la partida entonces la puedo poner solo en UN lugar
-					if(event==(0,0)):
+					if(event==(7,7)):
 						poner=ponerFicha(window, letra, tableroF, puestas, event)   #Llamo al metodo ponerFicha que actualiza en el tablero la letra
 						nro=nro+1    												#Sumo +1 porq agregue una ficha al tablero
 						primerF=False  												#Como ya lo puse en el lugar inicial lo pongo en falso
