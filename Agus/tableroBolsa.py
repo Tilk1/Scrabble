@@ -51,6 +51,7 @@ def ponerFicha(window,letra, tableroF, puestas, event):
 	puestas[event]=letra
 	return False
 def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
+	print(tableroF)
 	originales=letras.copy()  #Fichas del atril que tenia en el comienzo de la jugada
 	puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada
 	poner=False				  #Poner va a ser True cuando tenga una letra en mano para poner en el tablero
@@ -78,8 +79,13 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 						nro=nro+1    												#Sumo +1 porq agregue una ficha al tablero
 						primerF=False  												#Como ya lo puse en el lugar inicial lo pongo en falso
 						letra=''      												#No tengo ninguna ficha en mano porq la puse en el tablero, entonces letra=''
-						ficha=event    												#ficha la uso para saber en que pos puedo poner la siguiente letra
-				elif(not event in (tableroF, puestas)):   							#Si no seleccione un lugar en el tablero que tenia fichas de jugadas pasadas
+						ficha=event 
+				elif(event in tableroF):    													#Si estoy intentando poner la ficha arriba de una de otra partida
+					sg.popup('No puede colocar una ficha sobre una de una jugada anterior')
+				elif(event in puestas):
+					sg.popup('No puede colocar la letra en un lugar ocupado')   												#ficha la uso para saber en que pos puedo poner la siguiente letra
+				else:
+					print('entro en not puestas')  									#Si no seleccione un lugar en el tablero que tenia fichas de jugadas pasadas
 					if(nro==0 or nro==1):      										#Cuando coloco la primera y segunda ficha. La primera es en caso de cuando no es la primera jugada de toda la partida
 						if(nro==0):			   
 							ficha=event
@@ -105,10 +111,6 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 							poner=ponerFicha(window, letra, tableroF, puestas, ficha)    		#La coloco en el tablero segun la ficha que use 
 							nro=nro+1
 							letra=''
-				elif(event in tableroF):    													#Si estoy intentando poner la ficha arriba de una de otra partida
-					sg.popup('No puede colocar una ficha sobre una de una jugada anterior')
-				elif(event in puestas):
-						sg.popup('No puede colocar la letra en un lugar ocupado')
 			else:                            
 				if(event in puestas):        													#Si no tengo una ficha en mano, pero toco una ficha colocada en el tablero
 					sacar=sg.popup_yes_no('Quiere sacar la ficha?')
@@ -122,10 +124,14 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 							ficha=(ficha[0],ficha[1]-1)
 						elif(direc=='abajo'):
 							ficha=(ficha[0]-1,ficha[1])
+						nro=nro-1																			#Como saco una ficha, el nro de ficha puesto es -1, de esta forma puedo volver a elegir la direccion si saco la 2da ficha de la palabra y si saco la primera ficha, poder seguir poniendo fichas(Si saco la primera y nro es >2 va  asuponer que hay una direccion o que habia una ficha previa puesta con la cual calcularla)
 				elif(not event in (tableroF, puestas)):      												#Si no tenes una letra en mano y estas tocando un lugar en donde no hay nada
 					sg.popup('No ha seleccionado una ficha para colocar')
 		event, values = window.read()
+		print(puestas)
 		print(event)
+		if(event in puestas):
+			print(True)
 	if(event=='palabra'):
 		for x in puestas:
 			tableroF[x]=puestas[x]
