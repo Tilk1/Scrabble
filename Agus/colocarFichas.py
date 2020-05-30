@@ -88,7 +88,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 						elif(direc=='abajo'):
 							ficha=(ficha[0]-1,ficha[1])
 						nro=nro-1																			#Como saco una ficha, el nro de ficha puesto es -1, de esta forma puedo volver a elegir la direccion si saco la 2da ficha de la palabra y si saco la primera ficha, poder seguir poniendo fichas(Si saco la primera y nro es >2 va  asuponer que hay una direccion o que habia una ficha previa puesta con la cual calcularla)
-						if(nro==0 and tableroF=={}):
+						if(nro==0 and tableroF=={}):														#Si saco la primera ficha y era la primera jugada entonces la pos en donde poner si o si tiene que ser la de inicio
 							primerF=True
 				elif(not event in (tableroF, puestas)):      												#Si no tenes una letra en mano y estas tocando un lugar en donde no hay nada
 					sg.popup('No ha seleccionado una ficha para colocar')
@@ -97,7 +97,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 			if(s2=='Yes'): 
 				sacarFicha(tableroI, puestas, originales, letras, event, window)
 				nro=0
-				if(tableroF=={}):
+				if(tableroF=={}):														#Si saco todas las fichas y era la primera jugada entonces la pos en donde poner si o si tiene que ser la de inicio
 					primerF=True
 		event,_= window.read()
 	if(event=='palabra'):
