@@ -1,5 +1,5 @@
 #"windows" if "win" in sys.platform else "linux"
-from pattern.text.es import *
+from pattern.text.es import parse
 from pattern.web import Wiktionary
 
 w = Wiktionary(language="es")
@@ -14,11 +14,42 @@ def tipoPalabra(arg):
         article=w.search(arg)
         if article!=None:
             return "sustantivo"
-        else:
-            return "no_existe"
+    return "no_existe"
 
-#test 
-#test2
-#agus
 
-#agregando un cambio en funciones
+
+def calcular_puntaje(palabra):
+    i = 0
+    suma = 0
+    for char in palabra:
+        letra = (palabra[i] + ".png")
+        suma = suma + (bolsa[letra]['valor'])
+        i = i+1
+    return suma
+
+    #test quitar esto revertir commit
+
+puestas = {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'} #solo para testear
+bolsa={'A.png':{'cant':11,'valor':1}, 'B.png':{'cant':11,'valor':3}, 'C.png':{'cant':8,'valor':1},'D.png':{'cant':7,'valor':1}, 'E.png':{'cant':7,'valor':1}, 'F.png':{'cant':7,'valor':1}, 'G.png':{'cant':7,'valor':1}, 'H.png':{'cant':5,'valor':1}, 'I.png':{'cant':7,'valor':1}, 'J.png':{'cant':7,'valor':1}, 'K.png':{'cant':7,'valor':1}, 'L.png':{'cant':7,'valor':1},'M.png':{'cant':7,'valor':1},'N.png':{'cant':7,'valor':1},'Ñ.png':{'cant':7,'valor':1},'O.png':{'cant':7,'valor':1},'P.png':{'cant':7,'valor':1},'Q.png':{'cant':7,'valor':1},'R.png':{'cant':7,'valor':1},'S.png':{'cant':7,'valor':1},'T.png':{'cant':7,'valor':1},'U.png':{'cant':7,'valor':1},'V.png':{'cant':7,'valor':1},'W.png':{'cant':7,'valor':1},'X.png':{'cant':7,'valor':1},'Y.png':{'cant':7,'valor':1},'Z.png':{'cant':7,'valor':1},'LL.png':{'cant':7,'valor':1},'RR.png':{'cant':7,'valor':1}}
+#la bolsa esta aca solo para testear. Hay q sacarla
+
+
+def obtener_palabra(dict): ##esto funciona mandandole un diccionario dentro de la funcion colocar fichas, con un formato asi {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'} 
+    palabraFormada = ''
+    for x in dict:
+	    palabraFormada = palabraFormada + (dict[x].split('.')[0])
+    return(palabraFormada)
+
+
+def valor_del_tipo_de_palabra(tipo):  ## tendria q traer los valores de la config y no estar fijos aca
+    if tipo == "adjetivo":
+        return 15
+    elif tipo == "verbo":
+        return 10
+    elif tipo == "sustantivo":
+        return 5
+    elif tipo == "no_existe": # este caso ni deberia existir
+        return 0
+
+#palabra = "PATO"
+#print(tipoPalabra(palabra.lower()))

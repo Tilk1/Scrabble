@@ -1,5 +1,6 @@
 import random
 import PySimpleGUI as sg
+from funciones import calcular_puntaje, obtener_palabra, valor_del_tipo_de_palabra, tipoPalabra
 
 def ponerFicha(window,letra, tableroF, puestas, event):
 	window[event].update(image_filename=letra)
@@ -101,7 +102,11 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 					primerF=True
 		event,_= window.read()
 		print(event)
-	if(event=='palabra'):
+	if(event=='palabra'):      ## CALCULAR PUNTAJE CUANDO FORMO LA PALABRA
+		print('formo la palabra: ', obtener_palabra(puestas))
+		valor = calcular_puntaje(obtener_palabra(puestas)) #valor x cada letra
+		valor = valor +	valor_del_tipo_de_palabra(tipoPalabra(obtener_palabra(puestas)))  #valor x tipo de palabra
+		print('PUNTAJE :', valor)
 		for x in puestas:
 			tableroF[x]=puestas[x]
 	return primerF, event
