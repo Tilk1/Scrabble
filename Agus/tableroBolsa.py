@@ -54,31 +54,7 @@ puntajeM='0'
 puntajeU='0'
 tableroIm=dict()
 vacios= ['vacio.png','vacio1.png','vacio2.png','vacio3.png','vacio4.png','vacio5.png','vacio6.png','vacio7.png']
-tablero = []      ########GENERA TABLERO#######
-for x in range(15):
-	row = []
-	for y in range(15):
-		if((x,y) in tableros.letraDoble):
-			im=tableros.letraDoble[0]
-		elif((x,y) in tableros.letraTriple):
-			im=tableros.letraTriple[0]
-		elif((x,y) in tableros.palabraDoble):
-			im=tableros.palabraDoble[0]
-		elif((x,y) in tableros.descuento2):
-			im=tableros.descuento2[0]
-		elif((x,y) in tableros.descuento1):
-			im=tableros.descuento1[0]
-		elif((x,y) in tableros.descuento3):
-			im=tableros.descuento3[0]
-		elif((x,y) in tableros.palabraTriple):
-			im=tableros.palabraTriple[0]
-		elif((x,y)==(7,7)):
-			im='play.png'
-		else:
-			im='vacio1.png'
-		tableroIm[(x,y)]=im
-		row.append(sg.RButton('',image_filename=im,border_width=0,image_size=(46, 46),pad=(0,0),key=(x,y))) ##el filename no funciona
-	tablero.append(row)
+tablero=tableros.crearTablero(tableros.tablero1,15, 15, tableroIm, sg)
 tableroFichas=dict()
 bolsa={'A.png':{'cant':11,'valor':1}, 'B.png':{'cant':11,'valor':3}, 'C.png':{'cant':8,'valor':1},'D.png':{'cant':7,'valor':1}, 'E.png':{'cant':7,'valor':1}, 'F.png':{'cant':7,'valor':1}, 'G.png':{'cant':7,'valor':1}, 'H.png':{'cant':5,'valor':1}, 'I.png':{'cant':7,'valor':1}, 'J.png':{'cant':7,'valor':1}, 'K.png':{'cant':7,'valor':1}, 'L.png':{'cant':7,'valor':1},'M.png':{'cant':7,'valor':1},'N.png':{'cant':7,'valor':1},'Ñ.png':{'cant':7,'valor':1},'O.png':{'cant':7,'valor':1},'P.png':{'cant':7,'valor':1},'Q.png':{'cant':7,'valor':1},'R.png':{'cant':7,'valor':1},'S.png':{'cant':7,'valor':1},'T.png':{'cant':7,'valor':1},'U.png':{'cant':7,'valor':1},'V.png':{'cant':7,'valor':1},'W.png':{'cant':7,'valor':1},'X.png':{'cant':7,'valor':1},'Y.png':{'cant':7,'valor':1},'Z.png':{'cant':7,'valor':1},'LL.png':{'cant':7,'valor':1},'RR.png':{'cant':7,'valor':1}}
 letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}
