@@ -17,21 +17,40 @@ def tipoPalabra(arg):
     return "no_existe"
 
 
-
-def calcular_puntaje(palabra):
-    i = 0
-    suma = 0
-    for char in palabra:
-        letra = (palabra[i] + ".png")
-        suma = suma + (bolsa[letra]['valor'])
-        i = i+1
+def calcularPuntaje(l, im, b):
+    suma=0
+    multi=list()
+    for x in l:
+        cas=im[x]
+        if (cas=='lx2.png'):
+            suma=suma+(b[l[x]]['valor']*2)
+        elif(cas=='lx3.png'):
+            suma=suma+(b[l[x]]['valor']*3)
+        elif(cas=='-1.png'):
+            suma=suma+(b[l[x]]['valor']-1)
+        elif(cas=='-2.png'):
+            suma=suma+(b[l[x]]['valor']-2)
+        elif(cas=='-3.png'):
+            suma=suma+(b[l[x]]['valor']-3)
+        elif(cas=='px2.png'):
+            multi.append(2)
+        elif(cas=='px3.png'):
+            multi.append(3)
+        else:
+            suma=suma+b[l[x]]['valor']
+    for y in multi:
+        suma=suma*y
     return suma
 
-    #test quitar esto revertir commit
-
-puestas = {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'} #solo para testear
-bolsa={'A.png':{'cant':11,'valor':1}, 'B.png':{'cant':11,'valor':3}, 'C.png':{'cant':8,'valor':1},'D.png':{'cant':7,'valor':1}, 'E.png':{'cant':7,'valor':1}, 'F.png':{'cant':7,'valor':1}, 'G.png':{'cant':7,'valor':1}, 'H.png':{'cant':5,'valor':1}, 'I.png':{'cant':7,'valor':1}, 'J.png':{'cant':7,'valor':1}, 'K.png':{'cant':7,'valor':1}, 'L.png':{'cant':7,'valor':1},'M.png':{'cant':7,'valor':1},'N.png':{'cant':7,'valor':1},'Ñ.png':{'cant':7,'valor':1},'O.png':{'cant':7,'valor':1},'P.png':{'cant':7,'valor':1},'Q.png':{'cant':7,'valor':1},'R.png':{'cant':7,'valor':1},'S.png':{'cant':7,'valor':1},'T.png':{'cant':7,'valor':1},'U.png':{'cant':7,'valor':1},'V.png':{'cant':7,'valor':1},'W.png':{'cant':7,'valor':1},'X.png':{'cant':7,'valor':1},'Y.png':{'cant':7,'valor':1},'Z.png':{'cant':7,'valor':1},'LL.png':{'cant':7,'valor':1},'RR.png':{'cant':7,'valor':1}}
-#la bolsa esta aca solo para testear. Hay q sacarla
+#def calcular_puntaje(palabra):
+#   i = 0
+#    suma = 0
+#    for char in palabra:
+#        letra = (palabra[i] + ".png")
+#        suma = suma + (bolsa[letra]['valor'])
+#        i = i+1
+#    return suma
+#
 
 
 def obtener_palabra(dict): ##esto funciona mandandole un diccionario dentro de la funcion colocar fichas, con un formato asi {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'} 

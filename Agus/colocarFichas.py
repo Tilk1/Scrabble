@@ -1,6 +1,6 @@
 import random
 import PySimpleGUI as sg
-from funciones import calcular_puntaje, obtener_palabra, valor_del_tipo_de_palabra, tipoPalabra
+import funciones
 
 def ponerFicha(window,letra, tableroF, puestas, event):
 	window[event].update(image_filename=letra)
@@ -15,13 +15,13 @@ def sacarFicha(tableroI, puestas, originales, letras, event, window):
 					window[y].update(image_filename=tableroI[y])							#Pongo en donde estaba la ficha, la imagen del tablero original sin nada
 					window[x].update(image_filename=originales[x])							#Pongo en el atril la ficha en la interfaz
 					letras[x]=originales[x]    												#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
-		puestas.clear()
+		puestas=puestas.clear()
 	else:
 		window[event].update(image_filename=tableroI[event])  					            #Pongo en donde estaba la ficha, la imagen del tablero original sin nada
 		l=list(filter(lambda x:x[1]==puestas[event],list(originales.items())))[0][0]  		#Busco en el dict originales, cual de las fichas del atril, tenia la letra que puse en el tablero, y en l queda la key de la ficha, por ejemplo 'u2'
 		window[l].update(image_filename=puestas[event])   									#Pongo en el atril la ficha en la interfaz
 		letras[l]=puestas[event]    														#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
-		puestas.pop(event)          														#sacas la letra de las que pusiste en el tablero, ya que no esta mas
+		puestas=puestas.pop(event)          												#sacas la letra de las que pusiste en el tablero, ya que no esta mas
 def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 	originales=letras.copy()  #Fichas del atril que tenia en el comienzo de la jugada
 	puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada
@@ -101,12 +101,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores, primerF):
 				if(tableroF=={}):														#Si saco todas las fichas y era la primera jugada entonces la pos en donde poner si o si tiene que ser la de inicio
 					primerF=True
 		event,_= window.read()
-		print(event)
-	if(event=='palabra'):      ## CALCULAR PUNTAJE CUANDO FORMO LA PALABRA
-		print('formo la palabra: ', obtener_palabra(puestas))
-		valor = calcular_puntaje(obtener_palabra(puestas)) #valor x cada letra
-		valor = valor +	valor_del_tipo_de_palabra(tipoPalabra(obtener_palabra(puestas)))  #valor x tipo de palabra
-		print('PUNTAJE :', valor)
-		for x in puestas:
-			tableroF[x]=puestas[x]
-	return primerF, event
+		if(event=='palabra'):
+			for x in puestas:
+				tableroF[x]=puestas[x]
+	return primerF, event, puestas
