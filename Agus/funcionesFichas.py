@@ -69,10 +69,10 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa):
 	letra=''		          #No tengo ninguna letra en mano, lo inicializo en ''
 	direc='definir'
 	nro=0						#Nro de ficha que esta poniendo
-	event,_= window.read()
 	salir=False
-	valor=0
-	while not event in (None,'Exit') and (salir==False):
+	valor=0	
+	event,_= window.read()
+	while not event in (None,'exit') and (salir==False):
 		if event in ('u0', 'u1','u2','u3','u4','u5','u6'):  				#Si selecciono una letra
 			if ((letras[event]=='') and (originales[event]==letra)):  #Si en el diccionario letras que guarda la imagen actual de la ficha no hay una letra(=''), pero lo estoy selecionando, significa que quiero volver a poner la letra en su lugar(si es que tengo un aletra en mano, letra!=''). originales[event]==letra----corrobora que se quiere poner en la misma pos en el atril
 				window[event].update(image_filename=letra)					 #originales[event]==letra corrobora que la estoy poniendo en la misma pos original. Hago un update de la ficha en la interfaz con la letra
@@ -151,5 +151,6 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa):
 			else:
 				sg.popup('No existe esa palabra, vuelva a intentarlo')
 				sacarFicha(tableroI, puestas, originales, letras, 'sacar', window)     #saco todas las fichas porque esa palabra no existe, no termina la jugada, vuelvo a intentar
-		event,_= window.read()
+		elif(salir!=True):   
+			event,_= window.read()
 	return event, puestas, valor
