@@ -1,6 +1,6 @@
 import funciones
 import PySimpleGUI as sg
-import colocarFichas as colocar
+import funcionesFichas as colocar
 import random 
 import tableros
 
@@ -9,14 +9,13 @@ sg.theme_button_color(color=('Black', 'DarkGrey'))
 sg.theme_element_background_color(color='DarkGrey')
 
 
-puntajeM='0'
-puntajeU='0'
-tableroIm=dict()
-vacios= ['vacio.png','vacio1.png','vacio2.png','vacio3.png','vacio4.png','vacio5.png','vacio6.png','vacio7.png']
-tablero=tableros.crearTablero(tableros.tablero2,15, 20, tableroIm, sg)
-tableroFichas=dict()
+puntajeM=0  #inicializacion puntaje usuario y maquina
+puntajeU=0
+tableroIm=dict()   #diccionario con la imagen correspondiente a cada coordenada segun el tablero
+tablero=tableros.crearTablero(tableros.tablero2, 15, 20, tableroIm, sg)  #funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion 
+tableroFichas=dict()    #fichas colocadas en el tablero de forma definitiva, es decir, palabras que fueron confirmadas
 bolsa={'A.png':{'cant':11,'valor':1}, 'B.png':{'cant':11,'valor':1}, 'C.png':{'cant':8,'valor':1},'D.png':{'cant':7,'valor':1}, 'E.png':{'cant':7,'valor':1}, 'F.png':{'cant':7,'valor':1}, 'G.png':{'cant':7,'valor':1}, 'H.png':{'cant':5,'valor':1}, 'I.png':{'cant':7,'valor':1}, 'J.png':{'cant':7,'valor':1}, 'K.png':{'cant':7,'valor':1}, 'L.png':{'cant':7,'valor':1},'M.png':{'cant':7,'valor':1},'N.png':{'cant':7,'valor':1},'Ñ.png':{'cant':7,'valor':1},'O.png':{'cant':7,'valor':1},'P.png':{'cant':7,'valor':1},'Q.png':{'cant':7,'valor':1},'R.png':{'cant':7,'valor':1},'S.png':{'cant':7,'valor':1},'T.png':{'cant':7,'valor':1},'U.png':{'cant':7,'valor':1},'V.png':{'cant':7,'valor':1},'W.png':{'cant':7,'valor':1},'X.png':{'cant':7,'valor':1},'Y.png':{'cant':7,'valor':1},'Z.png':{'cant':7,'valor':1},'LL.png':{'cant':7,'valor':1},'RR.png':{'cant':7,'valor':1}}
-letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}
+letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}         #diccionario que lleva la cuenta de que iagen(letra) se encuentra en cada posicion del atril a todo momento
 letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
 column1=[
 		[sg.Button('inicio',border_width=0,font=('Fixedsys',18), key='comenzar')],
@@ -56,28 +55,27 @@ config=[
 		[sg.Button('JUGAR',font=('Fixedsys',18), key='jugar'), sg.Button('CONFIGURAR',font=('Fixedsys',18), key='config')]
 		]
 
-colores= ['color1.png','color2.png','color3.png','color4.png','color5.png']
-puntajeU=0
-puntajeM=0
+colores= ['color1.png','color2.png','color3.png','color4.png','color5.png']  #parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
 
 window = sg.Window('tablero', layout)
 popinter = sg.Window('intercambio', intercambiar)
 configuracion=sg.Window('config', config)
+
 event, values = configuracion.read()
 if(event=='jugar'):
 	configuracion.close()
 	event, values = window.read()
 	while(not event in ('exit', None)):	
 		if(event=='comenzar'):
-			colocar.repartir(letrasU, bolsa, window, colores)
-			colocar.repartir(letrasM, bolsa, window, colores)
-			hide = False
+			colocar.repartir(letrasU, bolsa, window, colores) #reparto fichas al usuario
+			colocar.repartir(letrasM, bolsa, window, colores) #reparto fichas a la maquina
+			hide = False  #Para cunado necesito esconder la ventana de intercambio de fichas
 			while True:
-				event, letrasPal, valor=colocar.colocarFicha(tableroIm,tableroFichas,letrasU, window,colores,tableros.tablero2['play'][1])
+				event, letrasPal, valor=colocar.colocarFicha(tableroIm,tableroFichas,letrasU, window,colores,tableros.tablero2['play'][1], bolsa) #comienza la jugada
 				if(event=='palabra'):
 					puntajeU=puntajeU+valor
 					window['puntU'].update(str(puntajeU))
-					colocar.repartir(letrasU, bolsa, window, colores)
+					colocar.repartir(letrasU, bolsa, window, colores)  #vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
 				if(event=='intercambiar'):
 					if(hide):
 						popinter.UnHide()
