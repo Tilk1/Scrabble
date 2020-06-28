@@ -19,14 +19,14 @@ bolsa={'A.png':{'cant':11,'valor':1}, 'B.png':{'cant':11,'valor':1}, 'C.png':{'c
 letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}
 letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
 column1=[
-		[sg.Button('',image_filename='comenzar.png',border_width=0,font=('Fixedsys',18), key='comenzar')],
+		[sg.Button('inicio',border_width=0,font=('Fixedsys',18), key='comenzar')],
 		[sg.Image('robot.png'), sg.Text('Puntaje: '), sg.Text('0', key='puntM')],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='m0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m1'),sg.Button('',image_filename='color3.png',image_size=(46, 46),key='m2'),sg.Button('',image_filename='color4.png',image_size=(46, 46),key='m3'),sg.Button('',image_filename='color5.png',image_size=(46, 46),key='m4'),sg.Button('',image_filename='color1.png',image_size=(46, 46),key='m5'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m6')], 
 		[sg.Image('bolsachica.png')],
 		[sg.Button('',image_filename='intercambiar.png',border_width=0,font=('Fixedsys'), key='intercambiar')],
 		[sg.Image('jugador.png'), sg.Text('Puntaje: '), sg.Text('0', key='puntU'),sg.Button('palabra',font=('Fixedsys')),sg.Button('Sacar Todas',font=('Fixedsys'), key='sacar')],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='u1'),sg.Button('',image_filename='color3.png',image_size=(46, 46), key='u2'),sg.Button('',image_filename='color4.png',image_size=(46, 46), key='u3'),sg.Button('',image_filename='color5.png',image_size=(46, 46), key='u4'),sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u5'),sg.Button('',image_filename='color2.png',image_size=(46, 46), key='u6')],
-		[sg.Button('Exit',font=('Fixedsys'), size=(20,3))]
+		[sg.Button('Terminar',font=('Fixedsys'), size=(20,3), key='exit'),sg.Button('Posponer',font=('Fixedsys'), size=(20,3))]
 		]
 layout =[
 		[sg.Column(tablero),sg.Column(column1)], ##tablero aca
@@ -67,25 +67,25 @@ event, values = configuracion.read()
 if(event=='jugar'):
 	configuracion.close()
 	event, values = window.read()
-	if(event=='comenzar'):
-		colocar.repartir(letrasU, bolsa, window, colores)
-		colocar.repartir(letrasM, bolsa, window, colores)
-		hide = False
-		while True:
-			event, letrasPal, valor=colocar.colocarFicha(tableroIm,tableroFichas,letrasU, window,colores,tableros.tablero2['play'][1])
-			if(event=='palabra'):
-				puntajeU=puntajeU+valor
-				window['puntU'].update(str(puntajeU))
-				colocar.repartir(letrasU, bolsa, window, colores)
-			if(event=='intercambiar'):
-				if(hide):
-					popinter.UnHide()
-				event, values= popinter.read()
-				popinter.Hide()
-				hide=True
-				colocar.intercambiarFichas(letrasU, bolsa, window, values['cant'])
-			if event in (None, 'Exit'):
-				break 	
+	while(not event in ('exit', None)):	
+		if(event=='comenzar'):
+			colocar.repartir(letrasU, bolsa, window, colores)
+			colocar.repartir(letrasM, bolsa, window, colores)
+			hide = False
+			while True:
+				event, letrasPal, valor=colocar.colocarFicha(tableroIm,tableroFichas,letrasU, window,colores,tableros.tablero2['play'][1])
+				if(event=='palabra'):
+					puntajeU=puntajeU+valor
+					window['puntU'].update(str(puntajeU))
+					colocar.repartir(letrasU, bolsa, window, colores)
+				if(event=='intercambiar'):
+					if(hide):
+						popinter.UnHide()
+					event, values= popinter.read()
+					popinter.Hide()
+					hide=True
+					colocar.intercambiarFichas(letrasU, bolsa, window, values['cant'])
+				event, values = window.read()	
 elif(event=='config'):
 	configuracion.close()
 

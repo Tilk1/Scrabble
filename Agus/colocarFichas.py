@@ -152,5 +152,5 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay):
 			if(puestas=={}):
 				salir=True
 			else:
-				sg.popup('Para hacer un intercambio no puede haber fichas colocadas en el tablero de la jugada actual, saquelas para poder hacerlo')
+				sg.popup('Para hacer un intercambio no puede haber fichas colocadas en el tablero de la jugada actual, saquelas para poder hacerlo, pero perdera el turno')
 	return event, puestas, valor

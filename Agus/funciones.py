@@ -58,27 +58,3 @@ def calcularPuntaje(l, im, b):
 	for y in multi:
 		suma=suma*y
 	return suma
-
-#def calcular_puntaje(palabra):
-#   i = 0
-#    suma = 0
-#    for char in palabra:
-#        letra = (palabra[i] + ".png")
-#        suma = suma + (bolsa[letra]['valor'])
-#        i = i+1
-#    return suma
-#
-
-
-def valor_del_tipo_de_palabra(tipo):  ## tendria q traer los valores de la config y no estar fijos aca
-	if tipo == "adjetivo":
-		return 15
-	elif tipo == "verbo":
-		return 10
-	elif tipo == "sustantivo":
-		return 5
-	elif tipo == "no_existe": # este caso ni deberia existir
-		return 0
-
-#palabra = "PATO"
-#print(tipoPalabra(palabra.lower()))
