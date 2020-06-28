@@ -1,9 +1,9 @@
 def crearTablero(tab,fila, column, imagenes,sg):
 	tablero = []
-	for x in range(fila):
+	for x in range(fila):    #crea el tablero
 		row = []
 		for y in range(column):
-			if((x,y) in tab['letraDoble']):
+			if((x,y) in tab['letraDoble']):    #dependiendo el tablero, las coordenadas van a tener una imagen particula
 				im=tab['letraDoble'][0]
 			elif((x,y) in tab['letraTriple']):
 				im=tab['letraTriple'][0]
@@ -20,11 +20,13 @@ def crearTablero(tab,fila, column, imagenes,sg):
 			elif((x,y) in tab['play']):
 				im=tab['play'][0]
 			else:
-				im='vacio.png'
+				im='vacio.png'   #si no es una casilla especial
 			imagenes[(x,y)]=im
-			row.append(sg.Button('',image_filename=im,border_width=0,image_size=(46, 46),pad=(0,0),key=(x,y)))
+			row.append(sg.Button('',image_filename=im,border_width=0,image_size=(46, 46),pad=(0,0),key=(x,y)))  #agrega a la fila, la imagen en esa columna
 		tablero.append(row)
 	return tablero
+
+#tableros, coordenadas y sus casillas
 
 tablero1={'play':['play.png',(7,7)],'letraDoble':['lx2.png',(0,1),(0,7),(0,13),(8,3),(8,11),(11,6),(11,8),(3,6),(3,8),(9,4),(9,10),(10,5),(10,9),(4,5),(4,9),(5,4),(5,10),(6,3),(6,11),(14,1),(14,7),(14,13)],'letraTriple':['lx3.png',(0,5),(0,9),(3,2),(3,12),(4,1),(4,13),(5,0),(5,14),(5,6),(5,8),(9,0),(9,14),(9,6),(9,8),(10,1),(10,13),(11,2),(11,12),(14,5),(14,9)],'palabraDoble':['px2.png',(1,1),(1,13),(3,5),(3,9),(5,3),(5,11),(9,3),(9,11),(11,5),(11,9),(13,1),(13,13)],'descuento2':['-2.png',(7,1),(7,13),(10,6),(10,8)],'descuento1':['-1.png',(1,0),(1,14),(4,6),(4,8),(7,4),(7,10),(13,0),(13,14)],'descuento3':['-3.png',(2,3),(2,11),(12,3),(12,11)],'palabraTriple':['px3.png',(0,4),(0,10),(7,0),(7,14),(14,4),(14,10)]}
 tablero2={'play':['play.png',(7,10)],'letraDoble':['lx2.png',(1,1),(2,2),(3,3),(4,4),(13,1),(12,2),(11,3),(10,4),(1,18),(2,17),(3,16),(4,15),(13,18),(12,17),(11,16),(10,15)],'letraTriple':['lx3.png',(1,7),(1,12),(6,11),(8,9),(13,7),(13,12),(5,5),(9,5),(5,14),(9,14)],'palabraDoble':['px2.png',(7,0),(3,9),(6,6),(8,6),(11,9),(6,13),(8,13),(7,19)],'descuento2':['-2.png',(2,8),(2,11),(6,2),(6,9),(6,17),(8,2),(8,11),(8,17),(12,8),(12,11)],'descuento1':['-1.png',(0,9),(3,10),(7,3),(7,16),(11,10),(14,9)],'descuento3':['-3.png',(4,0),(5,1),(9,1),(10,0),(0,6),(0,13),(14,6),(14,13),(4,19),(5,18),(9,18),(10,19)],'palabraTriple':['px3.png',(0,0),(14,0),(14,10),(7,7),(14,19),(0,19),(0,10),(7,12)]}

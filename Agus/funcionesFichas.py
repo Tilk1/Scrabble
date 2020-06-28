@@ -31,7 +31,7 @@ def intercambiarFichas(letras, bolsa, window, cant):
 		cambios=list()    #no me deja intercambiar una letra que ya intercambie en ese momento
 		for _ in range(cant):
 			sigo=True
-			while(sigo):      #En el caso de que 
+			while(sigo):      #En el caso de que el evento no sea algunas de las fichas del atril para cambiarla, entonces sigue pidiendo que se elija y no hace nada
 				event,_=window.read()
 				if (not event in cambios) and (event in ('u0', 'u1','u2','u3','u4','u5','u6')):
 					cambios.append(event)
@@ -137,8 +137,12 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa):
 			if(s2=='Yes'): 
 				sacarFicha(tableroI, puestas, originales, letras, event, window)
 				nro=0
-		event,_= window.read()
-		if(event=='palabra'):                                                     #Si toco el boton 'palabra', entonces significa que analizo si existe o no lo que forme en el tablero
+		elif(event=='intercambiar'):   #Si intento intercambiar fichas durante la jugada, tienen que estar todas las fichas en el atril, no puede haber puestas. UNa vez que saque todas puedo hacer el intercambio y vuelvo a empezar a colocar
+			if(puestas=={}):
+				salir=True
+			else:
+				sg.popup('Para hacer un intercambio no puede haber fichas colocadas en el tablero de la jugada actual, saquelas para poder hacerlo, pero perdera el turno')		
+		elif(event=='palabra'):                                                     #Si toco el boton 'palabra', entonces significa que analizo si existe o no lo que forme en el tablero
 			if(funciones.tipoPalabra(puestas)!="no_existe"):                      #llamo a la funcion tipoPalabra() que me dice si es un sustantivo, adjetivo, verbo o no existe en pattern
 				valor = funciones.calcularPuntaje(puestas, tableroI, bolsa)       #calculo el puntaje segun las casillas y el valor de cada letra
 				for x in puestas:                                  
@@ -147,9 +151,5 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa):
 			else:
 				sg.popup('No existe esa palabra, vuelva a intentarlo')
 				sacarFicha(tableroI, puestas, originales, letras, 'sacar', window)     #saco todas las fichas porque esa palabra no existe, no termina la jugada, vuelvo a intentar
-		elif(event=='intercambiar'):   #Si intento intercambiar fichas durante la jugada, tienen que estar todas las fichas en el atril, no puede haber puestas. UNa vez que saque todas puedo hacer el intercambio y vuelvo a empezar a colocar
-			if(puestas=={}):
-				salir=True
-			else:
-				sg.popup('Para hacer un intercambio no puede haber fichas colocadas en el tablero de la jugada actual, saquelas para poder hacerlo, pero perdera el turno')
+		event,_= window.read()
 	return event, puestas, valor
