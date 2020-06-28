@@ -1,46 +1,63 @@
 #"windows" if "win" in sys.platform else "linux"
-from pattern.text.es import parse
-from pattern.web import Wiktionary
+from pattern.text.es import verbs, tag, spelling, lexicon, parse
 
-w = Wiktionary(language="es")
-
-def tipoPalabra(arg):
-    analisis = parse(arg).split('/')
-    if analisis[1] == "JJ": 
-        return "adjetivo"
-    elif (analisis[1]) == "VB":
-        return "verbo"
-    elif (analisis[1] == "NN"):  # No distingue las no palabras de sustantivos, asiq usamos wiktionary en ese caso
-        article=w.search(arg)
-        if article!=None:
-            return "sustantivo"
-    return "no_existe"
-
+def obtener_palabra(d): ##esto funciona mandandole un diccionario dentro de la funcion colocar fichas, con un formato asi {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'} 
+	palabraFormada = ''
+	for x in d:
+		palabraFormada = palabraFormada + (d[x].split('.')[0])
+	return(palabraFormada)
+def clasificar(cual):
+	if cual == "JJ": 
+		return "adjetivo"
+	elif cual == "VB":
+		return "verbo"
+	elif cual != None:
+		return 'sustantivo'
+def tipoPalabra(d):
+	palabra=obtener_palabra(d)
+	analisis=parse(palabra,tags=True, chunks=False).split(' ')
+	tipo=clasificar(analisis)
+	if(tipo=='sustantivo' or tipo==None):
+		if not palabra.lower() in verbs:
+			if not palabra.lower() in spelling:
+				if (not(palabra.lower() in lexicon) and not(palabra.upper() in lexicon) and not(palabra.capitalize() in lexicon)):
+					return 'no_existe'
+				else:
+					print('La encontró en lexicon')
+					return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
+			else:
+				print('La encontró en spelling')
+				return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
+		else:
+			print('La encontró en verbs')
+			return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
+	else:
+		return tipo
 
 def calcularPuntaje(l, im, b):
-    suma=0
-    multi=list()
-    for x in l:
-        cas=im[x]
-        if (cas=='lx2.png'):
-            suma=suma+(b[l[x]]['valor']*2)
-        elif(cas=='lx3.png'):
-            suma=suma+(b[l[x]]['valor']*3)
-        elif(cas=='-1.png'):
-            suma=suma+(b[l[x]]['valor']-1)
-        elif(cas=='-2.png'):
-            suma=suma+(b[l[x]]['valor']-2)
-        elif(cas=='-3.png'):
-            suma=suma+(b[l[x]]['valor']-3)
-        elif(cas=='px2.png'):
-            multi.append(2)
-        elif(cas=='px3.png'):
-            multi.append(3)
-        else:
-            suma=suma+b[l[x]]['valor']
-    for y in multi:
-        suma=suma*y
-    return suma
+	suma=0
+	multi=list()
+	for x in l:
+		cas=im[x]
+		if (cas=='lx2.png'):
+			suma=suma+(b[l[x]]['valor']*2)
+		elif(cas=='lx3.png'):
+			suma=suma+(b[l[x]]['valor']*3)
+		elif(cas=='-1.png'):
+			suma=suma+(b[l[x]]['valor']-1)
+		elif(cas=='-2.png'):
+			suma=suma+(b[l[x]]['valor']-2)
+		elif(cas=='-3.png'):
+			suma=suma+(b[l[x]]['valor']-3)
+		elif(cas=='px2.png'):
+			multi.append(2)
+		elif(cas=='px3.png'):
+			multi.append(3)
+		else:
+			suma=suma+b[l[x]]['valor']
+	for y in multi:
+		suma=suma*y
+	return suma
 
 #def calcular_puntaje(palabra):
 #   i = 0
@@ -53,22 +70,15 @@ def calcularPuntaje(l, im, b):
 #
 
 
-def obtener_palabra(dict): ##esto funciona mandandole un diccionario dentro de la funcion colocar fichas, con un formato asi {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'} 
-    palabraFormada = ''
-    for x in dict:
-	    palabraFormada = palabraFormada + (dict[x].split('.')[0])
-    return(palabraFormada)
-
-
 def valor_del_tipo_de_palabra(tipo):  ## tendria q traer los valores de la config y no estar fijos aca
-    if tipo == "adjetivo":
-        return 15
-    elif tipo == "verbo":
-        return 10
-    elif tipo == "sustantivo":
-        return 5
-    elif tipo == "no_existe": # este caso ni deberia existir
-        return 0
+	if tipo == "adjetivo":
+		return 15
+	elif tipo == "verbo":
+		return 10
+	elif tipo == "sustantivo":
+		return 5
+	elif tipo == "no_existe": # este caso ni deberia existir
+		return 0
 
 #palabra = "PATO"
 #print(tipoPalabra(palabra.lower()))
