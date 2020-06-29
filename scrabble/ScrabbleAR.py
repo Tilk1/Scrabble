@@ -46,11 +46,11 @@ cant=con.cant1
 config=[
 		[sg.Image('scrabblelogo.png')],
 		[sg.Combo(['Nivel fácil', 'Nivel medio', 'Nivel difícil'],font=('Fixedsys',17),text_color='salmon',background_color='white', key='niveles', enable_events=True,default_value='Nivel fácil')],
-		[sg.Text('Tiempo: ',font=('Fixedsys',17),text_color='salmon',background_color='white'), sg.Text('20seg', key='tiempo')],
-		[sg.Text('Palabras posibles: '), sg.Text('sustantivos, adjetivos, verbos', key='palabras',font=('Fixedsys',10),text_color='orange',background_color='white')],
-		[sg.Text('Puntaje Letras: '), sg.Combo(values=val, default_value=val[0], key='pun')],
-		[sg.Text('Cant letras: '), sg.Combo(values=cant, default_value=cant[0], key='cant')],
-		[sg.Text('Tablero: '), sg.Text('15x15', key='tab')],
+		[sg.Text('Tiempo: ',font=('Fixedsys',15),text_color='salmon',background_color='white'), sg.Text('20seg', key='tiempo',font=('Fixedsys',15),text_color='purple',background_color='white')],
+		[sg.Text('Palabras posibles: ',font=('Fixedsys',15),text_color='pink3',background_color='white'), sg.Text('sustantivos, adjetivos, verbos', key='palabras',font=('Fixedsys',10),text_color='orange',background_color='white')],
+		[sg.Text('Puntaje Letras: ',font=('Fixedsys',15),text_color='lightblue',background_color='white'), sg.Combo(values=val, default_value=val[0], key='pun',font=('Fixedsys',15),text_color='salmon',background_color='white')],
+		[sg.Text('Cant letras: ',font=('Fixedsys',15),text_color='orange',background_color='white'), sg.Combo(values=cant, default_value=cant[0], key='cant',font=('Fixedsys',15),text_color='pink3',background_color='white')],
+		[sg.Text('Tablero: ',font=('Fixedsys',15),text_color='purple',background_color='white'), sg.Text('15x15', key='tab',font=('Fixedsys',15),text_color='lightblue4',background_color='white')],
 		[sg.Button('JUGAR',font=('Fixedsys',18), button_color=('orange', 'White'),key='jugar'), sg.Button('CONFIGURAR',font=('Fixedsys',18),button_color=('salmon', 'White') ,key='config'),sg.Button('TOP10',font=('Fixedsys',18),button_color=('lightblue', 'White'),key='top10')]
 		]
 
