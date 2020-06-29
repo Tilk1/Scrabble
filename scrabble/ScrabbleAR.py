@@ -15,7 +15,7 @@ tableroIm=dict()   #diccionario con la imagen correspondiente a cada coordenada 
 tablero=tableros.crearTablero(tableros.tablero1, 15, 15, tableroIm, sg)  #funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion 
 inicio=tableros.tablero1['play'][1]
 tableroFichas=dict()    #fichas colocadas en el tablero de forma definitiva, es decir, palabras que fueron confirmadas
-bolsa={'A.png':{'cant':11,'valor':2}, 'B.png':{'cant':6,'valor':4}, 'C.png':{'cant':4,'valor':3},'D.png':{'cant':7,'valor':1}, 'E.png':{'cant':7,'valor':1}, 'F.png':{'cant':7,'valor':1}, 'G.png':{'cant':7,'valor':1}, 'H.png':{'cant':5,'valor':1}, 'I.png':{'cant':7,'valor':1}, 'J.png':{'cant':7,'valor':1}, 'K.png':{'cant':7,'valor':1}, 'L.png':{'cant':7,'valor':1},'M.png':{'cant':7,'valor':1},'N.png':{'cant':7,'valor':1},'Ñ.png':{'cant':7,'valor':1},'O.png':{'cant':7,'valor':1},'P.png':{'cant':7,'valor':1},'Q.png':{'cant':7,'valor':1},'R.png':{'cant':7,'valor':1},'S.png':{'cant':7,'valor':1},'T.png':{'cant':7,'valor':1},'U.png':{'cant':7,'valor':1},'V.png':{'cant':7,'valor':1},'W.png':{'cant':7,'valor':1},'X.png':{'cant':7,'valor':1},'Y.png':{'cant':7,'valor':1},'Z.png':{'cant':7,'valor':1},'LL.png':{'cant':7,'valor':1},'RR.png':{'cant':7,'valor':1}}
+bolsa={'A.png':{'cant':0,'valor':0}, 'B.png':{'cant':0,'valor':0}, 'C.png':{'cant':0,'valor':0},'D.png':{'cant':0,'valor':0}, 'E.png':{'cant':0,'valor':0}, 'F.png':{'cant':0,'valor':0}, 'G.png':{'cant':0,'valor':0}, 'H.png':{'cant':0,'valor':0}, 'I.png':{'cant':7,'valor':1}, 'J.png':{'cant':7,'valor':1}, 'K.png':{'cant':7,'valor':1}, 'L.png':{'cant':7,'valor':1},'M.png':{'cant':7,'valor':1},'N.png':{'cant':7,'valor':1},'Ñ.png':{'cant':7,'valor':1},'O.png':{'cant':7,'valor':1},'P.png':{'cant':7,'valor':1},'Q.png':{'cant':7,'valor':1},'R.png':{'cant':7,'valor':1},'S.png':{'cant':7,'valor':1},'T.png':{'cant':7,'valor':1},'U.png':{'cant':7,'valor':1},'V.png':{'cant':7,'valor':1},'W.png':{'cant':7,'valor':1},'X.png':{'cant':7,'valor':1},'Y.png':{'cant':7,'valor':1},'Z.png':{'cant':7,'valor':1},'LL.png':{'cant':7,'valor':1},'RR.png':{'cant':7,'valor':1}}
 letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}         #diccionario que lleva la cuenta de que iagen(letra) se encuentra en cada posicion del atril a todo momento
 letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
 columna=[
@@ -60,7 +60,7 @@ window = sg.Window('tablero', layout)
 popinter = sg.Window('intercambio', intercambiar)
 configuracion=sg.Window('config', config)
 
-event=con.elegirNivel(configuracion,val,cant)
+event=con.elegirNivel(configuracion, bolsa) #llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 if(event=='jugar'):
 	configuracion.close()
 	event, values = window.read()
