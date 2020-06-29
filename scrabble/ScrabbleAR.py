@@ -40,6 +40,7 @@ intercambiar=[
 			[sg.Spin([i for i in range(1,8)], initial_value=1,key='cant')],
 			[sg.Button('Aceptar')]
 			]
+#niveles, letras valor y cantidad predeterminado
 val1=['A: 2', 'E: 2', 'O: 3', 'S: 3', 'I: 3', 'U: 3', 'N: 3', 'L: 3', 'R: 3', 'T: 3', 'C: 3', 'D: 3', 'G: 3', 'M: 4', 'B: 4', 'P: 4', 'F: 5', 'H: 5', 'V: 5', 'Y: 5', 'J: 7', 'K: 9', 'L: 9','L: 9', 'Ñ: 9', 'Q: 9', 'RR: 9', 'W: 9', 'X: 9','Z: 11']
 cant1=['A: 11', 'E: 11', 'O: 8', 'S: 7', 'I: 8', 'U: 8', 'N: 5', 'L: 4', 'R: 4', 'T: 4', 'C: 4', 'D: 4', 'G: 2', 'M: 3', 'B: 6', 'P: 2', 'F: 2', 'H: 2', 'V: 2', 'Y: 1', 'J: 2', 'K: 1''LL: 1', 'Ñ: 1', 'Q: 1', 'RR: 1', 'W: 1', 'X: 1','Z: 1']
 
