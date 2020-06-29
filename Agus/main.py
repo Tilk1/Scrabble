@@ -19,17 +19,18 @@ bolsa={'A.png':{'cant':11,'valor':1}, 'B.png':{'cant':11,'valor':1}, 'C.png':{'c
 letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}         #diccionario que lleva la cuenta de que iagen(letra) se encuentra en cada posicion del atril a todo momento
 letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
 columna=[
+		[sg.Text('',background_color='white')],
 		[sg.Button(image_filename='bolsachica.png',border_width=0, key='intercambiar')],
 		[sg.Button(image_filename='palabra.png',border_width=0, key='palabra')],
 		[sg.Button(image_filename='sacar.png',border_width=0, key='sacar')]
 		]
 column1=[
-		[sg.Image('robot.png'), sg.Text('Puntaje: '), sg.Text('0', key='puntM'),sg.Button(image_filename='inicio.png',border_width=0, key='comenzar')],
+		[sg.Image('robot.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white'), sg.Text('0', key='puntM'),sg.Button(image_filename='inicio.png',border_width=0, key='comenzar')],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='m0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m1'),sg.Button('',image_filename='color3.png',image_size=(46, 46),key='m2'),sg.Button('',image_filename='color4.png',image_size=(46, 46),key='m3'),sg.Button('',image_filename='color5.png',image_size=(46, 46),key='m4'),sg.Button('',image_filename='color1.png',image_size=(46, 46),key='m5'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m6')], 
 		[sg.Column([[sg.Text('info sobre la partida y palabras q se ingresan',text_color='black',background_color='lightblue',size=(30,25))]]),sg.Column(columna)],
-		[sg.Image('jugador.png'), sg.Text('Puntaje: '), sg.Text('0', key='puntU')],
+		[sg.Image('jugador.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white'), sg.Text('0', key='puntU')],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='u1'),sg.Button('',image_filename='color3.png',image_size=(46, 46), key='u2'),sg.Button('',image_filename='color4.png',image_size=(46, 46), key='u3'),sg.Button('',image_filename='color5.png',image_size=(46, 46), key='u4'),sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u5'),sg.Button('',image_filename='color2.png',image_size=(46, 46), key='u6')],
-		[sg.Button(image_filename='terminar.png', key='exit',border_width=0),sg.Button(image_filename='posponer.png',key='posponer',border_width=0)]
+		[sg.Button(image_filename='terminar.png', key='exit',border_width=0),sg.Text('  ',background_color='white'),sg.Button(image_filename='posponer.png',key='posponer',border_width=0)]
 		]
 layout =[
 		[sg.Column(tablero),sg.Column(column1)], ##tablero aca
@@ -49,14 +50,14 @@ val3=['A: 1', 'E: 1', 'O: 1', 'S: 1', 'I: 1', 'U: 1', 'N: 1', 'L: 1', 'R: 1', 'T
 cant3=['A: 7', 'E: 7', 'O: 4', 'S: 5', 'I: 4', 'U: 4', 'N: 5', 'L: 4', 'R: 4', 'T: 4', 'C: 4', 'D: 4', 'G: 2', 'M: 3', 'B: 3', 'P: 2', 'F: 2', 'H: 4', 'V: 3', 'Y: 3', 'J: 3', 'K: 3','LL: 3', 'Ñ: 2', 'Q: 3', 'RR: 3', 'W: 2', 'X: 3','Z: 3']
 
 config=[
-		[sg.Text('SCRIBBLE',font=('Fixedsys',30))],
+		[sg.Image('scrabblelogo.png')],
 		[sg.Combo(['Nivel 1', 'Nivel 2', 'Nivel 3'], key='niveles', default_value='Nivel 1')],
 		[sg.Text('Tiempo: '), sg.Text('20seg', key='tiempo')],
 		[sg.Text('Palabras posibles: '), sg.Text('sustantivos, adjetivos, verbos', key='palabras')],
 		[sg.Text('Puntaje Letras: '), sg.Combo(val1, default_value=val1[0])],
 		[sg.Text('Cant letras: '), sg.Combo(bolsa, default_value=cant1[0])],
 		[sg.Text('Tablero: '), sg.Text('15x20', key='tab')],
-		[sg.Button('JUGAR',font=('Fixedsys',18), key='jugar'), sg.Button('CONFIGURAR',font=('Fixedsys',18), key='config'),sg.Button('TOP10',font=('Fixedsys',18), key='top10')]
+		[sg.Button('JUGAR',font=('Fixedsys',18), button_color=('orange', 'White'),key='jugar'), sg.Button('CONFIGURAR',font=('Fixedsys',18),button_color=('salmon', 'White') ,key='config'),sg.Button('TOP10',font=('Fixedsys',18),button_color=('lightblue', 'White'),key='top10')]
 		]
 
 colores= ['color1.png','color2.png','color3.png','color4.png','color5.png']  #parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
@@ -76,6 +77,7 @@ if(event=='jugar'):
 		while(not event in ('exit', None)):
 			event, letrasPal, valor=colocar.colocarFicha(tableroIm,tableroFichas,letrasU, window,colores,inicio, bolsa) #comienza la jugada
 			if(event=='palabra'):
+				print(valor)
 				puntajeU=puntajeU+valor
 				window['puntU'].update(str(puntajeU))
 				colocar.repartir(letrasU, bolsa, window, colores)  #vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
