@@ -12,10 +12,13 @@ Pattern (Libreria)
 
 ## Instrucciones
 
-Se debe ejecutar el archivo SrabbleAR.py dentro del directorio scrabble para comenzar el juego. Se mostrará una ventana de inicio del juego, que muestra el nivel en el que se esta jugando y se puede cambiar a facil, dificil y medio, o se pueden configurar los detalles del nivel con el boton 'configuracion'(actualmente no funciona, solo se ve en la interfaz, al igual que el botón top10). Se debe presionar el boton 'jugar' para mostar el tablero. 
+Se debe ejecutar el archivo SrabbleAR.py dentro del directorio scrabble para comenzar el juego. 
+
 Para comenzar la partida se debe tocar 'iniciar'. Todavia no se configuró el funcionamiento de la IA, por lo que siempre es el turno del usuario, y el tiempo no se tiene en cuenta.
-Para intercambiar las letras se toca el botón 'intercambiar', para sacar todas las fichas colocadas en esa jugada del tablero se toca el botón 'sacar todas' y para que se tenga en cuenta la palabra formada con las fichas se usa el botón 'palabra'. 
-Se reparten las fichas al iniciarse la jugada, al colocar las fichas en el tablero estas se pueden quitar individualmente tocando sobre la ultima colocada, en caso de querer sacar todas se usa el botón 'sacar todas' como antes dicho. En el caso de tener una ficha en mano y arrepentirse de colocarla en el tablero, si se presiona la posición de la ficha en donde estaba en el átril, esta vuelve a donde estaba. 
+
+La primera ficha debe ser colocada en el centro del tablero.
+
+Al colocar las fichas en el tablero estas se pueden quitar individualmente tocando sobre la ultima colocada, en caso de querer sacar todas se usa el botón 'sacar todas' como antes dicho. En el caso de tener una ficha en mano y arrepentirse de colocarla en el tablero, si se presiona la posición de la ficha en donde estaba en el átril, esta vuelve a donde estaba. 
 
 ## Notas adicionales
 
