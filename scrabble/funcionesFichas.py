@@ -154,4 +154,4 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa):
 				nro=0
 		if(salir!=True):   
 			event,_= window.read()
-	return event, puestas, valor
+	return event, valor

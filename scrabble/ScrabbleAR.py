@@ -25,10 +25,10 @@ columna=[
 		[sg.Button(image_filename='sacar.png',border_width=0, key='sacar')]
 		]
 column1=[
-		[sg.Image('robot.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white'), sg.Text('0',font=('Fixedsys',17),text_color='black',background_color='white', key='puntM'),sg.Button(image_filename='inicio.png',border_width=0, key='comenzar')],
+		[sg.Image('robot.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntM'),sg.Button(image_filename='inicio.png',border_width=0, key='comenzar')],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='m0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m1'),sg.Button('',image_filename='color3.png',image_size=(46, 46),key='m2'),sg.Button('',image_filename='color4.png',image_size=(46, 46),key='m3'),sg.Button('',image_filename='color5.png',image_size=(46, 46),key='m4'),sg.Button('',image_filename='color1.png',image_size=(46, 46),key='m5'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m6')], 
 		[sg.Column([[sg.Text('info sobre la partida y palabras q se ingresan',text_color='black',background_color='lightblue',size=(30,25))]]),sg.Column(columna)],
-		[sg.Image('jugador.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white'), sg.Text('0',font=('Fixedsys',17),text_color='black',background_color='white', key='puntU')],
+		[sg.Image('jugador.png'), sg.Text(text='Puntaje: 00 ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntU')],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='u1'),sg.Button('',image_filename='color3.png',image_size=(46, 46), key='u2'),sg.Button('',image_filename='color4.png',image_size=(46, 46), key='u3'),sg.Button('',image_filename='color5.png',image_size=(46, 46), key='u4'),sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u5'),sg.Button('',image_filename='color2.png',image_size=(46, 46), key='u6')],
 		[sg.Button(image_filename='terminar.png', key='exit',border_width=0),sg.Text('  ',background_color='white'),sg.Button(image_filename='posponer.png',key='posponer',border_width=0)]
 		]
@@ -69,12 +69,12 @@ if(event=='jugar'):
 		colocar.repartir(letrasM, bolsa, window, colores) #reparto fichas a la maquina
 		hide = False  #Para cunado necesito esconder la ventana de intercambio de fichas
 		while(not event in ('exit', None)):
-			event, letrasPal, valor=colocar.colocarFicha(tableroIm,tableroFichas,letrasU, window,colores,inicio, bolsa) #comienza la jugada
+			event,valor=colocar.colocarFicha(tableroIm,tableroFichas,letrasU, window,colores,inicio, bolsa) #comienza la jugada
 			if(event=='palabra'):
 				print(valor)
 				puntajeU=puntajeU+valor
 				print(puntajeU)
-				window['puntU'].update(puntajeU)
+				window['puntU'].update('Puntaje:'+str(puntajeU))
 				colocar.repartir(letrasU, bolsa, window, colores)  #vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
 			if(event=='intercambiar'):
 				if(hide):

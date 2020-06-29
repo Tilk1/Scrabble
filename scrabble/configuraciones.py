@@ -8,6 +8,8 @@ def configLetras(c, a, bolsa):
 
 def elegirNivel(win,bolsa):
     event, values = win.read()
+    val=val1
+    cant=cant1
     while(not event in ('jugar','config','top10', None)):
         if(event=='niveles'):
             if('Nivel fácil'==values['niveles']):
@@ -34,7 +36,6 @@ def elegirNivel(win,bolsa):
         event, values = win.read()
     configLetras(val, 'valor', bolsa)
     configLetras(cant, 'cant', bolsa)
-    print(bolsa)
     return event
 #niveles, letras valor y cantidad predeterminado    
 val1=['A: 2', 'E: 2', 'O: 3', 'S: 3', 'I: 3', 'U: 3', 'N: 3', 'L: 3', 'R: 3', 'T: 3', 'C: 3', 'D: 3', 'G: 3', 'M: 4', 'B: 4', 'P: 4', 'F: 5', 'H: 5', 'V: 5', 'Y: 5', 'J: 7', 'K: 9', 'L: 9','L: 9', 'Ñ: 9', 'Q: 9', 'RR: 9', 'W: 9', 'X: 9','Z: 11']
