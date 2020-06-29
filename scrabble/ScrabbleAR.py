@@ -51,12 +51,12 @@ cant3=['A: 7', 'E: 7', 'O: 4', 'S: 5', 'I: 4', 'U: 4', 'N: 5', 'L: 4', 'R: 4', '
 
 config=[
 		[sg.Image('scrabblelogo.png')],
-		[sg.Combo(['Nivel 1', 'Nivel 2', 'Nivel 3'], key='niveles', default_value='Nivel 1')],
+		[sg.Combo(['Nivel fácil', 'Nivel medio', 'Nivel difícil'], key='niveles', default_value='Nivel 1')],
 		[sg.Text('Tiempo: '), sg.Text('20seg', key='tiempo')],
 		[sg.Text('Palabras posibles: '), sg.Text('sustantivos, adjetivos, verbos', key='palabras')],
 		[sg.Text('Puntaje Letras: '), sg.Combo(val1, default_value=val1[0])],
 		[sg.Text('Cant letras: '), sg.Combo(bolsa, default_value=cant1[0])],
-		[sg.Text('Tablero: '), sg.Text('15x20', key='tab')],
+		[sg.Text('Tablero: '), sg.Text('15x15', key='tab')],
 		[sg.Button('JUGAR',font=('Fixedsys',18), button_color=('orange', 'White'),key='jugar'), sg.Button('CONFIGURAR',font=('Fixedsys',18),button_color=('salmon', 'White') ,key='config'),sg.Button('TOP10',font=('Fixedsys',18),button_color=('lightblue', 'White'),key='top10')]
 		]
 
