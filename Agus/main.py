@@ -24,12 +24,12 @@ columna=[
 		[sg.Button(image_filename='sacar.png',border_width=0, key='sacar')]
 		]
 column1=[
-		[sg.Image('robot.png'), sg.Text('Puntaje: '), sg.Text('0', key='puntM'),sg.Button('inicio',border_width=0,font=('Fixedsys',18), key='comenzar')],
+		[sg.Image('robot.png'), sg.Text('Puntaje: '), sg.Text('0', key='puntM'),sg.Button(image_filename='inicio.png',border_width=0, key='comenzar')],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='m0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m1'),sg.Button('',image_filename='color3.png',image_size=(46, 46),key='m2'),sg.Button('',image_filename='color4.png',image_size=(46, 46),key='m3'),sg.Button('',image_filename='color5.png',image_size=(46, 46),key='m4'),sg.Button('',image_filename='color1.png',image_size=(46, 46),key='m5'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m6')], 
-		[sg.Column([[sg.Text('info sobre la partida y palabras q se ingresan',background_color='white',size=(30,10))]]),sg.Column(columna)],
+		[sg.Column([[sg.Text('info sobre la partida y palabras q se ingresan',text_color='black',background_color='lightblue',size=(30,25))]]),sg.Column(columna)],
 		[sg.Image('jugador.png'), sg.Text('Puntaje: '), sg.Text('0', key='puntU')],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='u1'),sg.Button('',image_filename='color3.png',image_size=(46, 46), key='u2'),sg.Button('',image_filename='color4.png',image_size=(46, 46), key='u3'),sg.Button('',image_filename='color5.png',image_size=(46, 46), key='u4'),sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u5'),sg.Button('',image_filename='color2.png',image_size=(46, 46), key='u6')],
-		[sg.Button(image_filename='terminar.png', key='exit'),sg.Button(image_filename='posponer.png',key='posponer')]
+		[sg.Button(image_filename='terminar.png', key='exit',border_width=0),sg.Button(image_filename='posponer.png',key='posponer',border_width=0)]
 		]
 layout =[
 		[sg.Column(tablero),sg.Column(column1)], ##tablero aca
