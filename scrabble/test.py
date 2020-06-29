@@ -1,2 +1,0 @@
-letras={}
-print(letras=={})
