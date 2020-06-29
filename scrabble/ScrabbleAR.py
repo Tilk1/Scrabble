@@ -79,6 +79,7 @@ if(event=='jugar'):
 			if(event=='palabra'):
 				print(valor)
 				puntajeU=puntajeU+valor
+				print(puntajeU)
 				window['puntU'].update(str(puntajeU))
 				colocar.repartir(letrasU, bolsa, window, colores)  #vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
 			if(event=='intercambiar'):

@@ -151,6 +151,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa):
 			else:
 				sg.popup('No existe esa palabra, vuelva a intentarlo')
 				sacarFicha(tableroI, puestas, originales, letras, 'sacar', window)     #saco todas las fichas porque esa palabra no existe, no termina la jugada, vuelvo a intentar
+				nro=0
 		if(salir!=True):   
 			event,_= window.read()
 	return event, puestas, valor
