@@ -3,6 +3,7 @@ import PySimpleGUI as sg
 import funcionesFichas as colocar
 import random 
 import tableros
+from imagenes import *
 
 sg.theme_background_color(color='White')
 sg.theme_button_color(color=('Black', 'White'))
