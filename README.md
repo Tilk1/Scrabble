@@ -5,7 +5,9 @@
 ## Requisitos
 
 Python 3.6.8
+
 PySimpleGUI (Libreria)
+
 Pattern (Libreria)
 
 ## Instrucciones
