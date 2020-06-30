@@ -64,7 +64,7 @@ def barraSistemaoperativo():
 	if _platform.startswith == "win": ##windows
 		return('/') 
 	else:  				#linux
-		return('\\')
+		return('/')
 
 def carpetaImagenes():
 	return os.getcwd()+ barraSistemaoperativo()+ 'imagenes' + barraSistemaoperativo() 		
