@@ -23,16 +23,16 @@ letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}         #dicc
 letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
 columna=[
 		[sg.Text('',background_color='white')],
-		[sg.Button(image_filename='bolsachica.png',border_width=0, key='intercambiar')],
-		[sg.Button(image_filename='palabra.png',border_width=0, key='palabra')],
-		[sg.Button(image_filename='sacar.png',border_width=0, key='sacar')]
+		[sg.Button(image_filename='bolsachica.png',border_width=0, key='intercambiar',disabled=True)],
+		[sg.Button(image_filename='palabra.png',border_width=0, key='palabra',disabled=True)],
+		[sg.Button(image_filename='sacar.png',border_width=0, key='sacar',disabled=True)]
 		]
 column1=[
 		[sg.Image('robot.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntM'),sg.Button(image_filename='inicio.png',border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20),justification='center', key='temporizador',visible= False)],
-		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='m0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m1'),sg.Button('',image_filename='color3.png',image_size=(46, 46),key='m2'),sg.Button('',image_filename='color4.png',image_size=(46, 46),key='m3'),sg.Button('',image_filename='color5.png',image_size=(46, 46),key='m4'),sg.Button('',image_filename='color1.png',image_size=(46, 46),key='m5'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m6')], 
+		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='m0',disabled=True),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m1',disabled=True),sg.Button('',image_filename='color3.png',image_size=(46, 46),key='m2',disabled=True),sg.Button('',image_filename='color4.png',image_size=(46, 46),key='m3',disabled=True),sg.Button('',image_filename='color5.png',image_size=(46, 46),key='m4',disabled=True),sg.Button('',image_filename='color1.png',image_size=(46, 46),key='m5',disabled=True),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m6',disabled=True)], 
 		[sg.Column([[sg.Text('info sobre la partida y palabras q se ingresan',text_color='black',background_color='lightblue',size=(30,25))]]),sg.Column(columna)],
 		[sg.Image('jugador.png'), sg.Text(text='Puntaje: 00 ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntU')],
-		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='u1'),sg.Button('',image_filename='color3.png',image_size=(46, 46), key='u2'),sg.Button('',image_filename='color4.png',image_size=(46, 46), key='u3'),sg.Button('',image_filename='color5.png',image_size=(46, 46), key='u4'),sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u5'),sg.Button('',image_filename='color2.png',image_size=(46, 46), key='u6')],
+		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u0',disabled=True),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='u1',disabled=True),sg.Button('',image_filename='color3.png',image_size=(46, 46), key='u2',disabled=True),sg.Button('',image_filename='color4.png',image_size=(46, 46), key='u3',disabled=True),sg.Button('',image_filename='color5.png',image_size=(46, 46), key='u4',disabled=True),sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u5',disabled=True),sg.Button('',image_filename='color2.png',image_size=(46, 46), key='u6',disabled=True)],
 		[sg.Button(image_filename='terminar.png', key='exit',border_width=0),sg.Text('  ',background_color='white'),sg.Button(image_filename='posponer.png',key='posponer',border_width=0)]
 		]
 layout =[
@@ -68,7 +68,7 @@ if(event=='jugar'):
 	configuracion.close()
 	event, values = window.read()
 	if(event=='comenzar'):
-		window.FindElement("comenzar").Update(visible=False,disabled=True)
+		funciones.activarBotones(window)
 		colocar.repartir(letrasU, bolsa, window, colores) #reparto fichas al usuario
 		colocar.repartir(letrasM, bolsa, window, colores) #reparto fichas a la maquina
 		hide = False  #Para cunado necesito esconder la ventana de intercambio de fichas
@@ -86,10 +86,13 @@ if(event=='jugar'):
 				event, values= popinter.read()
 				popinter.Hide()
 				hide=True
-				colocar.intercambiarFichas(letrasU, bolsa, window, values['cant'])	
+				colocar.intercambiarFichas(letrasU, bolsa, window, values['cant'])
+	elif(event=='terminar'):
+		window.close()
 	else:
 		event, values = window.read()
 elif(event=='config'):
 	configuracion.close()
+
 
 window.close()

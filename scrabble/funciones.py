@@ -67,4 +67,29 @@ def barraSistemaoperativo():
 		return('/')
 
 def carpetaImagenes():
-	return os.getcwd()+ barraSistemaoperativo()+ 'imagenes' + barraSistemaoperativo() 		
+	return os.getcwd()+ barraSistemaoperativo()+ 'imagenes' + barraSistemaoperativo()
+
+def activarBotones(window):
+	window.FindElement("comenzar").Update(visible=False,disabled=True)
+	window["comenzar"].Update(visible=False,disabled=True)
+	window["intercambiar"].Update(disabled=False)
+	window["palabra"].Update(disabled=False)
+	window["sacar"].Update(disabled=False)
+	window["u0"].Update(disabled=False)
+	window["u1"].Update(disabled=False)
+	window["u2"].Update(disabled=False)
+	window["u3"].Update(disabled=False)
+	window["u4"].Update(disabled=False)
+	window["u5"].Update(disabled=False)
+	window["u6"].Update(disabled=False)
+	window.FindElement("intercambiar").Widget.config(cursor="exchange")
+	window.FindElement("palabra").Widget.config(cursor="heart")
+	window.FindElement("sacar").Widget.config(cursor="pirate")
+	window.FindElement("u0").Widget.config(cursor="hand2")
+	window.FindElement("u1").Widget.config(cursor="hand2")
+	window.FindElement("u2").Widget.config(cursor="hand2")
+	window.FindElement("u3").Widget.config(cursor="hand2")
+	window.FindElement("u4").Widget.config(cursor="hand2")
+	window.FindElement("u5").Widget.config(cursor="hand2")
+	window.FindElement("u6").Widget.config(cursor="hand2")
+	
