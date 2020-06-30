@@ -1,5 +1,6 @@
 from pattern.text.es import verbs, tag, spelling, lexicon, parse
 from sys import platform as _platform
+import os
 
 def obtener_palabra(d): ##esto funciona mandandole un diccionario dentro de la funcion colocar fichas, con un formato asi {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'} 
 	palabraFormada = ''
@@ -64,3 +65,6 @@ def barraSistemaoperativo():
 		return('/') 
 	else:  				#linux
 		return('\\')
+
+def carpetaImagenes():
+	return os.getcwd()+ barraSistemaoperativo()+ 'imagenes' + barraSistemaoperativo() 		

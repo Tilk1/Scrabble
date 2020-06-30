@@ -23,17 +23,17 @@ letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}         #dicc
 letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
 columna=[
 		[sg.Text('',background_color='white')],
-		[sg.Button(image_filename='bolsachica.png',border_width=0, key='intercambiar')],
-		[sg.Button(image_filename='palabra.png',border_width=0, key='palabra')],
-		[sg.Button(image_filename='sacar.png',border_width=0, key='sacar')]
+		[sg.Button(image_filename=cwd+'bolsachica.png',border_width=0, key='intercambiar')],
+		[sg.Button(image_filename=cwd+'palabra.png',border_width=0, key='palabra')],
+		[sg.Button(image_filename=cwd+'sacar.png',border_width=0, key='sacar')]
 		]
 column1=[
-		[sg.Image('robot.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntM'),sg.Button(image_filename='inicio.png',border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20),justification='center', key='temporizador',visible= False)],
-		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='m0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m1'),sg.Button('',image_filename='color3.png',image_size=(46, 46),key='m2'),sg.Button('',image_filename='color4.png',image_size=(46, 46),key='m3'),sg.Button('',image_filename='color5.png',image_size=(46, 46),key='m4'),sg.Button('',image_filename='color1.png',image_size=(46, 46),key='m5'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m6')], 
+		[sg.Image(cwd+'robot.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntM'),sg.Button(image_filename=cwd+'inicio.png',border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20),justification='center', key='temporizador',visible= False)],
+		[sg.Button('',image_filename=cwd+'color1.png',image_size=(46, 46), key='m0'),sg.Button('',image_filename=cwd+'color2.png',image_size=(46, 46),key='m1'),sg.Button('',image_filename=cwd+'color3.png',image_size=(46, 46),key='m2'),sg.Button('',image_filename=cwd+'color4.png',image_size=(46, 46),key='m3'),sg.Button('',image_filename=cwd+'color5.png',image_size=(46, 46),key='m4'),sg.Button('',image_filename=cwd+'color1.png',image_size=(46, 46),key='m5'),sg.Button('',image_filename=cwd+'color2.png',image_size=(46, 46),key='m6')], 
 		[sg.Column([[sg.Text('info sobre la partida y palabras q se ingresan',text_color='black',background_color='lightblue',size=(30,25))]]),sg.Column(columna)],
-		[sg.Image('jugador.png'), sg.Text(text='Puntaje: 00 ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntU')],
-		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='u1'),sg.Button('',image_filename='color3.png',image_size=(46, 46), key='u2'),sg.Button('',image_filename='color4.png',image_size=(46, 46), key='u3'),sg.Button('',image_filename='color5.png',image_size=(46, 46), key='u4'),sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u5'),sg.Button('',image_filename='color2.png',image_size=(46, 46), key='u6')],
-		[sg.Button(image_filename='terminar.png', key='exit',border_width=0),sg.Text('  ',background_color='white'),sg.Button(image_filename='posponer.png',key='posponer',border_width=0)]
+		[sg.Image(cwd+'jugador.png'), sg.Text(text='Puntaje: 00 ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntU')],
+		[sg.Button('',image_filename=cwd+'color1.png',image_size=(46, 46), key='u0'),sg.Button('',image_filename=cwd+'color2.png',image_size=(46, 46),key='u1'),sg.Button('',image_filename=cwd+'color3.png',image_size=(46, 46), key='u2'),sg.Button('',image_filename=cwd+'color4.png',image_size=(46, 46), key='u3'),sg.Button('',image_filename=cwd+'color5.png',image_size=(46, 46), key='u4'),sg.Button('',image_filename=cwd+'color1.png',image_size=(46, 46), key='u5'),sg.Button('',image_filename=cwd+'color2.png',image_size=(46, 46), key='u6')],
+		[sg.Button(image_filename=cwd+'terminar.png', key='exit',border_width=0),sg.Text('  ',background_color='white'),sg.Button(image_filename=cwd+'posponer.png',key='posponer',border_width=0)]
 		]
 layout =[
 		[sg.Column(tablero),sg.Column(column1)], ##tablero aca
@@ -57,7 +57,7 @@ config=[
 		[sg.Button('JUGAR',font=('Fixedsys',18), button_color=('orange', 'White'),key='jugar'), sg.Button('CONFIGURAR',font=('Fixedsys',18),button_color=('salmon', 'White') ,key='config'),sg.Button('TOP10',font=('Fixedsys',18),button_color=('lightblue', 'White'),key='top10')]
 		]
 
-colores= ['color1.png','color2.png','color3.png','color4.png','color5.png']  #parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
+colores= [cwd+'color1.png',cwd+'color2.png',cwd+'color3.png',cwd+'color4.png',cwd+'color5.png']  #parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
 
 window = sg.Window('tablero', layout)
 popinter = sg.Window('intercambio', intercambiar)
