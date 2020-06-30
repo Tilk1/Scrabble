@@ -25,7 +25,7 @@ columna=[
 		[sg.Button(image_filename='sacar.png',border_width=0, key='sacar')]
 		]
 column1=[
-		[sg.Image('robot.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntM'),sg.Button(image_filename='inicio.png',border_width=0, key='comenzar')],
+		[sg.Image('robot.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntM'),sg.Button(image_filename='inicio.png',border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20),justification='center', key='temporizador',visible= False)],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='m0'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m1'),sg.Button('',image_filename='color3.png',image_size=(46, 46),key='m2'),sg.Button('',image_filename='color4.png',image_size=(46, 46),key='m3'),sg.Button('',image_filename='color5.png',image_size=(46, 46),key='m4'),sg.Button('',image_filename='color1.png',image_size=(46, 46),key='m5'),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m6')], 
 		[sg.Column([[sg.Text('info sobre la partida y palabras q se ingresan',text_color='black',background_color='lightblue',size=(30,25))]]),sg.Column(columna)],
 		[sg.Image('jugador.png'), sg.Text(text='Puntaje: 00 ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntU')],
@@ -64,7 +64,8 @@ event=con.elegirNivel(configuracion, bolsa) #llama a elegirNivel me permite pode
 if(event=='jugar'):
 	configuracion.close()
 	event, values = window.read()
-	if(event=='comenzar'):	
+	if(event=='comenzar'):
+		window.FindElement("comenzar").Update(visible=False,disabled=True)
 		colocar.repartir(letrasU, bolsa, window, colores) #reparto fichas al usuario
 		colocar.repartir(letrasM, bolsa, window, colores) #reparto fichas a la maquina
 		hide = False  #Para cunado necesito esconder la ventana de intercambio de fichas
