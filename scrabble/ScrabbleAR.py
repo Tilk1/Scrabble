@@ -10,7 +10,7 @@ sg.theme_background_color(color='White')
 sg.theme_button_color(color=('Black', 'White'))
 sg.theme_element_background_color(color='White')
 
-cwd = os.getcwd()+ funciones.barraSistemaoperativo()+ 'imagenes' + funciones.barraSistemaoperativo()  # retorna el directorio donde estoy parado dependiendo OS
+cwd = funciones.carpetaImagenes()  # retorna el directorio donde estoy parado dependiendo OS + la carpeta imagenes
 
 puntajeM=0  #inicializacion puntaje usuario y maquina
 puntajeU=0
