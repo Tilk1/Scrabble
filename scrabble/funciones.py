@@ -68,3 +68,17 @@ def barraSistemaoperativo():
 
 def carpetaImagenes():
 	return os.getcwd()+ barraSistemaoperativo()+ 'imagenes' + barraSistemaoperativo() 		
+
+def activarBotones(window):
+	window["comenzar"].Update(visible=False,disabled=True)
+	window["intercambiar"].Update(disabled=False)
+	window["palabra"].Update(disabled=False)
+	window["sacar"].Update(disabled=False)
+	window["intercambiar"].Update(disabled=False)
+	window["u0"].Update(disabled=False)
+	window["u1"].Update(disabled=False)
+	window["u2"].Update(disabled=False)
+	window["u3"].Update(disabled=False)
+	window["u4"].Update(disabled=False)
+	window["u5"].Update(disabled=False)
+	window["u6"].Update(disabled=False)
