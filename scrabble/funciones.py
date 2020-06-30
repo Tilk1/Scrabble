@@ -1,5 +1,5 @@
-#"windows" if "win" in sys.platform else "linux"
 from pattern.text.es import verbs, tag, spelling, lexicon, parse
+from sys import platform as _platform
 
 def obtener_palabra(d): ##esto funciona mandandole un diccionario dentro de la funcion colocar fichas, con un formato asi {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'} 
 	palabraFormada = ''
@@ -58,3 +58,9 @@ def calcularPuntaje(l, im, b):
 	for y in multi:
 		suma=suma*y
 	return suma
+
+def barraSistemaoperativo():
+	if _platform.startswith == "win": ##windows
+		return('/') 
+	else:  				#linux
+		return('\\')

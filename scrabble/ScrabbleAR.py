@@ -4,10 +4,13 @@ import funcionesFichas as colocar
 import random 
 import tableros
 import configuraciones as con
+import os
+
 sg.theme_background_color(color='White')
 sg.theme_button_color(color=('Black', 'White'))
 sg.theme_element_background_color(color='White')
 
+cwd = os.getcwd()+ funciones.barraSistemaoperativo()+ 'imagenes' + funciones.barraSistemaoperativo()  # retorna el directorio donde estoy parado dependiendo OS
 
 puntajeM=0  #inicializacion puntaje usuario y maquina
 puntajeU=0
@@ -44,7 +47,7 @@ intercambiar=[
 val=con.val1
 cant=con.cant1
 config=[
-		[sg.Image('scrabblelogo.png')],
+		[sg.Image(cwd+'scrabblelogo.png')],
 		[sg.Combo(['Nivel fácil', 'Nivel medio', 'Nivel difícil'],font=('Fixedsys',17),text_color='salmon',background_color='white', key='niveles', enable_events=True,default_value='Nivel fácil')],
 		[sg.Text('Tiempo: ',font=('Fixedsys',15),text_color='salmon',background_color='white'), sg.Text('20seg', key='tiempo',font=('Fixedsys',15),text_color='purple',background_color='white')],
 		[sg.Text('Palabras posibles: ',font=('Fixedsys',15),text_color='pink3',background_color='white'), sg.Text('sustantivos, adjetivos, verbos', key='palabras',font=('Fixedsys',10),text_color='orange',background_color='white')],
