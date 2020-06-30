@@ -5,6 +5,7 @@ import random
 import tableros
 import configuraciones as con
 import os
+import json
 
 sg.theme_background_color(color='White')
 sg.theme_button_color(color=('Black', 'White'))
@@ -89,7 +90,18 @@ if(event=='jugar'):
 				colocar.intercambiarFichas(letrasU, bolsa, window, values['cant'])	
 	else:
 		event, values = window.read()
-elif(event=='config'):
+elif(event=='top10'):
 	configuracion.close()
+	try:
+		with open("puntajes.json") as arc:
+			datos = json.load(arc)
+			if not datos:
+				sg.popup('Archivo de puntajes no encontrado')
+			else:
+				puntajes = sorted(datos, reverse=True, key=lambda x: x[1])
+				funciones.mostrar_top10(puntajes)
+
+	except FileNotFoundError:
+		sg.popup('Archivo de puntajes no encontrado')
 
 window.close()
