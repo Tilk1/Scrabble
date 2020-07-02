@@ -1,6 +1,7 @@
 from pattern.text.es import verbs, tag, spelling, lexicon, parse
 from sys import platform as _platform
 import os
+import PySimpleGUI as sg
 
 def obtener_palabra(d): ##esto funciona mandandole un diccionario dentro de la funcion colocar fichas, con un formato asi {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'} 
 	palabraFormada = ''
@@ -92,4 +93,28 @@ def activarBotones(window):
 	window.FindElement("u4").Widget.config(cursor="hand2")
 	window.FindElement("u5").Widget.config(cursor="hand2")
 	window.FindElement("u6").Widget.config(cursor="hand2")
-	
+
+def mostrar_top10(puntajes):
+	ancho_columnas = (10, 10)
+	headings = ("NOMBRE", "PUNTAJE")
+	columna=[
+		[sg.Text(' ',text_color='black',background_color='white', font=('Fixedsys',5))],
+		[sg.Text('1°',text_color='black',background_color='white', font=('Fixedsys',6))],
+		[sg.Text('2°',text_color='black',background_color='white', font=('Fixedsys',6))],
+		[sg.Text('3°',text_color='black',background_color='white', font=('Fixedsys',6))],
+		[sg.Text('4°',text_color='black',background_color='white', font=('Fixedsys',6))],
+		[sg.Text('5°',text_color='black',background_color='white', font=('Fixedsys',6))],
+		[sg.Text('6°',text_color='black',background_color='white', font=('Fixedsys',6))],
+		[sg.Text('7°',text_color='black',background_color='white', font=('Fixedsys',6))],
+		[sg.Text('8°',text_color='black',background_color='white', font=('Fixedsys',6))],
+		]
+	layout = [
+		[sg.Text('TOP PUNTAJES ALTOS',font=('Fixedsys',20),text_color='salmon',background_color='white')],
+		[sg.Column(columna,""),sg.Table(puntajes, headings, select_mode="none", col_widths=ancho_columnas, num_rows=10, text_color="black",auto_size_columns=True,font=('Fixedsys',6))],
+		[sg.Text('   ',font=('Fixedsys',18),background_color='white'),sg.Button('VOLVER',font=('Fixedsys',18), button_color=('orange', 'White'),key='jugar')],
+			]
+	window = sg.Window("TOP 10", layout, resizable=True, finalize=True).Finalize()
+	while True:
+		event, _values = window.read()
+		if event is None:
+			break
