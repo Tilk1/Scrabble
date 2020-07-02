@@ -24,8 +24,8 @@ def elegirNivel(win,bolsa):
                 win['pun'].update(values=val2)
                 win['cant'].update(values=cant2)
                 win['tab'].update('15x17')
-                val=val3
-                cant=cant3
+                val=val2
+                cant=cant2
             elif('Nivel difícil'==values['niveles']):
                 win['palabras'].update('adjetivos, verbos')
                 win['pun'].update(values=val3)
