@@ -22,6 +22,7 @@ tableroFichas=dict()    #fichas colocadas en el tablero de forma definitiva, es 
 bolsa={'A.png':{'cant':0,'valor':0}, 'B.png':{'cant':0,'valor':0}, 'C.png':{'cant':0,'valor':0},'D.png':{'cant':0,'valor':0}, 'E.png':{'cant':0,'valor':0}, 'F.png':{'cant':0,'valor':0}, 'G.png':{'cant':0,'valor':0}, 'H.png':{'cant':0,'valor':0}, 'I.png':{'cant':7,'valor':1}, 'J.png':{'cant':7,'valor':1}, 'K.png':{'cant':7,'valor':1}, 'L.png':{'cant':7,'valor':1},'M.png':{'cant':7,'valor':1},'N.png':{'cant':7,'valor':1},'Ñ.png':{'cant':7,'valor':1},'O.png':{'cant':7,'valor':1},'P.png':{'cant':7,'valor':1},'Q.png':{'cant':7,'valor':1},'R.png':{'cant':7,'valor':1},'S.png':{'cant':7,'valor':1},'T.png':{'cant':7,'valor':1},'U.png':{'cant':7,'valor':1},'V.png':{'cant':7,'valor':1},'W.png':{'cant':7,'valor':1},'X.png':{'cant':7,'valor':1},'Y.png':{'cant':7,'valor':1},'Z.png':{'cant':7,'valor':1},'LL.png':{'cant':7,'valor':1},'RR.png':{'cant':7,'valor':1}}
 letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''}         #diccionario que lleva la cuenta de que iagen(letra) se encuentra en cada posicion del atril a todo momento
 letrasM={'m0':'', 'm1':'','m2':'','m3':'','m4':'','m5':'','m6':''}
+texto_reporte= 'info sobre la partida'
 columna=[
 		[sg.Text('',background_color='white')],
 		[sg.Button(image_filename='bolsachica.png',border_width=0, key='intercambiar',disabled=True)],
@@ -31,7 +32,7 @@ columna=[
 column1=[
 		[sg.Image('robot.png'), sg.Text('Puntaje: ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntM'),sg.Button(image_filename='inicio.png',border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20),justification='center', key='temporizador',visible= False)],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='m0',disabled=True),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m1',disabled=True),sg.Button('',image_filename='color3.png',image_size=(46, 46),key='m2',disabled=True),sg.Button('',image_filename='color4.png',image_size=(46, 46),key='m3',disabled=True),sg.Button('',image_filename='color5.png',image_size=(46, 46),key='m4',disabled=True),sg.Button('',image_filename='color1.png',image_size=(46, 46),key='m5',disabled=True),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='m6',disabled=True)], 
-		[sg.Column([[sg.Text('info sobre la partida y palabras q se ingresan',text_color='black',background_color='lightblue',size=(30,25))]]),sg.Column(columna)],
+		[sg.Column([[sg.Text(texto_reporte,text_color='black',key='reporte',background_color='lightblue',size=(30,25))]]),sg.Column(columna)],
 		[sg.Image('jugador.png'), sg.Text(text='Puntaje: 00 ',font=('Fixedsys',17),text_color='orange',background_color='white', key='puntU')],
 		[sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u0',disabled=True),sg.Button('',image_filename='color2.png',image_size=(46, 46),key='u1',disabled=True),sg.Button('',image_filename='color3.png',image_size=(46, 46), key='u2',disabled=True),sg.Button('',image_filename='color4.png',image_size=(46, 46), key='u3',disabled=True),sg.Button('',image_filename='color5.png',image_size=(46, 46), key='u4',disabled=True),sg.Button('',image_filename='color1.png',image_size=(46, 46), key='u5',disabled=True),sg.Button('',image_filename='color2.png',image_size=(46, 46), key='u6',disabled=True)],
 		[sg.Button(image_filename='terminar.png', key='exit',border_width=0),sg.Text('  ',background_color='white'),sg.Button(image_filename='posponer.png',key='posponer',border_width=0)]
@@ -79,6 +80,8 @@ if(event=='jugar'):
 				print(valor)
 				puntajeU=puntajeU+valor
 				print(puntajeU)
+				texto_reporte = texto_reporte + '\n' + 'Formaste una palabra que vale: ' + str(valor) + ' puntos!' #/n es un espacio
+				window["reporte"].update(texto_reporte)
 				window['puntU'].update('Puntaje:'+str(puntajeU))
 				colocar.repartir(letrasU, bolsa, window, colores)  #vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
 			if(event=='intercambiar'):
