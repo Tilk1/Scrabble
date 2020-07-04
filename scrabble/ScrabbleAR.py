@@ -43,7 +43,7 @@ layout =[
 intercambiar=[
 			[sg.Text('Cant de fichas a intercambiar')],
 			[sg.Spin([i for i in range(1,8)], initial_value=1,key='cant')],
-			[sg.Button('Aceptar')]
+			[sg.Button('Seleccionar cuales')]
 			]
 
 val=con.val1
