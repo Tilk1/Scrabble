@@ -1,28 +1,30 @@
-def crearTablero(tab,fila, column, imagenes,sg):
+def crearTablero(tab, fila, column, imagenes, sg):
 	tablero = []
-	for x in range(fila):    #crea el tablero
+	for x in range(fila):  # crea el tablero
 		row = []
 		for y in range(column):
-			if((x,y) in tab['letraDoble']):    #dependiendo el tablero, las coordenadas van a tener una imagen particula
-				im=tab['letraDoble'][0]
-			elif((x,y) in tab['letraTriple']):
-				im=tab['letraTriple'][0]
-			elif((x,y) in tab['palabraDoble']):
-				im=tab['palabraDoble'][0]
-			elif((x,y) in tab['descuento2']):
-				im=tab['descuento2'][0]
-			elif((x,y) in tab['descuento1']):
-				im=tab['descuento1'][0]
-			elif((x,y) in tab['descuento3']):
-				im=tab['descuento3'][0]
-			elif((x,y) in tab['palabraTriple']):
-				im=tab['palabraTriple'][0]
-			elif((x,y) in tab['play']):
-				im=tab['play'][0]
+			# dependiendo el tablero, las coordenadas van a tener una imagen particula
+			if((x, y) in tab['letraDoble']):
+				im = tab['letraDoble'][0]
+			elif((x, y) in tab['letraTriple']):
+				im = tab['letraTriple'][0]
+			elif((x, y) in tab['palabraDoble']):
+				im = tab['palabraDoble'][0]
+			elif((x, y) in tab['descuento2']):
+				im = tab['descuento2'][0]
+			elif((x, y) in tab['descuento1']):
+				im = tab['descuento1'][0]
+			elif((x, y) in tab['descuento3']):
+				im = tab['descuento3'][0]
+			elif((x, y) in tab['palabraTriple']):
+				im = tab['palabraTriple'][0]
+			elif((x, y) in tab['play']):
+				im = tab['play'][0]
 			else:
-				im='vacio.png'   #si no es una casilla especial
-			imagenes[(x,y)]=im
-			row.append(sg.Button('',image_filename=im,border_width=0,image_size=(46, 46),pad=(0,0),key=(x,y)))  #agrega a la fila, la imagen en esa columna
+				im = 'vacio.png'  # si no es una casilla especial
+			imagenes[(x, y)] = im
+			row.append(sg.Button('', image_filename=im, border_width=0, image_size=(
+				46, 46), pad=(0, 0), key=(x, y)))  # agrega a la fila, la imagen en esa columna
 		tablero.append(row)
 	return tablero
 
