@@ -111,24 +111,7 @@ def mostrar_top10(puntajes):
     ancho_columnas = (10, 10)
     headings = ("NOMBRE", "PUNTAJE")
     columna = [
-        [sg.Text(' ', text_color='black',
-                 background_color='white', font=('Fixedsys', 5))],
-        [sg.Text('1°', text_color='black',
-                 background_color='white', font=('Fixedsys', 6))],
-        [sg.Text('2°', text_color='black',
-                 background_color='white', font=('Fixedsys', 6))],
-        [sg.Text('3°', text_color='black',
-                 background_color='white', font=('Fixedsys', 6))],
-        [sg.Text('4°', text_color='black',
-                 background_color='white', font=('Fixedsys', 6))],
-        [sg.Text('5°', text_color='black',
-                 background_color='white', font=('Fixedsys', 6))],
-        [sg.Text('6°', text_color='black',
-                 background_color='white', font=('Fixedsys', 6))],
-        [sg.Text('7°', text_color='black',
-                 background_color='white', font=('Fixedsys', 6))],
-        [sg.Text('8°', text_color='black',
-                 background_color='white', font=('Fixedsys', 6))],
+        [sg.Image('Testeando.png')],
     ]
     layout = [
         [sg.Text('TOP PUNTAJES ALTOS', font=('Fixedsys', 20),
