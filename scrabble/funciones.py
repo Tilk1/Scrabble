@@ -118,8 +118,8 @@ def mostrar_top10(puntajes):
                  text_color='salmon', background_color='white'), sg.Image('trofeo.png') ],
         [sg.Column(columna, ""), sg.Table(puntajes, headings, select_mode="none", col_widths=ancho_columnas,
                                           num_rows=10, text_color="black", auto_size_columns=True, font=('Fixedsys', 6))],
-        [sg.Text('   ', font=('Fixedsys', 18), background_color='white'), sg.Button(
-            'VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')],
+        [sg.Text('      ', font=('Fixedsys', 18), background_color='white'), sg.Button(
+            'VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='volver')],
     ]
     window = sg.Window("TOP 10", layout, resizable=True,
                        finalize=True).Finalize()
