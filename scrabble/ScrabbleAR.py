@@ -115,13 +115,11 @@ if(event == 'jugar'):
         colocar.repartir(letrasM, bolsa, window, colores)
         hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
         while(not event in ('exit', None)):
-            event, valor = colocar.colocarFicha(
-                tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsa)  # comienza la jugada
+            puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
+            event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsa, puestas)  # comienza la jugada
             if(event == 'palabra'):
-                print(valor)
                 puntajeU = puntajeU+valor
-                print(puntajeU)
-                texto_reporte = texto_reporte + '\n' + 'Usuario: ' + funciones.tipoPalabra(tableroFichas) + ' ' + funciones.obtener_palabra(tableroFichas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
+                texto_reporte = texto_reporte + '\n' + 'Usuario: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
                 window["reporte"].update(texto_reporte)
                 window['puntU'].update('Puntaje:'+str(puntajeU))
                 # vuelvo a repartir, si hay fichas restantes, van a quedar en el atril

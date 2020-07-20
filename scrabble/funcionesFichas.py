@@ -62,9 +62,9 @@ def sacarFicha(tableroI, puestas, originales, letras, event, window):
 		window[l].update(image_filename=puestas[event])   									#Pongo en el atril la ficha en la interfaz
 		letras[l]=puestas[event]    														#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
 		puestas=puestas.pop(event)          												#sacas la letra de las que pusiste en el tablero, ya que no esta mas
-def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa):
+def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, puestas):
 	originales=letras.copy()  #Fichas del atril que tenia en el comienzo de la jugada
-	puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada
+	#puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada
 	poner=False				  #Poner va a ser True cuando tenga una letra en mano para poner en el tablero
 	letra=''		          #No tengo ninguna letra en mano, lo inicializo en ''
 	direc='definir'
