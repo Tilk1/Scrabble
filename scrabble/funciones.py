@@ -109,7 +109,7 @@ def activarBotones(window):
 
 def mostrar_top10(puntajes):
     ancho_columnas = (10, 10)
-    headings = ("NOMBRE", "PUNTAJE")
+    headings = ("NOMBRE", "PUNTAJE", "DIF", "FECHA")
     columna = [
         [sg.Image('Testeando.png')],
     ]
