@@ -111,7 +111,7 @@ def mostrar_top10(puntajes):
     ancho_columnas = (10, 10)
     headings = ("NOMBRE", "PUNTAJE", "DIF", "FECHA")
     columna = [
-        [sg.Image('Testeando.png')],
+        [sg.Image('rankings.png')],
     ]
     layout = [
         [sg.Text('TOP PUNTAJES ALTOS', font=('Fixedsys', 20),
