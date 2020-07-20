@@ -121,8 +121,7 @@ if(event == 'jugar'):
                 print(valor)
                 puntajeU = puntajeU+valor
                 print(puntajeU)
-                texto_reporte = texto_reporte + '\n' + 'Formaste una palabra que vale: ' + \
-                    str(valor) + ' puntos!'  # /n es un espacio
+                texto_reporte = texto_reporte + '\n' + 'Usuario: ' + funciones.tipoPalabra(tableroFichas) + ' ' + funciones.obtener_palabra(tableroFichas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
                 window["reporte"].update(texto_reporte)
                 window['puntU'].update('Puntaje:'+str(puntajeU))
                 # vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
