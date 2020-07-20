@@ -115,7 +115,7 @@ def mostrar_top10(puntajes):
     ]
     layout = [
         [sg.Text('TOP PUNTAJES ALTOS', font=('Fixedsys', 20),
-                 text_color='salmon', background_color='white')],
+                 text_color='salmon', background_color='white'), sg.Image('trofeo.png') ],
         [sg.Column(columna, ""), sg.Table(puntajes, headings, select_mode="none", col_widths=ancho_columnas,
                                           num_rows=10, text_color="black", auto_size_columns=True, font=('Fixedsys', 6))],
         [sg.Text('   ', font=('Fixedsys', 18), background_color='white'), sg.Button(
