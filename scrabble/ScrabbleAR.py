@@ -29,7 +29,7 @@ def timer(n, lock):
         ventana_tiempo.read(10)
         ventana_tiempo['timer'].update('{:02d}:{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60, i % 100))
         i = i - 1
-        image.update_animation('imagenes/relojito.gif', 100)
+        image.update_animation('imagenes/relojito.gif', 150)
 
 def principal(n, lock):
 
