@@ -32,7 +32,6 @@ def timer(n, lock):
         image.update_animation('imagenes/relojito.gif', 150)
 
 def principal(n, lock):
-
     sg.theme_background_color(color='White')
     sg.theme_button_color(color=('Black', 'White'))
     sg.theme_element_background_color(color='White')
@@ -122,7 +121,7 @@ def principal(n, lock):
     colores = ['color1.png', 'color2.png',
             'color3.png', 'color4.png', 'color5.png']
 
-    window = sg.Window('tablero', layout)
+    window = sg.Window('tablero', layout,no_titlebar=True, grab_anywhere= True)
     popinter = sg.Window('intercambio', intercambiar)
     configuracion = sg.Window('config', config)
 
