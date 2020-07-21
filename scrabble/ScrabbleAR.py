@@ -14,7 +14,7 @@ global arranca_timer
 
 
 def timer(n, lock):
-    tiempo = [[sg.Button(image_filename='imagenes/reloj.png', border_width=0, key='relojito'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 23), justification='center', text_color='salmon',key='timer', background_color='white'),],]
+    tiempo = [[sg.Image('imagenes/relojito.gif', key='relojito', background_color= 'White'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 23), justification='center', text_color='salmon',key='timer', background_color='white'),],]
     sg.theme_background_color(color='White')
     sg.theme_button_color(color=('White', 'White'))
     sg.theme_element_background_color(color='White')
@@ -22,12 +22,14 @@ def timer(n, lock):
     nuevas_coordenadas= (coordenadas[0]+980, coordenadas[1]+30)
     ventana_tiempo = sg.Window('temporizador', tiempo, no_titlebar=True, default_element_size=(40, 1),location= nuevas_coordenadas, keep_on_top= True)
     i = 12000
+    image = ventana_tiempo['relojito']
     while n.value == False:
         time.sleep(0.10)  # ESPERA A LA SEÑAL
     while n.value == True:  #  RECIBO MENSAJE
         ventana_tiempo.read(10)
         ventana_tiempo['timer'].update('{:02d}:{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60, i % 100))
         i = i - 1
+        image.update_animation('imagenes/relojito.gif', 100)
 
 def principal(n, lock):
 
