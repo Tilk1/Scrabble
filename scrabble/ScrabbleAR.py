@@ -24,9 +24,9 @@ def timer(n, lock):
     ventana_tiempo = sg.Window('temporizador', tiempo, no_titlebar=True, margins = (0,0) ,location= nuevas_coordenadas, keep_on_top= True)
     i = 12000
     image = ventana_tiempo['relojito']
-    while n.value == False:
-        time.sleep(0.10)  # ESPERA A LA SEÑAL
-    while n.value == True:  #  RECIBO MENSAJE
+    while n.value == False:  # ESPERA EL MENSAJE DE ROBOT1
+        time.sleep(0.10)  
+    while n.value == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
         ventana_tiempo.read(10)
         ventana_tiempo['timer'].update('{:02d}:{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60, i % 100))
         i = i - 1
@@ -135,7 +135,7 @@ def principal(n, lock):
         configuracion.close()
         event, values = window.read()
         if(event == 'comenzar'):
-            with lock:   # MANDO MENSAJE A ROBOT 2
+            with lock:   # mando mensaje para comenzar timer
                 n.value = True
             funciones.activarBotones(window)
             # reparto fichas al usuario
@@ -179,9 +179,8 @@ def principal(n, lock):
         except FileNotFoundError:
             sg.popup('Archivo de puntajes no encontrado')
 
-    with lock:   # MANDO MENSAJE A ROBOT 2
+    with lock:   # mando mensaje a robot2 para que se cierre
         n.value = False
-    print('fiajaij')
     window.close()
 
 
@@ -196,7 +195,7 @@ def robot2(n, lock):
     timer(n, lock)
 
 if __name__ == '__main__':
-    n = Value(c_bool, False)
+    n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
     lock = Lock()
     Process(target=robot1, args=(n, lock)).start() 
     Process(target=robot2, args=(n, lock)).start()
