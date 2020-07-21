@@ -7,24 +7,36 @@ import configuraciones as con
 import os
 import json
 import time
-import multiprocessing
+from multiprocessing import Process, Lock, Value
+from ctypes import c_bool
+
+global arranca_timer
 
 
-def timer():
-    while True:
-        time.sleep(3)
-        print("probando paralelo")
+def timer(n, lock):
+    tiempo = [[sg.Button(image_filename='imagenes/reloj.png', border_width=0, key='relojito'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 23), justification='center', text_color='salmon',key='timer', background_color='white'),],]
+    sg.theme_background_color(color='White')
+    sg.theme_button_color(color=('White', 'White'))
+    sg.theme_element_background_color(color='White')
+    coordenadas = (70,31)
+    nuevas_coordenadas= (coordenadas[0]+980, coordenadas[1]+30)
+    ventana_tiempo = sg.Window('temporizador', tiempo, no_titlebar=True, default_element_size=(40, 1),location= nuevas_coordenadas, keep_on_top= True)
+    i = 12000
+    while n.value == False:
+        time.sleep(0.10)  # ESPERA A LA SEÑAL
+    while n.value == True:  #  RECIBO MENSAJE
+        button, values = ventana_tiempo.read(10)
+        ventana_tiempo['timer'].update('{:02d}:{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60, i % 100))
+        i = i - 1
 
 
-def principal():
+def principal(n, lock):
 
     sg.theme_background_color(color='White')
     sg.theme_button_color(color=('Black', 'White'))
     sg.theme_element_background_color(color='White')
-
     # retorna el directorio donde estoy parado dependiendo OS + la carpeta imagenes
     cwd = funciones.carpetaImagenes()
-
     puntajeM = 0  # inicializacion puntaje usuario y maquina
     puntajeU = 0
     # diccionario con la imagen correspondiente a cada coordenada segun el tablero
@@ -113,12 +125,16 @@ def principal():
     popinter = sg.Window('intercambio', intercambiar)
     configuracion = sg.Window('config', config)
 
+    
+
     # llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
     event = con.elegirNivel(configuracion, bolsa)
     if(event == 'jugar'):
         configuracion.close()
         event, values = window.read()
         if(event == 'comenzar'):
+            with lock:   # MANDO MENSAJE A ROBOT 2
+                n.value = True
             funciones.activarBotones(window)
             # reparto fichas al usuario
             colocar.repartir(letrasU, bolsa, window, colores)
@@ -167,14 +183,14 @@ def principal():
 
 ## MULTI THREADING  ###########################
 
-def robot1():
-    principal()
+def robot1(n, lock):
+    principal(n, lock)
 
-def robot2():
-    timer()
+def robot2(n, lock):
+    timer(n, lock)
 
 if __name__ == '__main__':
-    r1 = multiprocessing.Process(name='r1', target=robot1)
-    r2 = multiprocessing.Process(name='r2', target=robot2)
-    r1.start()
-    r2.start()
+    n = Value(c_bool, False)
+    lock = Lock()
+    Process(target=robot1, args=(n, lock)).start() 
+    Process(target=robot2, args=(n, lock)).start()
