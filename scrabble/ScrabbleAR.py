@@ -14,13 +14,14 @@ global arranca_timer
 
 
 def timer(n, lock):
-    tiempo = [[sg.Image('imagenes/relojito.gif', key='relojito', background_color= 'White'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 23), justification='center', text_color='salmon',key='timer', background_color='white'),],]
+    tiempo = [[sg.Image('imagenes/relojito.gif', key='relojito', background_color= 'White'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 20), justification='center', text_color='salmon',key='timer', background_color='white'),],]
     sg.theme_background_color(color='White')
     sg.theme_button_color(color=('White', 'White'))
     sg.theme_element_background_color(color='White')
     coordenadas = (70,31)
-    nuevas_coordenadas= (coordenadas[0]+980, coordenadas[1]+30)
-    ventana_tiempo = sg.Window('temporizador', tiempo, no_titlebar=True, default_element_size=(40, 1),location= nuevas_coordenadas, keep_on_top= True)
+    #nuevas_coordenadas= (coordenadas[0]+980, coordenadas[1]+30)
+    nuevas_coordenadas= (500,0)
+    ventana_tiempo = sg.Window('temporizador', tiempo, no_titlebar=True, margins = (0,0) ,location= nuevas_coordenadas, keep_on_top= True)
     i = 12000
     image = ventana_tiempo['relojito']
     while n.value == False:
@@ -121,7 +122,7 @@ def principal(n, lock):
     colores = ['color1.png', 'color2.png',
             'color3.png', 'color4.png', 'color5.png']
 
-    window = sg.Window('tablero', layout,no_titlebar=True, grab_anywhere= True)
+    window = sg.Window('tablero', layout, grab_anywhere= True)
     popinter = sg.Window('intercambio', intercambiar)
     configuracion = sg.Window('config', config)
 
