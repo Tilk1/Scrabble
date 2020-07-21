@@ -25,10 +25,9 @@ def timer(n, lock):
     while n.value == False:
         time.sleep(0.10)  # ESPERA A LA SEÑAL
     while n.value == True:  #  RECIBO MENSAJE
-        button, values = ventana_tiempo.read(10)
+        ventana_tiempo.read(10)
         ventana_tiempo['timer'].update('{:02d}:{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60, i % 100))
         i = i - 1
-
 
 def principal(n, lock):
 
