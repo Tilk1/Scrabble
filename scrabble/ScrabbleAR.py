@@ -31,6 +31,7 @@ def timer(n, lock):
         ventana_tiempo['timer'].update('{:02d}:{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60, i % 100))
         i = i - 1
         image.update_animation('imagenes/relojito.gif', 150)
+    ventana_tiempo.close()
 
 def principal(n, lock):
     sg.theme_background_color(color='White')
@@ -178,7 +179,11 @@ def principal(n, lock):
         except FileNotFoundError:
             sg.popup('Archivo de puntajes no encontrado')
 
+    with lock:   # MANDO MENSAJE A ROBOT 2
+        n.value = False
+    print('fiajaij')
     window.close()
+
 
 
 
