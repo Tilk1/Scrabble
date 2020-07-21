@@ -89,7 +89,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, pue
 				if(tableroF=={} and puestas=={}):            							#Si es la primera ficha de toda la partida entonces la puedo poner solo en UN lugar
 					if(event==coordPlay):
 						poner=ponerFicha(window, letra, puestas, event)   #Llamo al metodo ponerFicha que actualiza en el tablero la letra
-						nro=nro+1    												#Sumo +1 porq agregue una ficha al tablero
+						nro+= 1    												#Sumo +1 porq agregue una ficha al tablero
 						letra=''      												#No tengo ninguna ficha en mano porq la puse en el tablero, entonces letra=''
 						ficha=event 												#ficha la uso para saber en que pos puedo poner la siguiente letra
 				elif(event in tableroF):    													#Si estoy intentando poner la ficha arriba de una de otra partida
