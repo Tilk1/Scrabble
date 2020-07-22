@@ -32,5 +32,5 @@ def intenta_las_combinaciones_quitando_una_letra(palabra):
         return devuelve_primera_combinacion(formada)
         
 
-palabra = input('ingrese algunas letras y se devuelve la primera combinacion posible: ')
-print('FINAL: ', intenta_las_combinaciones_quitando_una_letra(palabra))
+# palabra = input('ingrese algunas letras y se devuelve la primera combinacion posible: ')
+# print('FINAL: ', intenta_las_combinaciones_quitando_una_letra(palabra))

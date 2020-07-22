@@ -107,7 +107,7 @@ def activarBotones(window):
     window.FindElement("u6").Widget.config(cursor="hand2")
 
 
-def mostrar_top10(puntajes):
+def mostrar_top10(puntajes, configuracion):
     ancho_columnas = (10, 10)
     headings = ("NOMBRE", "PUNTAJE", "DIF", "FECHA")
     columna = [
@@ -121,9 +121,12 @@ def mostrar_top10(puntajes):
         [sg.Text('      ', font=('Fixedsys', 18), background_color='white'), sg.Button(
             'VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='volver')],
     ]
-    window = sg.Window("TOP 10", layout, resizable=True,
+    top10 = sg.Window("TOP 10", layout, resizable=True,
                        finalize=True).Finalize()
     while True:
-        event, _values = window.read()
-        if event is None:
+        event, values = top10.read()
+        print(event, values)
+        if event == 'volver' or event == None:
             break
+    top10.close()
+    configuracion.un_hide()
