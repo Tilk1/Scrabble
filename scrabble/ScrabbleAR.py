@@ -147,6 +147,7 @@ def principal(n, lock):
             
             while(not event in ('exit', None)):
                 puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
+               # window[(0,0)].update(image_filename='A.png')
                 event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsa, puestas)  # comienza la jugada
                 if(event == 'palabra'):
                     puntajeU = puntajeU+valor
