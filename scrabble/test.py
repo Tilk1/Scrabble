@@ -1,7 +1,15 @@
-
-pos_elegida = (1,1)
-pos_siguientes = pos_elegida[1]
-print(pos_siguientes, type(pos_siguientes))
-
-
-
+dict1 = {
+    "Hello": 56,
+    "at" : 23 ,
+    "test" : 43,
+    "this" : 43
+    }
+dict2 = { 'where' : 4 ,
+        'who' : 5 ,
+         'why': 6 ,
+         'this' : 20 
+         }
+    
+# Adding elements from dict2 to dict1
+dict1.update( dict2 )
+print(dict1)

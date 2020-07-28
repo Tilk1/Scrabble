@@ -46,12 +46,18 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
             break
     
 
-    # si estan disponibles entonces las dibujo y agrego al diccionario de ocupadas
+    # si estan disponibles entonces las dibujo
+    # tambien agrego al diccionario de ocupadas
+    # y se las quito de sus letras disponibles dandole nuevas
+
     if todas_disponibles == True:
         for i in range(tamaño):
-            window[(coord_x, i + coord_y)].update(image_filename='A.png')
+            coord = coord_x, i + coord_y
+            window[(coord)].update(image_filename= (formada[i] + '.png'))
+            tableroFichas.update({coord : formada[i] + '.png' })
+
+    print(tableroFichas)     
+
 
     return
-
-
     
