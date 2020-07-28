@@ -109,31 +109,37 @@ def principal(n, lock):
 
     val = con.val1
     cant = con.cant1
-    config = [
+    layoutmenu = [
         [sg.Image('scrabblelogo.png')],
         [sg.Combo(['Nivel fácil', 'Nivel medio', 'Nivel difícil'], font=('Fixedsys', 17), text_color='salmon',background_color='white', key='niveles', enable_events=True, default_value='Nivel fácil')],
         [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Text('20seg', key='tiempo', font=('Fixedsys', 15), text_color='purple', background_color='white')],
         [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='pink3', background_color='white'), sg.Text('sustantivos, adjetivos, verbos', key='palabras', font=('Fixedsys', 10), text_color='orange', background_color='white')],
-        [sg.Text('Puntaje Letras: ', font=('Fixedsys', 15), text_color='lightblue', background_color='white'), sg.Combo(values=val, default_value=val[0], key='pun', font=('Fixedsys', 15), text_color='salmon', background_color='white')],
-        [sg.Text('Cant letras: ', font=('Fixedsys', 15), text_color='orange', background_color='white'), sg.Combo(values=cant, default_value=cant[0], key='cant', font=('Fixedsys', 15), text_color='pink3', background_color='white')],
+        [sg.Text('Puntaje Letras: ', font=('Fixedsys', 15), text_color='lightblue', background_color='white'), sg.Combo(values=list(val.keys()), default_value=list(val.keys())[0], key='pun', font=('Fixedsys', 15), text_color='salmon', background_color='white')],
+        [sg.Text('Cant letras: ', font=('Fixedsys', 15), text_color='orange', background_color='white'), sg.Combo(values=list(cant.keys()), default_value=list(cant.keys())[0], key='cant', font=('Fixedsys', 15), text_color='pink3', background_color='white')],
         [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Text('15x15', key='tab', font=('Fixedsys', 15), text_color='lightblue4', background_color='white')],
-        [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar'), sg.Button('CONFIGURAR', font=('Fixedsys', 18), button_color=('salmon', 'White'), key='config'), sg.Button('TOP10', font=('Fixedsys', 18), button_color=('lightblue', 'White'), key='top10')]
+        [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar'), sg.Button('CONFIGURAR', font=('Fixedsys', 18), button_color=('salmon', 'White'), key='configurar'), sg.Button('TOP10', font=('Fixedsys', 18), button_color=('lightblue', 'White'), key='top10')]
     ]
+    config = [
+        [sg.Text('configuracion')],    
+        [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Combo(values=[x for x in range(1, 61)], key='time', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Text('min', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Ok()],
+        [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='pink3', background_color='white'), sg.Combo(values=['Adjetivos','Sustantivos','Verbos','Adjetivos/Sustantivos/Verbos', 'Sustantivos/Verbos','Adjetivos/Sustantivos','Adjetivos/Verbos'], key='tiposP', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Ok()],
+        [sg.Text('Puntaje Letras: ', font=('Fixedsys', 15), text_color='ligthblue', background_color='white'), sg.Combo(values=list(val.keys()), key='abc', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Combo(values=[x for x in range(1, 21)], key='tiposP', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Ok()]
 
+    ]   
     # parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
     colores = ['color1.png', 'color2.png',
             'color3.png', 'color4.png', 'color5.png']
 
     window = sg.Window('tablero', layout, grab_anywhere= True)
     popinter = sg.Window('intercambio', intercambiar)
+    menu = sg.Window('MENU', layoutmenu)
     configuracion = sg.Window('config', config)
-
     
 
     # llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
-    event = con.elegirNivel(configuracion, bolsa)
+    event = con.elegirNivel(menu, bolsa)
     if(event == 'jugar'):
-        configuracion.close()
+        menu.close()
         event, values = window.read()
         if(event == 'comenzar'):
             with lock:   # mando mensaje para comenzar timer
@@ -168,8 +174,11 @@ def principal(n, lock):
             window.close()
         else:
             event, values = window.read()
+    elif(event =='configurar'):
+        menu.close()
+        event, values = configuracion.read()
     elif(event == 'top10'):
-        configuracion.hide()
+        menu.hide()
         try:
             with open("puntajes.json") as arc:
                 datos = json.load(arc)
@@ -177,7 +186,7 @@ def principal(n, lock):
                     sg.popup('Archivo de puntajes no encontrado')
                 else:
                     puntajes = sorted(datos, reverse=True, key=lambda x: x[1])
-                    funciones.mostrar_top10(puntajes,configuracion)
+                    funciones.mostrar_top10(puntajes,menu)
 
         except FileNotFoundError:
             sg.popup('Archivo de puntajes no encontrado')
