@@ -86,13 +86,7 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, pue
 				poner=True
 		elif(isinstance(event, tuple)):    							#Si toco el tablero
 			if(poner and letra!=''):    							#Si tengo una ficha en mano (poner=True) y (letra!='')
-				if(tableroF=={} and puestas=={}):            							#Si es la primera ficha de toda la partida entonces la puedo poner solo en UN lugar
-					if(event==coordPlay):
-						poner=ponerFicha(window, letra, puestas, event)   #Llamo al metodo ponerFicha que actualiza en el tablero la letra
-						nro+= 1    												#Sumo +1 porq agregue una ficha al tablero
-						letra=''      												#No tengo ninguna ficha en mano porq la puse en el tablero, entonces letra=''
-						ficha=event 												#ficha la uso para saber en que pos puedo poner la siguiente letra
-				elif(event in tableroF):    													#Si estoy intentando poner la ficha arriba de una de otra partida
+				if(event in tableroF):    													#Si estoy intentando poner la ficha arriba de una de otra partida
 					sg.popup('No puede colocar una ficha sobre una de una jugada anterior')
 				elif(event in puestas):
 					sg.popup('No puede colocar la letra en un lugar ocupado, retirela si lo desea')   	#Si intento poner una ficha sobre las ya puestas en esa jugada
@@ -143,13 +137,22 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, pue
 			else:
 				sg.popup('Para hacer un intercambio no puede haber fichas colocadas en el tablero de la jugada actual, saquelas para poder hacerlo, pero perdera el turno')		
 		elif(event=='palabra'):                                                     #Si toco el boton 'palabra', entonces significa que analizo si existe o no lo que forme en el tablero
-			if(funciones.tipoPalabra(puestas)!="no_existe"):                      #llamo a la funcion tipoPalabra() que me dice si es un sustantivo, adjetivo, verbo o no existe en pattern
-				valor = funciones.calcularPuntaje(puestas, tableroI, bolsa)       #calculo el puntaje segun las casillas y el valor de cada letra
-				for x in puestas:                                  
-					tableroF[x]=puestas[x]                     #agrego las fichas que se confirmaron forman una palbra en el diccionario de toda las fichas del juego, no de solo esa partida
-				salir=True
+			ponerpal=True
+			if(tableroF=={}):
+				if (not coordPlay in puestas.keys()):
+					ponerpal=False
+			if(ponerpal):
+				if(funciones.tipoPalabra(puestas)!="no_existe"):                      #llamo a la funcion tipoPalabra() que me dice si es un sustantivo, adjetivo, verbo o no existe en pattern
+					valor = funciones.calcularPuntaje(puestas, tableroI, bolsa)       #calculo el puntaje segun las casillas y el valor de cada letra
+					for x in puestas:                                  
+						tableroF[x]=puestas[x]                     #agrego las fichas que se confirmaron forman una palbra en el diccionario de toda las fichas del juego, no de solo esa partida
+					salir=True
+				else:
+					sg.popup('No existe esa palabra, vuelva a intentarlo')
+					sacarFicha(tableroI, puestas, originales, letras, 'sacar', window)     #saco todas las fichas porque esa palabra no existe, no termina la jugada, vuelvo a intentar
+					nro=0
 			else:
-				sg.popup('No existe esa palabra, vuelva a intentarlo')
+				sg.popup('La primera palabra del juego debe pasar por el inicio')
 				sacarFicha(tableroI, puestas, originales, letras, 'sacar', window)     #saco todas las fichas porque esa palabra no existe, no termina la jugada, vuelvo a intentar
 				nro=0
 		if(salir!=True):   
