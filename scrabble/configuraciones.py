@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 
 
-def configLetras(c, a, bolsa):
+def configLetras(c, a, bolsa): #agrega los cambios a la bolsa
     for x in c:
         bolsa[x+'.png'][a] = c[x]
 
