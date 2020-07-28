@@ -33,13 +33,10 @@ def tipoPalabra(d):
                 if (not(palabra.lower() in lexicon) and not(palabra.upper() in lexicon) and not(palabra.capitalize() in lexicon)):
                     return 'no_existe'
                 else:
-                    print('La encontró en lexicon')
                     return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
             else:
-                print('La encontró en spelling')
                 return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
         else:
-            print('La encontró en verbs')
             return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
     else:
         return tipo
