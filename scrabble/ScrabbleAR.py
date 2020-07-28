@@ -9,6 +9,7 @@ import json
 import time
 from multiprocessing import Process, Lock, Value
 from ctypes import c_bool
+import compu
 
 global arranca_timer
 
@@ -90,7 +91,7 @@ def principal(n, lock):
         [sg.Button(image_filename='sacar.png', border_width=0,key='sacar', disabled=True)]
     ]
     column1 = [
-        [sg.Image('robot.png'), sg.Text('Puntaje: ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'), sg.Button(image_filename='inicio.png', border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20), justification='center', key='temporizador', visible=False)],
+        [sg.Image('imagenes/robot.gif', key = 'gifcompu'), sg.Text('Puntaje: ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'), sg.Button(image_filename='inicio.png', border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20), justification='center', key='temporizador', visible=False)],
         [sg.Button('', image_filename='color1.png', image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename='color3.png', image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename='color4.png', image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename='color5.png', image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename='color1.png', image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='m6', disabled=True)],
         [sg.Column([[sg.Text(texto_reporte, text_color='black', key='reporte',background_color='lightblue', size=(30, 25))]]), sg.Column(columna)],
         [sg.Image('jugador.png'), sg.Text(text='Puntaje: 00 ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
@@ -143,6 +144,7 @@ def principal(n, lock):
             # reparto fichas a la maquina
             colocar.repartir(letrasM, bolsa, window, colores)
             hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
+            
             while(not event in ('exit', None)):
                 puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
                 event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsa, puestas)  # comienza la jugada
@@ -161,12 +163,13 @@ def principal(n, lock):
                     hide = True
                     colocar.intercambiarFichas(
                         letrasU, bolsa, window, values['cant'])
+                compu.turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa)
         elif(event == 'terminar'):
             window.close()
         else:
             event, values = window.read()
     elif(event == 'top10'):
-        configuracion.close()
+        configuracion.hide()
         try:
             with open("puntajes.json") as arc:
                 datos = json.load(arc)
@@ -174,10 +177,11 @@ def principal(n, lock):
                     sg.popup('Archivo de puntajes no encontrado')
                 else:
                     puntajes = sorted(datos, reverse=True, key=lambda x: x[1])
-                    funciones.mostrar_top10(puntajes)
+                    funciones.mostrar_top10(puntajes,configuracion)
 
         except FileNotFoundError:
             sg.popup('Archivo de puntajes no encontrado')
+        
 
     with lock:   # mando mensaje a robot2 para que se cierre
         n.value = False

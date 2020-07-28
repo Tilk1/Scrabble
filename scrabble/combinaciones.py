@@ -16,20 +16,21 @@ def devuelve_primera_combinacion(palabra):
 
 vocales = ['a','e', 'i', 'o' , 'u']
 
+
+
 def intenta_las_combinaciones_quitando_una_letra(palabra):
     formada = palabra
-    while ((devuelve_primera_combinacion(formada) == "no_encontro") & (len(formada) > 1 )): #mientras no formemos nada
+    while ((devuelve_primera_combinacion(formada) == "no_encontro") & (len(formada) >= 0 )): #mientras no formemos nada
         print('DEBUG ',formada)
         if formada[len(formada)-1] == vocales[:]: ## si la ultima letra es una vocal
             formada = formada[+1:]                ## entonces sacamos la primera
         else:
             formada = formada[:-1]                ## sino sacamos la ultima
-    if len(formada) > 1:
-        return devuelve_primera_combinacion(formada)
+    if len(formada) == 1:
+        return 'no_encontro'    
     else:
-        return 'no_encontro'
+        return devuelve_primera_combinacion(formada)
+        
 
-
-
-palabra = input('ingrese algunas letras y se devuelve la primera combinacion posible: ')
-print('FINAL: ', intenta_las_combinaciones_quitando_una_letra(palabra))
+# palabra = input('ingrese algunas letras y se devuelve la primera combinacion posible: ')
+# print('FINAL: ', intenta_las_combinaciones_quitando_una_letra(palabra))
