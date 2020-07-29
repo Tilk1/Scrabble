@@ -12,7 +12,7 @@ def randomLetra(bolsa):   #elige una letra random de la bolsa y la quita d ela b
     return letra
 
 
-def repartir(letras, bolsa, window, colores):   #reparte las fichas al principio del juego y de cada jugada si faltan fichas
+def repartir(letras, bolsa, window):   #reparte las fichas al principio del juego y de cada jugada si faltan fichas
 	for x in letras:
 		if(letras[x]==''):    #Tengo en cuenta letras[x]=='' ya que al principio del juego, el diccionario letras es letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''} y cuando no hay ninguna letra en el atril en esa pos
 			letra=randomLetra(bolsa)

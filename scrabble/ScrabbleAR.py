@@ -140,9 +140,9 @@ def principal(n, lock):
                 n.value = True
             funciones.activarBotones(window)
             # reparto fichas al usuario
-            colocar.repartir(letrasU, bolsa, window, colores)
+            colocar.repartir(letrasU, bolsa, window)
             # reparto fichas a la maquina
-            colocar.repartir(letrasM, bolsa, window, colores)
+            colocar.repartir(letrasM, bolsa, window)
             hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
             
             while(not event in ('exit', None)):
@@ -154,7 +154,7 @@ def principal(n, lock):
                     window["reporte"].update(texto_reporte)
                     window['puntU'].update('Puntaje:'+str(puntajeU))
                     # vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
-                    colocar.repartir(letrasU, bolsa, window, colores)
+                    colocar.repartir(letrasU, bolsa, window)
                 if(event == 'intercambiar'):
                     if(hide):
                         popinter.UnHide()
