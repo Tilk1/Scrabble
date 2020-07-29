@@ -1,15 +1,15 @@
-dict1 = {
-    "Hello": 56,
-    "at" : 23 ,
-    "test" : 43,
-    "this" : 43
-    }
-dict2 = { 'where' : 4 ,
-        'who' : 5 ,
-         'why': 6 ,
-         'this' : 20 
-         }
-    
-# Adding elements from dict2 to dict1
-dict1.update( dict2 )
-print(dict1)
+
+letrasM = {'m0': 'L.png', 'm1': 'O.png', 'm2': 'T.png',
+           'm3': 'R.png', 'm4': 'J.png', 'm5': 'V.png', 'm6': 'O.png'}
+
+formada = 'LOV'
+
+for i in formada:
+    print(i)
+    for key, value in letrasM.items():
+        if (letrasM[key].split('.')[0]) == i:
+            print('Eliminando letra: ', letrasM[key])
+            letrasM[key] = ''
+            break
+
+print(letrasM)
