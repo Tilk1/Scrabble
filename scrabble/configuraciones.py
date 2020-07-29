@@ -14,27 +14,35 @@ def elegirNivel(win, bolsa):
         if(event == 'niveles'):
             if('Nivel fácil' == values['niveles']):
                 win['palabras'].update('sustantivos, adjetivos, verbos')
-                win['pun'].update(values=val1)
-                win['cant'].update(values=cant1)
+                win['pun'].update(values=list(val1.keys()))
+                win['cant'].update(values=list(cant1.keys()))
+                win['punV'].update(val1['A'])
+                win['cantV'].update(cant1['A'])
                 win['tab'].update('15x15')
                 val = val1
                 cant = cant1
             elif('Nivel medio' == values['niveles']):
                 win['palabras'].update('adjetivos, verbos')
-                win['pun'].update(values=val2)
-                win['cant'].update(values=cant2)
+                win['pun'].update(values=list(val2.keys()))
+                win['cant'].update(values=list(cant2.keys()))
+                win['punV'].update(val2['A'])
+                win['cantV'].update(cant2['A'])
                 win['tab'].update('15x17')
                 val = val2
                 cant = cant2
             elif('Nivel difícil' == values['niveles']):
                 win['palabras'].update('adjetivos, verbos')
-                win['pun'].update(values=val3)
-                win['cant'].update(values=cant3)
+                win['pun'].update(values=list(val3.keys()))
+                win['cant'].update(values=list(cant3.keys()))
+                win['punV'].update(val3['A'])
+                win['cantV'].update(cant3['A'])
                 win['tab'].update('15x20')
                 val = val3
                 cant = cant3
         elif(event == 'pun'):
-            print(event,values)
+            win['punV'].update(val[values['pun']])
+        elif(event=='cant'):
+             win['cantV'].update(cant[values['cant']])
         event, values = win.read()
     configLetras(val, 'valor', bolsa)
     configLetras(cant, 'cant', bolsa)
