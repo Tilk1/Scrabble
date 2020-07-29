@@ -26,7 +26,13 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     tamaño = len(formada)
     print('la palabra formada es: ', formada, 'de tamaño: ', tamaño)
 
-    if formada != ('no_encontro'):
+    #si no encuentra palabra tira todas sus fichas a la basura (esto podria hacerse funcion)
+
+    if formada == ('no_encontro'):       
+        for key, value in letrasM.items():
+            letrasM[key] = ''
+
+    else:
         ## se para en una posicion al azar de libres
         # comprueba que las casillas no esten ocupadas osea que no este en tableroFichas.Keys
         # Pero tambien debo verificar que existan esas posiciones en el tablero, para q no se vaya a la cuarta dimension
@@ -84,6 +90,7 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
                 letrasM[key] = ''
 
 
+    # vuelve a robar fichas de a cuerdo a las que le faltan
     funcionesFichas.repartir(letrasM, bolsa, window)
     return
     
