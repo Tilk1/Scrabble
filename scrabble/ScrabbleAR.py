@@ -44,9 +44,6 @@ def principal(n, lock):
     puntajeU = 0
     # diccionario con la imagen correspondiente a cada coordenada segun el tablero
     tableroIm = dict()
-    # funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
-    tablero = tableros.crearTablero(tableros.tablero1, 15, 15, tableroIm, sg)
-    inicio = tableros.tablero1['play'][1]
     # fichas colocadas en el tablero de forma definitiva, es decir, palabras que fueron confirmadas
     tableroFichas = dict()
     bolsa = {'A.png': {'cant': 0, 'valor': 0},
@@ -112,7 +109,7 @@ def principal(n, lock):
     layoutmenu = [
         [sg.Image('scrabblelogo.png')],
         [sg.Combo(['Nivel fácil', 'Nivel medio', 'Nivel difícil'], font=('Fixedsys', 17), text_color='salmon',background_color='white', key='niveles', enable_events=True, default_value='Nivel fácil')],
-        [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Text('20seg', key='tiempo', font=('Fixedsys', 15), text_color='purple', background_color='white')],
+        [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Text('8min', key='tiempo', font=('Fixedsys', 15), text_color='purple', background_color='white')],
         [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='pink3', background_color='white'), sg.Text('sustantivos, adjetivos, verbos', key='palabras', font=('Fixedsys', 10), text_color='orange', background_color='white')],
         [sg.Text('Puntaje Letras: ', font=('Fixedsys', 15), text_color='lightblue', background_color='white'), sg.Combo(values=list(val.keys()),enable_events=True, default_value=list(val.keys())[0], key='pun', font=('Fixedsys', 15), text_color='salmon', background_color='white'),sg.Text(val['A'],key='punV')],
         [sg.Text('Cant letras: ', font=('Fixedsys', 15), text_color='orange', background_color='white'), sg.Combo(values=list(cant.keys()),enable_events=True, default_value=list(cant.keys())[0], key='cant', font=('Fixedsys', 15), text_color='pink3', background_color='white'),sg.Text(cant['A'],key='cantV')],
@@ -132,7 +129,7 @@ def principal(n, lock):
         row3,
         [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='orange', background_color='white'), sg.Combo(values=[x for x in range(1, 61)], default_value=1,key='time', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Text('min', font=('Fixedsys', 15), text_color='salmon', background_color='white')],
         [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Combo(values=['Adjetivos','Sustantivos','Verbos','Adjetivos/Sustantivos/Verbos', 'Sustantivos/Verbos','Adjetivos/Sustantivos','Adjetivos/Verbos'],default_value='Adjetivo', key='tiposP', font=('Fixedsys', 15), text_color='purple', background_color='white')],
-        [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Combo(values=['15x15','15x17','15x20'],default_value='15x15', key='time', font=('Fixedsys', 15), text_color='purple', background_color='white')],
+        [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Combo(values=['15x15','15x17','15x20'],default_value='15x15', key='table', font=('Fixedsys', 15), text_color='purple', background_color='white')],
         [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')]
     ]   
     # parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
@@ -146,7 +143,11 @@ def principal(n, lock):
     
 
     # llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
-    event = con.elegirNivel(menu, bolsa)
+    event,tiempo,palabras,tab = con.elegirNivel(menu, bolsa)
+    # funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
+    tablero = tableros.crearTablero(tableros.tablero1, tab[0], tab[1], tableroIm, sg)
+    inicio = tableros.tablero1['play'][1]
+    print(bolsa)
     while(not event in (None, 'exit')):
         if(event == 'jugar'):
             menu.close()
@@ -188,9 +189,19 @@ def principal(n, lock):
             menu.close()
             event, values = configuracion.read()
             while(event!='jugar'):
-                if(event in ('1','2','3','4','5')):
-                    values['cant']
                 event, values = configuracion.read()
+            print(values)
+            num=0
+            bolsa[n+'.png']['valor']=values['letV']
+            for n in val:
+                bolsa[n+'.png']['valor']=values['letV'+str(num)]
+                num=num+1
+            bolsa[n+'.png']['cant']=values['cantidV']
+            for n in cant:
+                bolsa[n+'.png']['cant']=values['cantidV'+str(num)]
+                num=num+1
+            
+            print(bolsa)
         elif(event == 'top10'):
             menu.hide()
             try:

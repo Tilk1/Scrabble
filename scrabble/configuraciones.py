@@ -13,6 +13,10 @@ def elegirNivel(win, bolsa):
     while(not event in ('jugar', 'configurar', 'top10', None)):
         if(event == 'niveles'):
             if('Nivel fácil' == values['niveles']):
+                tiempo=8
+                palabras='sustantivos, adjetivos, verbos'
+                tab=(15,15)
+                win['tiempo'].update('8min')
                 win['palabras'].update('sustantivos, adjetivos, verbos')
                 win['pun'].update(values=list(val1.keys()))
                 win['cant'].update(values=list(cant1.keys()))
@@ -22,6 +26,10 @@ def elegirNivel(win, bolsa):
                 val = val1
                 cant = cant1
             elif('Nivel medio' == values['niveles']):
+                tiempo=6
+                palabras='adjetivos, verbos'
+                tab=(15,17)
+                win['tiempo'].update('6min')
                 win['palabras'].update('adjetivos, verbos')
                 win['pun'].update(values=list(val2.keys()))
                 win['cant'].update(values=list(cant2.keys()))
@@ -31,6 +39,10 @@ def elegirNivel(win, bolsa):
                 val = val2
                 cant = cant2
             elif('Nivel difícil' == values['niveles']):
+                tiempo=4
+                palabras='adjetivos, verbos'
+                tab=(15,20)
+                win['tiempo'].update('4min')
                 win['palabras'].update('adjetivos, verbos')
                 win['pun'].update(values=list(val3.keys()))
                 win['cant'].update(values=list(cant3.keys()))
@@ -46,7 +58,7 @@ def elegirNivel(win, bolsa):
         event, values = win.read()
     configLetras(val, 'valor', bolsa)
     configLetras(cant, 'cant', bolsa)
-    return event
+    return event,tiempo,palabras,tab
 
 
 # niveles, letras valor y cantidad predeterminado
