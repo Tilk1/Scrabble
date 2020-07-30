@@ -119,20 +119,20 @@ def principal(n, lock):
         [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Text('15x15', key='tab', font=('Fixedsys', 15), text_color='lightblue4', background_color='white')],
         [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar'), sg.Button('CONFIGURAR', font=('Fixedsys', 18), button_color=('salmon', 'White'), key='configurar'), sg.Button('TOP10', font=('Fixedsys', 18), button_color=('lightblue', 'White'), key='top10')]
     ]
-    letrasFila = []
-    for x in val.keys():
-        letrasFila.append(sg.Text(x, font=('Fixedsys', 17)))
-    columLetras=[
-        letrasFila,
-        
-    ]
+    row1 = [sg.Text('    ',font=('Fixedsys',12),text_color='white', background_color='white'),sg.Image('letras.png', background_color='white')]
+    row2 = [sg.Text('valor',font=('Fixedsys',12),text_color='pink3', background_color='white')]
+    row3 = [sg.Text('cant ',font=('Fixedsys',12),text_color='lightblue', background_color='white')]
+    for y in val.keys():
+        row2.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='letV', font=('Fixedsys', 15), text_color='purple', background_color='white'))
+        row3.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='cantidV', font=('Fixedsys', 15), text_color='purple', background_color='white'))
     config = [
-        [sg.Text('configuracion')],    
-        [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Combo(values=[x for x in range(1, 61)], default_value=1,key='time', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Text('min', font=('Fixedsys', 15), text_color='salmon', background_color='white'),sg.Button('OK',key='1')],
-        [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='pink3', background_color='white'), sg.Combo(values=['Adjetivos','Sustantivos','Verbos','Adjetivos/Sustantivos/Verbos', 'Sustantivos/Verbos','Adjetivos/Sustantivos','Adjetivos/Verbos'],default_value='Adjetivo', key='tiposP', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Button('OK',key='2')],
-        [sg.Text('Puntaje Letras: ', font=('Fixedsys', 15), text_color='lightblue', background_color='white'), sg.Combo(values=list(val.keys()),default_value=list(val.keys())[0], key='abc', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='letV', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Button('OK',key='3')],
-        [sg.Text('Cant Letras: ', font=('Fixedsys', 15), text_color='orange', background_color='white'), sg.Combo(values=list(cant.keys()),default_value=list(cant.keys())[0], key='cantid', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Combo(values=[x for x in range(1, 15)], default_value=1,key='caV', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Button('OK',key='4')],
-        [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Combo(values=['15x15','15x17','15x20'],default_value='15x15', key='time', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Button('OK',key='5')],
+        [sg.Image('configtitulo.png')],    
+        row1,
+        row2,
+        row3,
+        [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='orange', background_color='white'), sg.Combo(values=[x for x in range(1, 61)], default_value=1,key='time', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Text('min', font=('Fixedsys', 15), text_color='salmon', background_color='white')],
+        [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Combo(values=['Adjetivos','Sustantivos','Verbos','Adjetivos/Sustantivos/Verbos', 'Sustantivos/Verbos','Adjetivos/Sustantivos','Adjetivos/Verbos'],default_value='Adjetivo', key='tiposP', font=('Fixedsys', 15), text_color='purple', background_color='white')],
+        [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Combo(values=['15x15','15x17','15x20'],default_value='15x15', key='time', font=('Fixedsys', 15), text_color='purple', background_color='white')],
         [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')]
     ]   
     # parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
