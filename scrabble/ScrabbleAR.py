@@ -2,7 +2,6 @@ import funciones
 import PySimpleGUI as sg
 import funcionesFichas as colocar
 import random
-import tableros
 import configuraciones as con
 import os
 import json
@@ -43,7 +42,6 @@ def principal(n, lock):
     puntajeM = 0  # inicializacion puntaje usuario y maquina
     puntajeU = 0
     # diccionario con la imagen correspondiente a cada coordenada segun el tablero
-    tableroIm = dict()
     # fichas colocadas en el tablero de forma definitiva, es decir, palabras que fueron confirmadas
     tableroFichas = dict()
     bolsa = {'A.png': {'cant': 0, 'valor': 0},
@@ -95,9 +93,7 @@ def principal(n, lock):
         [sg.Button('', image_filename='color1.png', image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename='color3.png', image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename='color4.png', image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename='color5.png', image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename='color1.png', image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='u6', disabled=True)],
         [sg.Button(image_filename='terminar.png', key='exit', border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename='posponer.png', key='posponer', border_width=0)]
     ]
-    layout = [
-        [sg.Column(tablero), sg.Column(column1)],  # tablero aca
-    ]
+    
     intercambiar = [
         [sg.Text('Cant de fichas a intercambiar')],
         [sg.Spin([i for i in range(1, 8)], initial_value=1, key='cant')],
@@ -110,7 +106,7 @@ def principal(n, lock):
         [sg.Image('scrabblelogo.png')],
         [sg.Combo(['Nivel fácil', 'Nivel medio', 'Nivel difícil'], font=('Fixedsys', 17), text_color='salmon',background_color='white', key='niveles', enable_events=True, default_value='Nivel fácil')],
         [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Text('8min', key='tiempo', font=('Fixedsys', 15), text_color='purple', background_color='white')],
-        [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='pink3', background_color='white'), sg.Text('sustantivos, adjetivos, verbos', key='palabras', font=('Fixedsys', 10), text_color='orange', background_color='white')],
+        [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='pink3', background_color='white'), sg.Text('sustantivos/adjetivos/verbos', key='palabras', font=('Fixedsys', 10), text_color='orange', background_color='white')],
         [sg.Text('Puntaje Letras: ', font=('Fixedsys', 15), text_color='lightblue', background_color='white'), sg.Combo(values=list(val.keys()),enable_events=True, default_value=list(val.keys())[0], key='pun', font=('Fixedsys', 15), text_color='salmon', background_color='white'),sg.Text(val['A'],key='punV')],
         [sg.Text('Cant letras: ', font=('Fixedsys', 15), text_color='orange', background_color='white'), sg.Combo(values=list(cant.keys()),enable_events=True, default_value=list(cant.keys())[0], key='cant', font=('Fixedsys', 15), text_color='pink3', background_color='white'),sg.Text(cant['A'],key='cantV')],
         [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Text('15x15', key='tab', font=('Fixedsys', 15), text_color='lightblue4', background_color='white')],
@@ -129,25 +125,25 @@ def principal(n, lock):
         row3,
         [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='orange', background_color='white'), sg.Combo(values=[x for x in range(1, 61)], default_value=1,key='time', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Text('min', font=('Fixedsys', 15), text_color='salmon', background_color='white')],
         [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Combo(values=['Adjetivos','Sustantivos','Verbos','Adjetivos/Sustantivos/Verbos', 'Sustantivos/Verbos','Adjetivos/Sustantivos','Adjetivos/Verbos'],default_value='Adjetivo', key='tiposP', font=('Fixedsys', 15), text_color='purple', background_color='white')],
-        [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Combo(values=['15x15','15x17','15x20'],default_value='15x15', key='table', font=('Fixedsys', 15), text_color='purple', background_color='white')],
+        [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Combo(values=[(15,15),(15,17),(15,20)],default_value=(15,15), key='table', font=('Fixedsys', 15), text_color='purple', background_color='white')],
         [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')]
     ]   
     # parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
     colores = ['color1.png', 'color2.png',
             'color3.png', 'color4.png', 'color5.png']
 
-    window = sg.Window('tablero', layout, grab_anywhere= True)
     popinter = sg.Window('intercambio', intercambiar)
     menu = sg.Window('MENU', layoutmenu)
     configuracion = sg.Window('config', config)
     
-
+    tableroIm = dict()
     # llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
-    event,tiempo,palabras,tab = con.elegirNivel(menu, bolsa)
+    event,t,palabras,tab = con.elegirNivel(menu, bolsa)
+    palabras=palabras.split('/')
+    print(palabras)
     # funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
-    tablero = tableros.crearTablero(tableros.tablero1, tab[0], tab[1], tableroIm, sg)
-    inicio = tableros.tablero1['play'][1]
-    print(bolsa)
+    if(event!='configurar'):
+        inicio, window=con.cofigtab(tab,column1,tableroIm)
     while(not event in (None, 'exit')):
         if(event == 'jugar'):
             menu.close()
@@ -161,10 +157,9 @@ def principal(n, lock):
                 # reparto fichas a la maquina
                 colocar.repartir(letrasM, bolsa, window, colores)
                 hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
-            
                 while(not event in ('exit', None)):
                     puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
-                    event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsa, puestas)  # comienza la jugada
+                    event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsa, puestas,palabras)  # comienza la jugada
                     if(event == 'palabra'):
                         puntajeU = puntajeU+valor
                         texto_reporte = texto_reporte + '\n' + 'Usuario: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
@@ -190,18 +185,25 @@ def principal(n, lock):
             event, values = configuracion.read()
             while(event!='jugar'):
                 event, values = configuracion.read()
-            print(values)
-            num=0
-            bolsa[n+'.png']['valor']=values['letV']
+            num=-1
             for n in val:
-                bolsa[n+'.png']['valor']=values['letV'+str(num)]
+                if(num==-1):
+                    bolsa[n+'.png']['valor']=values['letV']
+                else:
+                    bolsa[n+'.png']['valor']=values['letV'+str(num)]
                 num=num+1
-            bolsa[n+'.png']['cant']=values['cantidV']
+            num=27
             for n in cant:
-                bolsa[n+'.png']['cant']=values['cantidV'+str(num)]
+                if(num==27):
+                    bolsa[n+'.png']['cant']=values['cantidV']
+                else:
+                    bolsa[n+'.png']['cant']=values['cantidV'+str(num)]
                 num=num+1
-            
-            print(bolsa)
+            inicio, window=con.cofigtab(values['table'],column1,tableroIm)
+            t=values['time']
+            palabras=values['tiposP']
+            palabras=palabras.split('/')
+            print(palabras)
         elif(event == 'top10'):
             menu.hide()
             try:
@@ -217,9 +219,9 @@ def principal(n, lock):
                 sg.popup('Archivo de puntajes no encontrado')
         
 
-        with lock:   # mando mensaje a robot2 para que se cierre
-            n.value = False
-        window.close()
+    with lock:   # mando mensaje a robot2 para que se cierre
+        n.value = False
+    window.close()
 
 
 
