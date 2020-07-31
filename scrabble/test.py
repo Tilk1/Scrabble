@@ -16,7 +16,6 @@ def tipoPalabra(d):
     tipo = clasificar(analisis)
     #if len(palabra) == 1:      SIRVE PARA TESTEAR POR AHORA
     #    return 'no_existe'
-    print(tipo)
     if(tipo == 'sustantivos'):
         if not palabra.lower() in verbs:
             if not palabra.lower() in spelling:
@@ -31,4 +30,4 @@ def tipoPalabra(d):
     else:
         return tipo
 
-print(tipoPalabra('a'))
+print(tipoPalabra('correr'))
