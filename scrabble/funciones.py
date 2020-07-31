@@ -104,6 +104,12 @@ def activarBotones(window):
     window.FindElement("u6").Widget.config(cursor="hand2")
 
 
+def activar_desactivar_Botones_basicos(window, boolean):
+    window["intercambiar"].Update(disabled=boolean)
+    window["intercambiar"].Update(disabled=boolean)
+    window["palabra"].Update(disabled=boolean)
+    window["sacar"].Update(disabled=boolean)
+
 def mostrar_top10(puntajes, configuracion):
     ancho_columnas = (10, 10)
     headings = ("NOMBRE", "PUNTAJE", "DIF", "FECHA")

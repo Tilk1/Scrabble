@@ -2,9 +2,11 @@ import time
 import random
 import combinaciones
 import funcionesFichas
+import funciones
 
 def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
-    
+    botones_disable = True
+    funciones.activar_desactivar_Botones_basicos(window, botones_disable)
     ###  hace tiempo para que corra el gif y quede bonito ###
     segundos_de_loop = time.time() + 2
     image = window['gifcompu']
@@ -92,5 +94,7 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
 
     # vuelve a robar fichas de a cuerdo a las que le faltan
     funcionesFichas.repartir(letrasM, bolsa, window)
+    botones_disable = False
+    funciones.activar_desactivar_Botones_basicos(window, botones_disable)
     return
     
