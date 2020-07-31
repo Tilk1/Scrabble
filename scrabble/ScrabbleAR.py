@@ -157,14 +157,12 @@ def principal(n, lock):
 				while(not event in ('exit', None) and estadoBolsa=='sigo'):
 					puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
 					event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsaCopia, puestas,palabras)  # comienza la jugada
-					print('lala')
 					if(event == 'palabra'):
 						puntajeU = puntajeU+valor
 						texto_reporte = texto_reporte + '\n' + 'Usuario: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
 						window["reporte"].update(texto_reporte)
 						window['puntU'].update('Puntaje:'+str(puntajeU))
 						# vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
-						print('pepe')
 						estadoBolsa=colocar.repartir(letrasU, bolsa, window)
 					if(event == 'intercambiar'):
 						if(hide):

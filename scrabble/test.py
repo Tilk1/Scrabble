@@ -32,4 +32,4 @@ def tipoPalabra(d):
     else:
         return tipo
 
-print(tipoPalabra('feo'))
+print(tipoPalabra(''))
