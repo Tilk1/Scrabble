@@ -17,10 +17,8 @@ def clasificar(cual):
         return "adjetivos"
     elif cual == "VB":
         return "verbos"
-    elif cual == 'NN':
-        return 'sustantivos'
     else:
-        return None
+        return 'sustantivos'
 
 
 def tipoPalabra(d):
