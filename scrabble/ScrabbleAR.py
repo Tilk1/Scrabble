@@ -84,12 +84,12 @@ def principal(n, lock):
         [sg.Button(image_filename=(os.path.join('imagenes','sacar.png')), border_width=0,key='sacar', disabled=True)]
     ]
     column1 = [
-        [sg.Image(os.path.join('imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje: ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'), sg.Button(image_filename='inicio.png', border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20), justification='center', key='temporizador', visible=False)],
-        [sg.Button('', image_filename='color1.png', image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename='color3.png', image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename='color4.png', image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename='color5.png', image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename='color1.png', image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='m6', disabled=True)],
+        [sg.Image(os.path.join('imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje: ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'), sg.Button(image_filename=os.path.join('imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20), justification='center', key='temporizador', visible=False)],
+        [sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
         [sg.Column([[sg.Text(texto_reporte, text_color='black', key='reporte',background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
-        [sg.Image('jugador.png'), sg.Text(text='Puntaje: 00 ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
-        [sg.Button('', image_filename='color1.png', image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename='color3.png', image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename='color4.png', image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename='color5.png', image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename='color1.png', image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='u6', disabled=True)],
-        [sg.Button(image_filename='terminar.png', key='exit', border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename='posponer.png', key='posponer', border_width=0)]
+        [sg.Image(os.path.join('imagenes','jugador.png')), sg.Text(text='Puntaje: 00 ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
+        [sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True)],
+        [sg.Button(image_filename=os.path.join('imagenes','terminar.png'), key='exit', border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join('imagenes','posponer.png'), key='posponer', border_width=0)]
     ]
     
     intercambiar = [
@@ -101,7 +101,7 @@ def principal(n, lock):
     val = con.val1
     cant = con.cant1
     layoutmenu = [
-        [sg.Image('scrabblelogo.png')],
+        [sg.Image(os.path.join('imagenes','scrabblelogo.png'))],
         [sg.Combo(['Nivel fácil', 'Nivel medio', 'Nivel difícil'], font=('Fixedsys', 17), text_color='salmon',background_color='white', key='niveles', enable_events=True, default_value='Nivel fácil')],
         [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Text('8min', key='tiempo', font=('Fixedsys', 15), text_color='purple', background_color='white')],
         [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='pink3', background_color='white'), sg.Text('sustantivos/adjetivos/verbos', key='palabras', font=('Fixedsys', 10), text_color='orange', background_color='white')],
@@ -110,14 +110,14 @@ def principal(n, lock):
         [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Text('15x15', key='tab', font=('Fixedsys', 15), text_color='lightblue4', background_color='white')],
         [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar'), sg.Button('CONFIGURAR', font=('Fixedsys', 18), button_color=('salmon', 'White'), key='configurar'), sg.Button('TOP10', font=('Fixedsys', 18), button_color=('lightblue', 'White'), key='top10')]
     ]
-    row1 = [sg.Text('    ',font=('Fixedsys',12),text_color='white', background_color='white'),sg.Image('letras.png', background_color='white')]
+    row1 = [sg.Text('    ',font=('Fixedsys',12),text_color='white', background_color='white'),sg.Image(os.path.join('imagenes','letras.png'), background_color='white')]
     row2 = [sg.Text('valor',font=('Fixedsys',12),text_color='pink3', background_color='white')]
     row3 = [sg.Text('cant ',font=('Fixedsys',12),text_color='lightblue', background_color='white')]
     for y in val.keys():
         row2.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='valor', font=('Fixedsys', 15), text_color='purple', background_color='white'))
         row3.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='cant', font=('Fixedsys', 15), text_color='purple', background_color='white'))
     config = [
-        [sg.Image('configtitulo.png')],    
+        [sg.Image(os.path.join('imagenes','configtitulo.png'))],    
         row1,
         row2,
         row3,
@@ -127,8 +127,8 @@ def principal(n, lock):
         [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')]
     ]   
     # parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
-    colores = ['color1.png', 'color2.png',
-            'color3.png', 'color4.png', 'color5.png']
+    colores = [os.path.join('imagenes','color1.png'), os.path.join('imagenes','color2.png'),
+            os.path.join('imagenes','color3.png'), os.path.join('imagenes','color4.png'), os.path.join('imagenes','color5.png')]
 
     popinter = sg.Window('intercambio', intercambiar)
     menu = sg.Window('MENU', layoutmenu)

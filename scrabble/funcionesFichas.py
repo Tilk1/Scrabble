@@ -1,6 +1,7 @@
 import random
 import PySimpleGUI as sg
 import funciones
+import os
 
 def randomLetra(bolsa):   #elige una letra random de la bolsa y la quita d ela bolsa
     otro = True
@@ -17,14 +18,14 @@ def repartir(letras, bolsa, window):   #reparte las fichas al principio del jueg
 		if(letras[x]==''):    #Tengo en cuenta letras[x]=='' ya que al principio del juego, el diccionario letras es letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''} y cuando no hay ninguna letra en el atril en esa pos
 			letra=randomLetra(bolsa)
 			if(x.find('u')!=-1):  #corroboro que no es la maquina, ya que las fichas de la maquina tienen que estar boca abajo y no mostar la letra, entonces en la interfaz no se actualizaria la imagen
-				window[x].update(image_filename=letra)
+				window[x].update(image_filename=os.path.join('imagenes',letra))
 			letras[x]=letra
 
 def intercambiarFichas(letras, bolsa, window, cant):
 	if(cant==7):                                          #cuando quiero intercambiar todas se hace automaticamentr y no elijo cuales de a una
 		for x in letras:
 			letra=randomLetra(bolsa)
-			window[x].update(image_filename=letra)
+			window[x].update(image_filename=os.path.join('imagenes',letra))
 			bolsa[letras[x]]['cant']=bolsa[letras[x]]['cant']+1  #agrego la letra que intercambie a la bolsa
 			letras[x]=letra
 	else:
@@ -36,14 +37,14 @@ def intercambiarFichas(letras, bolsa, window, cant):
 				if (not event in cambios) and (event in ('u0', 'u1','u2','u3','u4','u5','u6')):
 					cambios.append(event)
 					letra=randomLetra(bolsa)
-					window[event].update(image_filename=letra)
+					window[event].update(image_filename=os.path.join('imagenes',letra))
 					letras[event]=letra
 					bolsa[letras[event]]['cant']=bolsa[letras[event]]['cant']+1
 					sigo=False
 	sg.popup('Intercambio realizado!')
 
 def ponerFicha(window,letra, puestas, event):
-	window[event].update(image_filename=letra)
+	window[event].update(image_filename=os.path.join('imagenes',letra))
 	puestas[event]=letra
 	return False
 
@@ -52,14 +53,14 @@ def sacarFicha(tableroI, puestas, originales, letras, event, window):
 		for y in puestas:
 			for x in originales:
 				if (originales[x]==puestas[y]):
-					window[y].update(image_filename=tableroI[y])							#Pongo en donde estaba la ficha, la imagen del tablero original sin nada
-					window[x].update(image_filename=originales[x])							#Pongo en el atril la ficha en la interfaz
+					window[y].update(image_filename=os.path.join('imagenes',tableroI[y]))							#Pongo en donde estaba la ficha, la imagen del tablero original sin nada
+					window[x].update(image_filename=os.path.join('imagenes',originales[x]))							#Pongo en el atril la ficha en la interfaz
 					letras[x]=originales[x]    												#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
 		puestas=puestas.clear()
 	else:          #saca solo la ficha seleccionada
-		window[event].update(image_filename=tableroI[event])  					            #Pongo en donde estaba la ficha, la imagen del tablero original sin nada
+		window[event].update(image_filename=os.path.join('imagenes',tableroI[event]))  					            #Pongo en donde estaba la ficha, la imagen del tablero original sin nada
 		l=list(filter(lambda x:x[1]==puestas[event],list(originales.items())))[0][0]  		#Busco en el dict originales, cual de las fichas del atril, tenia la letra que puse en el tablero, y en l queda la key de la ficha, por ejemplo 'u2'
-		window[l].update(image_filename=puestas[event])   									#Pongo en el atril la ficha en la interfaz
+		window[l].update(image_filename=os.path.join('imagenes',puestas[event]))   									#Pongo en el atril la ficha en la interfaz
 		letras[l]=puestas[event]    														#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
 		puestas=puestas.pop(event)          												#sacas la letra de las que pusiste en el tablero, ya que no esta mas
 def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, puestas, palpos):
@@ -75,13 +76,13 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, pue
 	while not event in (None,'exit') and (salir==False):
 		if event in ('u0', 'u1','u2','u3','u4','u5','u6'):  				#Si selecciono una letra
 			if ((letras[event]=='') and (originales[event]==letra)):  #Si en el diccionario letras que guarda la imagen actual de la ficha no hay una letra(=''), pero lo estoy selecionando, significa que quiero volver a poner la letra en su lugar(si es que tengo un aletra en mano, letra!=''). originales[event]==letra----corrobora que se quiere poner en la misma pos en el atril
-				window[event].update(image_filename=letra)					 #originales[event]==letra corrobora que la estoy poniendo en la misma pos original. Hago un update de la ficha en la interfaz con la letra
+				window[event].update(image_filename=os.path.join('imagenes',letra))					 #originales[event]==letra corrobora que la estoy poniendo en la misma pos original. Hago un update de la ficha en la interfaz con la letra
 				letras[event]=letra
 				letra=''   													#Como no tengo ninguna letra en mano, la pongo en ''
 			elif((letras[event]!='') and (letra=='')):   #Si la ficha tiene una aletra y no tinen un color(=''), y no tengo ninguna letra en mano(corroboro esto asi no la pierdo en caso de haber agarrado una y no haber hecho nada con ella), entonces la agarro
 				letra=letras[event]   								#letra la actualizo con la de la ficha
 				color=random.choice(colores)   						#pongo un color en la ficha que agarre, "queda vacia"
-				window[event].update(image_filename=color)
+				window[event].update(image_filename=os.path.join('imagenes',color))
 				letras[event]=''    								#en el diccionario donde tengo las imag de las fichas pongo que tengo un color
 				poner=True
 		elif(isinstance(event, tuple)):    							#Si toco el tablero
