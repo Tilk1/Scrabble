@@ -17,8 +17,10 @@ def clasificar(cual):
         return "adjetivos"
     elif cual == "VB":
         return "verbos"
-    elif cual != None:
+    elif cual == 'NN':
         return 'sustantivos'
+    else:
+        return None
 
 
 def tipoPalabra(d):
@@ -27,7 +29,7 @@ def tipoPalabra(d):
     tipo = clasificar(analisis)
     #if len(palabra) == 1:      SIRVE PARA TESTEAR POR AHORA
     #    return 'no_existe'
-    if(tipo == 'sustantivo' or tipo == None):
+    if(tipo == 'sustantivos' or tipo == None):
         if not palabra.lower() in verbs:
             if not palabra.lower() in spelling:
                 if (not(palabra.lower() in lexicon) and not(palabra.upper() in lexicon) and not(palabra.capitalize() in lexicon)):
