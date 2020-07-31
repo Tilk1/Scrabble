@@ -1,16 +1,35 @@
-import PySimpleGUI as sg
-sg.theme_background_color(color='salmon')
-val1 = {'A': 2, 'E': 2, 'O': 3, 'S': 3, 'I': 3, 'U': 3, 'N': 3, 'L': 9, 'R': 3, 'T': 3, 'C': 3, 'D': 3, 'G': 3, 'M': 4, 'B': 4, 'P': 4, 'F': 5, 'H': 5, 'V': 5, 'Y':5, 'J': 7, 'K': 9, 'Ñ': 9, 'Q': 9, 'RR': 9, 'W': 9, 'X': 9, 'Z': 11}
+from pattern.text.es import verbs, tag, spelling, lexicon, parse
+from sys import platform as _platform
+import os
 
-row1 = [sg.Text('    ',font=('Fixedsys',12),text_color='white', background_color='salmon'),sg.Image('letras.png', background_color='salmon')]
-row2 = [sg.Text('valor',font=('Fixedsys',12),text_color='white', background_color='salmon')]
-row3 = [sg.Text('cant ',font=('Fixedsys',12),text_color='white', background_color='salmon')]
-for x in val1.keys():
-    row2.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='letV', font=('Fixedsys', 15), text_color='purple', background_color='white'))
-    row3.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='cantidV', font=('Fixedsys', 15), text_color='purple', background_color='white'))
-layout = [ row1,
-           row2, 
-           row3
-]
-window = sg.Window('tablero', layout)
-event, values=window.read()
+def clasificar(cual):
+    if cual == "JJ":
+        return "adjetivos"
+    elif cual == "VB":
+        return "verbos"
+    elif cual == 'NN':
+        return 'sustantivos'
+    else:
+        return None
+def tipoPalabra(d):
+    palabra = d
+    analisis = parse(palabra, tags=True, chunks=False).split(' ')
+    print(analisis)
+    tipo = clasificar(analisis)
+    #if len(palabra) == 1:      SIRVE PARA TESTEAR POR AHORA
+    #    return 'no_existe'
+    if(tipo == 'sustantivos' or tipo == None):
+        if not palabra.lower() in verbs:
+            if not palabra.lower() in spelling:
+                if (not(palabra.lower() in lexicon) and not(palabra.upper() in lexicon) and not(palabra.capitalize() in lexicon)):
+                    return 'no_existe'
+                else:
+                    return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
+            else:
+                return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
+        else:
+            return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
+    else:
+        return tipo
+
+print(tipoPalabra('feo'))
