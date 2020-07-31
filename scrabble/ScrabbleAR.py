@@ -116,8 +116,8 @@ def principal(n, lock):
     row2 = [sg.Text('valor',font=('Fixedsys',12),text_color='pink3', background_color='white')]
     row3 = [sg.Text('cant ',font=('Fixedsys',12),text_color='lightblue', background_color='white')]
     for y in val.keys():
-        row2.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='letV', font=('Fixedsys', 15), text_color='purple', background_color='white'))
-        row3.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='cantidV', font=('Fixedsys', 15), text_color='purple', background_color='white'))
+        row2.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='valor', font=('Fixedsys', 15), text_color='purple', background_color='white'))
+        row3.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='cant', font=('Fixedsys', 15), text_color='purple', background_color='white'))
     config = [
         [sg.Image('configtitulo.png')],    
         row1,
@@ -140,7 +140,6 @@ def principal(n, lock):
     # llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
     event,t,palabras,tab = con.elegirNivel(menu, bolsa)
     palabras=palabras.split('/')
-    print(palabras)
     # funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
     if(event!='configurar'):
         inicio, window=con.cofigtab(tab,column1,tableroIm)
@@ -185,25 +184,12 @@ def principal(n, lock):
             event, values = configuracion.read()
             while(event!='jugar'):
                 event, values = configuracion.read()
-            num=-1
-            for n in val:
-                if(num==-1):
-                    bolsa[n+'.png']['valor']=values['letV']
-                else:
-                    bolsa[n+'.png']['valor']=values['letV'+str(num)]
-                num=num+1
-            num=27
-            for n in cant:
-                if(num==27):
-                    bolsa[n+'.png']['cant']=values['cantidV']
-                else:
-                    bolsa[n+'.png']['cant']=values['cantidV'+str(num)]
-                num=num+1
+            con.configcustom(bolsa, -1, list(val.keys()), values, 'valor')
+            con.configcustom(bolsa, 27, list(cant.keys()), values, 'cant')
             inicio, window=con.cofigtab(values['table'],column1,tableroIm)
             t=values['time']
             palabras=values['tiposP']
             palabras=palabras.split('/')
-            print(palabras)
         elif(event == 'top10'):
             menu.hide()
             try:
