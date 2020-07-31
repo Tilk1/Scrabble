@@ -62,7 +62,7 @@ def sacarFicha(tableroI, puestas, originales, letras, event, window):
 		window[l].update(image_filename=puestas[event])   									#Pongo en el atril la ficha en la interfaz
 		letras[l]=puestas[event]    														#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
 		puestas=puestas.pop(event)          												#sacas la letra de las que pusiste en el tablero, ya que no esta mas
-def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, puestas):
+def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, puestas, palpos):
 	originales=letras.copy()  #Fichas del atril que tenia en el comienzo de la jugada
 	#puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada
 	poner=False				  #Poner va a ser True cuando tenga una letra en mano para poner en el tablero
@@ -142,7 +142,10 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, pue
 				if (not coordPlay in puestas.keys()):
 					ponerpal=False
 			if(ponerpal):
-				if(funciones.tipoPalabra(puestas)!="no_existe"):                      #llamo a la funcion tipoPalabra() que me dice si es un sustantivo, adjetivo, verbo o no existe en pattern
+				tipoP=funciones.tipoPalabra(puestas)
+				print(tipoP)
+				print(palpos)
+				if((tipoP!="no_existe") and (tipoP in (palpos))):                      #llamo a la funcion tipoPalabra() que me dice si es un sustantivo, adjetivo, verbo o no existe en pattern
 					valor = funciones.calcularPuntaje(puestas, tableroI, bolsa)       #calculo el puntaje segun las casillas y el valor de cada letra
 					for x in puestas:                                  
 						tableroF[x]=puestas[x]                     #agrego las fichas que se confirmaron forman una palbra en el diccionario de toda las fichas del juego, no de solo esa partida

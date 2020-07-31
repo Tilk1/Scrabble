@@ -14,11 +14,11 @@ def obtener_palabra(d):
 
 def clasificar(cual):
     if cual == "JJ":
-        return "adjetivo"
+        return "adjetivos"
     elif cual == "VB":
-        return "verbo"
+        return "verbos"
     elif cual != None:
-        return 'sustantivo'
+        return 'sustantivos'
 
 
 def tipoPalabra(d):
