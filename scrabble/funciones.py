@@ -2,6 +2,7 @@ from pattern.text.es import verbs, tag, spelling, lexicon, parse
 from sys import platform as _platform
 import os
 import PySimpleGUI as sg
+import json
 
 
 # esto funciona mandandole un diccionario dentro de la funcion colocar fichas, con un formato asi {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'}
@@ -130,12 +131,37 @@ def mostrar_top10(puntajes, configuracion):
 
 
 def mostrar_fin_partida():
-    puntajeU = 3
-    puntajeM = 99
+    try:
+        with open("puntajes.json") as arc:
+            datos = json.load(arc)
+            if not datos:
+                sg.popup('Archivo de puntajes no encontrado')
+            else:
+                puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
+                print('pepe')
+
+    except FileNotFoundError:
+        sg.popup('Archivo de puntajes no encontrado')
+
+
+    puntajeU = -1
+    puntajeM = 3
+
+    # me fijo si supera al mas bajo de todos para quedar en el top 10
+    if puntajeU > puntajes[0][1]:
+        quedotop10 = True
+    else:
+        quedotop10 = False
+
+    # agrego el nuevo puntaje una vez que lo haya escrito y toco el boton OK
+    puntajes.append = ["juuuu",  999, "easy", "3/3/2050"]
+    print(puntajes)
+
+
+    print(puntajes[0][1])    
 
     color_usuario = 'red'
     color_compu = 'red'
-    quedotop10 = True
 
     if puntajeU > puntajeM:
         ganador = 'Usuario'
@@ -162,4 +188,6 @@ def mostrar_fin_partida():
     fin_partida = sg.Window("TOP 10", layout, resizable=True,finalize=True).Finalize()
     
     event, values = fin_partida.read()
+
+
 
