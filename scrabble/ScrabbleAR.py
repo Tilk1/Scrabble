@@ -18,8 +18,6 @@ def timer(n, lock):
     sg.theme_background_color(color='White')
     sg.theme_button_color(color=('White', 'White'))
     sg.theme_element_background_color(color='White')
-    coordenadas = (70,31)
-    #nuevas_coordenadas= (coordenadas[0]+980, coordenadas[1]+30)
     nuevas_coordenadas= (500,0)
     ventana_tiempo = sg.Window('temporizador', tiempo, no_titlebar=True, margins = (0,0) ,location= nuevas_coordenadas, keep_on_top= True)
     i = 12000
