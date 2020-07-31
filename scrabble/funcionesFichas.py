@@ -39,6 +39,7 @@ def repartir(letras, bolsa, window):   #reparte las fichas al principio del jueg
 		print('  ')
 		if(letra!='vacio'):
 			return 'sigo'
+
 def sumarFicha(bolsa, copia, letra):
 	print('devuelvo a la bolsa: ',letra)
 	if(bolsa.get(letra,0)==0):
@@ -46,10 +47,10 @@ def sumarFicha(bolsa, copia, letra):
 		bolsa[letra]['cant']=1
 	else:
 		bolsa[letra]['cant']=bolsa[letra]['cant']+1
+
 def intercambiarFichas(letras, bolsa, copia, window, cant):
 	if(bolsa=={}):
 		sg.popup('No quedan mas fichas en la bolsa, no se ha podido realizar el intercambio')
-		return 'vacio'
 	else:
 		letra=''
 		x=0
@@ -71,10 +72,10 @@ def intercambiarFichas(letras, bolsa, copia, window, cant):
 					event,_=window.read()
 					if (not event in cambios) and (event in ('u0', 'u1','u2','u3','u4','u5','u6')):
 						letra=randomLetra(bolsa)
+						cambios.append(event)
 						if(letra!='vacio'):
 							print('intercambio la ficha',letra)
 							print(event)
-							cambios.append(event)
 							window[event].update(image_filename=os.path.join('imagenes',letra))
 							sumarFicha(bolsa, copia, letras[event])
 							letras[event]=letra
@@ -82,10 +83,8 @@ def intercambiarFichas(letras, bolsa, copia, window, cant):
 						sigo=False
 		if(letra=='vacio'):
 			sg.popup('No quedan mas fichas en la bolsa, se han intercambiado las posibles')
-			return 'vacio'
 		else:   
 			sg.popup('Intercambio realizado!')
-			return 'sigo'
 
 
 def ponerFicha(window,letra, puestas, event):
@@ -108,6 +107,7 @@ def sacarFicha(tableroI, puestas, originales, letras, event, window):
 		window[l].update(image_filename=os.path.join('imagenes',puestas[event]))   									#Pongo en el atril la ficha en la interfaz
 		letras[l]=puestas[event]    														#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
 		puestas=puestas.pop(event)          												#sacas la letra de las que pusiste en el tablero, ya que no esta mas
+
 def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, puestas, palpos):
 	originales=letras.copy()  #Fichas del atril que tenia en el comienzo de la jugada
 	#puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada
