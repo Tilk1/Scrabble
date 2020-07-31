@@ -127,3 +127,39 @@ def mostrar_top10(puntajes, configuracion):
             break
     top10.close()
     configuracion.un_hide()
+
+
+def mostrar_fin_partida():
+    puntajeU = 3
+    puntajeM = 99
+
+    color_usuario = 'red'
+    color_compu = 'red'
+    quedotop10 = True
+
+    if puntajeU > puntajeM:
+        ganador = 'Usuario'
+        imagen_ganador = 'jugador.png'
+        color_usuario = 'green'
+    else:
+        ganador = 'Computadora'
+        imagen_ganador = 'robot.gif'
+        color_compu = 'green'
+
+
+    layout = [
+        [sg.Text('¡La partida ha terminado!', font=('Fixedsys', 30),text_color='salmon', background_color='white')],
+        [sg.Text('       Has quedado en el top 10', font=('Fixedsys', 20),text_color='green', background_color='white', visible = quedotop10)],
+        [sg.Text('',background_color= 'White')],
+        [sg.Text('Ganador: ', font=('Fixedsys', 17),text_color='salmon', background_color='white'), sg.Text(ganador, font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Image(os.path.join('imagenes',imagen_ganador))],
+        [sg.Text('',background_color= 'White')],
+        [sg.Text('Puntuacion Usuario    :', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeU), font=('Fixedsys', 20),text_color=color_usuario, background_color='white')],
+        [sg.Text('Puntuacion Computadora:', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeM), font=('Fixedsys', 20),text_color=color_compu, background_color='white')],
+        [sg.Text('',background_color= 'White')],
+        [sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', background_color='white', visible= quedotop10),sg.Input(size=(12,8),font=('Fixedsys', 17),visible= quedotop10),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='volver',visible= quedotop10)],
+        [sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='volver')],
+            ]
+    fin_partida = sg.Window("TOP 10", layout, resizable=True,finalize=True).Finalize()
+    
+    event, values = fin_partida.read()
+

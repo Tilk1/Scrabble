@@ -137,6 +137,7 @@ def principal(n, lock):
 	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
 	palabras=palabras.split('/')
 	# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
+	funciones.mostrar_fin_partida()
 	if(event!='configurar'):
 		inicio, window=con.cofigtab(tab,column1,tableroIm)
 	while(not event in (None, 'exit')):
