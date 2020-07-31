@@ -65,8 +65,8 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
         if todas_disponibles == True:
             for i in range(tamaño):
                 coord = coord_x, i + coord_y
-                window[(coord)].update(image_filename= (formada[i] + '.png'))
-                tableroFichas.update({coord : formada[i] + '.png' })
+                window[(coord)].update(image_filename= (os.path.join('imagenes', (formada[i] + '.png'))))
+                tableroFichas.update({coord : os.path.join('imagenes', (formada[i] + '.png')) })
 
             print(letrasM)
 

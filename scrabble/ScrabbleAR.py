@@ -172,7 +172,7 @@ def principal(n, lock):
                         hide = True
                         colocar.intercambiarFichas(
                             letrasU, bolsa, window, values['cant'])
-                    #compu.turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa)
+                    compu.turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa)
             elif(event == 'terminar'):
                 window.close()
             else:
