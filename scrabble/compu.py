@@ -2,6 +2,7 @@ import time
 import random
 import combinaciones
 import funcionesFichas
+import os
 
 def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     
@@ -10,8 +11,8 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     image = window['gifcompu']
     while time.time()  < segundos_de_loop:
         window.read(10)
-        image.update_animation('imagenes/robot.gif', 150)
-    image.update('imagenes/robot.gif')
+        image.update_animation(os.path.join('imagenes','robot.gif'), 150)
+    image.update(os.path.join('imagenes','robot.gif'))
     print('TENGO ESTAS FICHAS:')
     print(letrasM)
 
