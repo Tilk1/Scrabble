@@ -17,10 +17,8 @@ def clasificar(cual):
         return "adjetivos"
     elif cual == "VB":
         return "verbos"
-    elif cual == 'NN':
+    elif (cual == 'NN' or cual == None):
         return 'sustantivos'
-    else:
-        return None
 
 
 def tipoPalabra(d):
@@ -36,6 +34,7 @@ def tipoPalabra(d):
                     return 'no_existe'
                 else:
                     return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
+                         
             else:
                 return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
         else:
