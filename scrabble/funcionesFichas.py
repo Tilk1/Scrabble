@@ -39,8 +39,14 @@ def repartir(letras, bolsa, window):   #reparte las fichas al principio del jueg
 		print('  ')
 		if(letra!='vacio'):
 			return 'sigo'
-
-def intercambiarFichas(letras, bolsa, window, cant):
+def sumarFicha(bolsa, copia, letra):
+	print('devuelvo a la bolsa: ',letra)
+	if(bolsa.get(letra,0)==0):
+		bolsa[letra]=copia[letra]
+		bolsa[letra]['cant']=1
+	else:
+		bolsa[letra]['cant']=bolsa[letra]['cant']+1
+def intercambiarFichas(letras, bolsa, copia, window, cant):
 	if(bolsa=={}):
 		sg.popup('No quedan mas fichas en la bolsa, no se ha podido realizar el intercambio')
 		return 'vacio'
@@ -51,9 +57,11 @@ def intercambiarFichas(letras, bolsa, window, cant):
 			while(letra!='vacio' and x<=6):
 				letra=randomLetra(bolsa)
 				if(letra!='vacio'):
-					window['u'+x].update(image_filename=os.path.join('imagenes',letra))
-					bolsa[letras['u'+x]]['cant']=bolsa[letras['u'+x]]['cant']+1  #agrego la letra que intercambie a la bolsa
-					letras['u'+x]=letra
+					print('intercambio la ficha',letra)
+					print('u'+str(x))
+					window['u'+str(x)].update(image_filename=os.path.join('imagenes',letra))
+					sumarFicha(bolsa, copia, letras['u'+str(x)])  #agrego la letra que intercambie a la bolsa
+					letras['u'+str(x)]=letra
 					x=x+1
 		else:
 			cambios=list()    #no me deja intercambiar una letra que ya intercambie en ese momento
@@ -62,18 +70,17 @@ def intercambiarFichas(letras, bolsa, window, cant):
 				while(sigo):      #En el caso de que el evento no sea algunas de las fichas del atril para cambiarla, entonces sigue pidiendo que se elija y no hace nada
 					event,_=window.read()
 					if (not event in cambios) and (event in ('u0', 'u1','u2','u3','u4','u5','u6')):
-						cambios.append(event)
 						letra=randomLetra(bolsa)
 						if(letra!='vacio'):
+							print('intercambio la ficha',letra)
+							print(event)
+							cambios.append(event)
 							window[event].update(image_filename=os.path.join('imagenes',letra))
+							sumarFicha(bolsa, copia, letras[event])
 							letras[event]=letra
-							if(bolsa.get(letras[event],0)==0):
-								bolsa[letras[event]]
-							else:
-								bolsa[letras[event]]['cant']=bolsa[letras[event]]['cant']+1
 							x=x+1
 						sigo=False
-		if(letra!='vacio'):
+		if(letra=='vacio'):
 			sg.popup('No quedan mas fichas en la bolsa, se han intercambiado las posibles')
 			return 'vacio'
 		else:   

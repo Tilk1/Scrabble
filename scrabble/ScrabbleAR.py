@@ -172,7 +172,7 @@ def principal(n, lock):
 						event, values = popinter.read()
 						popinter.Hide()
 						hide = True
-						estadoBolsa=colocar.intercambiarFichas(letrasU, bolsa, window, values['cant'])
+						estadoBolsa=colocar.intercambiarFichas(letrasU, bolsa, bolsaCopia, window, values['cant'])
 					#compu.turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa)
 				if(estadoBolsa=='vacio'):
 					sg.popup('Se ha quedado sin letras en la bolsa, fin del juego ')
