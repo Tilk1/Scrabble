@@ -14,12 +14,10 @@ global arranca_timer
 
 
 def timer(n, lock):
-    tiempo = [[sg.Image('imagenes/relojito.gif', key='relojito', background_color= 'White'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 20), justification='center', text_color='salmon',key='timer', background_color='white'),],]
+    tiempo = [[sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 20), justification='center', text_color='salmon',key='timer', background_color='white'),],]
     sg.theme_background_color(color='White')
     sg.theme_button_color(color=('White', 'White'))
     sg.theme_element_background_color(color='White')
-    coordenadas = (70,31)
-    #nuevas_coordenadas= (coordenadas[0]+980, coordenadas[1]+30)
     nuevas_coordenadas= (500,0)
     ventana_tiempo = sg.Window('temporizador', tiempo, no_titlebar=True, margins = (0,0) ,location= nuevas_coordenadas, keep_on_top= True)
     i = 12000
@@ -30,15 +28,13 @@ def timer(n, lock):
         ventana_tiempo.read(10)
         ventana_tiempo['timer'].update('{:02d}:{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60, i % 100))
         i = i - 1
-        image.update_animation('imagenes/relojito.gif', 150)
+        image.update_animation(os.path.join('imagenes','relojito.gif'), 150)
     ventana_tiempo.close()
 
 def principal(n, lock):
     sg.theme_background_color(color='White')
     sg.theme_button_color(color=('Black', 'White'))
     sg.theme_element_background_color(color='White')
-    # retorna el directorio donde estoy parado dependiendo OS + la carpeta imagenes
-    cwd = funciones.carpetaImagenes()
     puntajeM = 0  # inicializacion puntaje usuario y maquina
     puntajeU = 0
     # diccionario con la imagen correspondiente a cada coordenada segun el tablero
@@ -81,17 +77,17 @@ def principal(n, lock):
     texto_reporte = 'info sobre la partida'
     columna = [
         [sg.Text('', background_color='white')],
-        [sg.Button(image_filename='bolsachica.png', border_width=0,key='intercambiar', disabled=True)],
-        [sg.Button(image_filename='palabra.png', border_width=0,key='palabra', disabled=True)],
-        [sg.Button(image_filename='sacar.png', border_width=0,key='sacar', disabled=True)]
+        [sg.Button(image_filename=(os.path.join('imagenes','bolsachica.png')), border_width=0,key='intercambiar', disabled=True)],
+        [sg.Button(image_filename=(os.path.join('imagenes','palabra.png')), border_width=0,key='palabra', disabled=True)],
+        [sg.Button(image_filename=(os.path.join('imagenes','sacar.png')), border_width=0,key='sacar', disabled=True)]
     ]
     column1 = [
-        [sg.Image('imagenes/robot.gif', key = 'gifcompu'), sg.Text('Puntaje: ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'), sg.Button(image_filename='inicio.png', border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20), justification='center', key='temporizador', visible=False)],
-        [sg.Button('', image_filename='color1.png', image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename='color3.png', image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename='color4.png', image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename='color5.png', image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename='color1.png', image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='m6', disabled=True)],
+        [sg.Image(os.path.join('imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje: ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'), sg.Button(image_filename=os.path.join('imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Text(size=(7, 1), font=('Helvetica', 20), justification='center', key='temporizador', visible=False)],
+        [sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
         [sg.Column([[sg.Text(texto_reporte, text_color='black', key='reporte',background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
-        [sg.Image('jugador.png'), sg.Text(text='Puntaje: 00 ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
-        [sg.Button('', image_filename='color1.png', image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename='color3.png', image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename='color4.png', image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename='color5.png', image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename='color1.png', image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename='color2.png', image_size=(46, 46), key='u6', disabled=True)],
-        [sg.Button(image_filename='terminar.png', key='exit', border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename='posponer.png', key='posponer', border_width=0)]
+        [sg.Image(os.path.join('imagenes','jugador.png')), sg.Text(text='Puntaje: 00 ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
+        [sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True)],
+        [sg.Button(image_filename=os.path.join('imagenes','terminar.png'), key='exit', border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join('imagenes','posponer.png'), key='posponer', border_width=0)]
     ]
     
     intercambiar = [
@@ -103,7 +99,7 @@ def principal(n, lock):
     val = con.val1
     cant = con.cant1
     layoutmenu = [
-        [sg.Image('scrabblelogo.png')],
+        [sg.Image(os.path.join('imagenes','scrabblelogo.png'))],
         [sg.Combo(['Nivel fácil', 'Nivel medio', 'Nivel difícil'], font=('Fixedsys', 17), text_color='salmon',background_color='white', key='niveles', enable_events=True, default_value='Nivel fácil')],
         [sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Text('8min', key='tiempo', font=('Fixedsys', 15), text_color='purple', background_color='white')],
         [sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='pink3', background_color='white'), sg.Text('sustantivos/adjetivos/verbos', key='palabras', font=('Fixedsys', 10), text_color='orange', background_color='white')],
@@ -112,14 +108,14 @@ def principal(n, lock):
         [sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Text('15x15', key='tab', font=('Fixedsys', 15), text_color='lightblue4', background_color='white')],
         [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar'), sg.Button('CONFIGURAR', font=('Fixedsys', 18), button_color=('salmon', 'White'), key='configurar'), sg.Button('TOP10', font=('Fixedsys', 18), button_color=('lightblue', 'White'), key='top10')]
     ]
-    row1 = [sg.Text('    ',font=('Fixedsys',12),text_color='white', background_color='white'),sg.Image('letras.png', background_color='white')]
+    row1 = [sg.Text('    ',font=('Fixedsys',12),text_color='white', background_color='white'),sg.Image(os.path.join('imagenes','letras.png'), background_color='white')]
     row2 = [sg.Text('valor',font=('Fixedsys',12),text_color='pink3', background_color='white')]
     row3 = [sg.Text('cant ',font=('Fixedsys',12),text_color='lightblue', background_color='white')]
     for y in val.keys():
         row2.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='valor', font=('Fixedsys', 15), text_color='purple', background_color='white'))
         row3.append(sg.Combo(values=[x for x in range(1, 21)],default_value=1, key='cant', font=('Fixedsys', 15), text_color='purple', background_color='white'))
     config = [
-        [sg.Image('configtitulo.png')],    
+        [sg.Image(os.path.join('imagenes','configtitulo.png'))],    
         row1,
         row2,
         row3,
@@ -129,8 +125,8 @@ def principal(n, lock):
         [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')]
     ]   
     # parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
-    colores = ['color1.png', 'color2.png',
-            'color3.png', 'color4.png', 'color5.png']
+    colores = ['color1.png','color2.png',
+            'color3.png','color4.png','color5.png']
 
     popinter = sg.Window('intercambio', intercambiar)
     menu = sg.Window('MENU', layoutmenu)
