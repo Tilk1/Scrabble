@@ -127,8 +127,8 @@ def principal(n, lock):
         [sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')]
     ]   
     # parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
-    colores = [os.path.join('imagenes','color1.png'), os.path.join('imagenes','color2.png'),
-            os.path.join('imagenes','color3.png'), os.path.join('imagenes','color4.png'), os.path.join('imagenes','color5.png')]
+    colores = ['color1.png','color2.png',
+            'color3.png','color4.png','color5.png']
 
     popinter = sg.Window('intercambio', intercambiar)
     menu = sg.Window('MENU', layoutmenu)
@@ -172,7 +172,7 @@ def principal(n, lock):
                         hide = True
                         colocar.intercambiarFichas(
                             letrasU, bolsa, window, values['cant'])
-                    compu.turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa)
+                    #compu.turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa)
             elif(event == 'terminar'):
                 window.close()
             else:
