@@ -14,6 +14,8 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     5. robar nuevas fichas 
 
     """
+    intentos_formar = 20  # estos intentos deben setearse segun la dificultad
+    intentos_ubicar = 20
     # gif animado
     segundos_de_loop = time.time() + 2
     image = window['gifcompu']
@@ -31,7 +33,20 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
 
     ## Obtiene la palabra que puede formar
     print('PUEDO FORMAR LA PALABRA:')
-    formada = (combinaciones.intenta_las_combinaciones_quitando_una_letra(string_letras_maquina))
+    palabras_candidatas = []
+
+    for x in range(intentos_formar):   #intento 10 veces formar palabras
+        formada = (combinaciones.intenta_las_combinaciones_quitando_una_letra(string_letras_maquina))
+        if formada != 'no_encontro':
+            palabras_candidatas.append(formada)
+        print('INTENTO NUMERO:', x)
+
+    print(palabras_candidatas)
+    if not palabras_candidatas:  #si esta vacia la lista es porq no pudimos formar nada
+        formada = 'no_encontro'
+    else:
+        formada = max(palabras_candidatas, key=len) # tomo la mas grande
+
     tamaño = len(formada)
     print('la palabra formada es: ', formada, 'de tamaño: ', tamaño)
 
@@ -46,8 +61,7 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
         # comprueba que las casillas no esten ocupadas osea que no este en tableroFichas.Keys
         # Pero tambien debo verificar que existan esas posiciones en el tablero, para q no se vaya a la cuarta dimension
         # Tiene cierta cantidad de intentos para ubicar su palabara en el tablero, sino pasa de turno
-        intentos = 20
-        while intentos > 0:
+        while intentos_ubicar > 0:
             pos_elegida = (random.choice(list(tableroIm)))
             coord_x = pos_elegida[0]
             print('cordenada X : ',coord_x)
@@ -63,7 +77,7 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
                     todas_disponibles = False
                     break
             if todas_disponibles == False:
-                intentos -= 1
+                intentos_ubicar -= 1
             else:
                 break
         
