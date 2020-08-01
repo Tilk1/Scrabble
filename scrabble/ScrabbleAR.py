@@ -14,6 +14,10 @@ global arranca_timer
 
 
 def timer(n, lock):
+	"""
+	Se encarga de la visualizacion del timer como ventana independiente. Actua de forma concurrente
+	Espera la señal del programa principal  (n.value) booleano para comenzar la cuenta regresiva.
+	"""
 	tiempo = [[sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 20), justification='center', text_color='salmon',key='timer', background_color='white'),],]
 	sg.theme_background_color(color='White')
 	sg.theme_button_color(color=('White', 'White'))
