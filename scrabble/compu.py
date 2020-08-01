@@ -3,6 +3,7 @@ import random
 import combinaciones
 import funcionesFichas
 import os
+import funciones
 
 def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     """ 
@@ -14,6 +15,9 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     5. robar nuevas fichas 
 
     """
+    botones_disable = True
+    funciones.activar_desactivar_Botones_basicos(window, botones_disable)
+
     intentos_formar = 35  # estos intentos deben setearse segun la dificultad
     intentos_ubicar = 20
     # gif animado
@@ -115,6 +119,9 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
             for key, value in letrasM.items():
                 letrasM[key] = ''
 
+
+    botones_disable = False
+    funciones.activar_desactivar_Botones_basicos(window, botones_disable)
 
     # vuelve a robar fichas de a cuerdo a las que le faltan
     funcionesFichas.repartir(letrasM, bolsa, window)
