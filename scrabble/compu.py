@@ -14,15 +14,14 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     5. robar nuevas fichas 
 
     """
-    intentos_formar = 20  # estos intentos deben setearse segun la dificultad
+    intentos_formar = 30  # estos intentos deben setearse segun la dificultad
     intentos_ubicar = 20
     # gif animado
-    segundos_de_loop = time.time() + 2
+    segundos_de_loop = time.time() + 1
     image = window['gifcompu']
     while time.time()  < segundos_de_loop:
         window.read(10)
         image.update_animation(os.path.join('imagenes','robot.gif'), 150)
-    image.update(os.path.join('imagenes','robot.gif'))
     print('TENGO ESTAS FICHAS:')
     print(letrasM)
 
@@ -35,12 +34,16 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     print('PUEDO FORMAR LA PALABRA:')
     palabras_candidatas = []
 
-    for x in range(intentos_formar):   #intento 10 veces formar palabras
+    for x in range(intentos_formar):   #intento 20 veces formar palabras
+        window.read(10)
+        image.update_animation(os.path.join('imagenes','robot.gif'), 150)   #carga el gif porq esto puede ser lento
+
         formada = (combinaciones.intenta_las_combinaciones_quitando_una_letra(string_letras_maquina))
         if formada != 'no_encontro':
             palabras_candidatas.append(formada)
         print('INTENTO NUMERO:', x)
 
+    image.update(os.path.join('imagenes','robot.gif'))  # deja la imagen estatica de la compu carita feliz
     print(palabras_candidatas)
     if not palabras_candidatas:  #si esta vacia la lista es porq no pudimos formar nada
         formada = 'no_encontro'
