@@ -5,8 +5,16 @@ import funcionesFichas
 import os
 
 def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
-    
-    ###  hace tiempo para que corra el gif y quede bonito ###
+    """ 
+    Se encarga de todo el turno de la computadora en general. Esto incluye:
+    1. Gif animado para simular que la computadora esta procesando
+    2. obtener palabra apartir de las que tiene en la mano y formar con combinaciones.py una palabra
+    3. intentar ubicarla en el tablero
+    4. En caso de formar palabra y poder ubicarla entonces quitar las letras usadas de la mano
+    5. robar nuevas fichas 
+
+    """
+    # gif animado
     segundos_de_loop = time.time() + 2
     image = window['gifcompu']
     while time.time()  < segundos_de_loop:
