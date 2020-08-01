@@ -14,10 +14,10 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     5. robar nuevas fichas 
 
     """
-    intentos_formar = 30  # estos intentos deben setearse segun la dificultad
+    intentos_formar = 35  # estos intentos deben setearse segun la dificultad
     intentos_ubicar = 20
     # gif animado
-    segundos_de_loop = time.time() + 1
+    segundos_de_loop = time.time() + 0 #en este momento es 0 yaq no hace falta crear tiempo la PC tarda
     image = window['gifcompu']
     while time.time()  < segundos_de_loop:
         window.read(10)
