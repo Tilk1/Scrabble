@@ -4,8 +4,12 @@ import os
 import PySimpleGUI as sg
 
 
-# esto funciona mandandole un diccionario dentro de la funcion colocar fichas, con un formato asi {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'}
 def obtener_palabra(d):
+    """
+    Funciona mandandole un diccionario dentro de la funcion colocar fichas,
+     el diccionario debe tener un formato asi {(7, 7): 'R.png', (7, 8): 'K.png', (7, 9): 'Z.png'}
+     Obtiene la palabra sumando las letras sin lo que esta despues del punto. Es decir sin el .png de cada letra
+    """
     palabraFormada = ''
     for x in d:
         palabraFormada = palabraFormada + (d[x].split('.')[0])
@@ -13,6 +17,12 @@ def obtener_palabra(d):
 
 
 def clasificar(cual):
+    """
+    Depende de la libreria pattern. El mismo utiliza JJ , VB y NN.
+    IMPORTANTE: pattern considera sustantivo o NN todo loq no sea verbo o adjetivo.
+    Por el motivo de arriba seria necesario  hacer una segunda comprobacion con lexicon o todo arrojaria sustantivo.
+    Esto ultimo no se hace en esta funcion
+    """
     if cual == "JJ":
         return "adjetivos"
     elif cual == "VB":
@@ -22,6 +32,13 @@ def clasificar(cual):
 
 
 def tipoPalabra(d):
+    """
+    Depende de la libreria pattern. El mismo utiliza JJ , VB y NN.
+    IMPORTANTE: pattern considera sustantivo o NN todo loq no sea verbo o adjetivo.
+    Por el motivo de arriba seria necesario  hacer una segunda comprobacion con lexicon o todo arrojaria sustantivo.
+    Aqui se hace la segunda comprobacion con lexicon para clasificar si el sustantivo es realmente una palabra o simplemente
+    entro en esa categoria y no existe.
+    """
     palabra = obtener_palabra(d)
     analisis = parse(palabra, tags=True, chunks=False).split(' ')
     tipo = clasificar(analisis)
@@ -68,18 +85,11 @@ def calcularPuntaje(l, im, b):
     return suma
 
 
-def barraSistemaoperativo():
-    if _platform.startswith == "win":  # windows
-        return('/')
-    else:  # linux
-        return('/')
-
-
-def carpetaImagenes():
-    return os.getcwd() + barraSistemaoperativo() + 'imagenes' + barraSistemaoperativo()
-
-
 def activarBotones(window):
+    """
+    Esta funcion activa los botones ya que:
+    Los botones comienzan desactivados para evitar que el usuario clickee en ellos cuando la partida aun no comenzo.
+    """
     window.FindElement("comenzar").Update(visible=False, disabled=True)
     window["comenzar"].Update(visible=False, disabled=True)
     window["intercambiar"].Update(disabled=False)
@@ -105,6 +115,9 @@ def activarBotones(window):
 
 
 def mostrar_top10(puntajes, configuracion):
+    """
+    Se encarga unicamente de la visualizacion de la ventana top10 
+    """
     ancho_columnas = (10, 10)
     headings = ("NOMBRE", "PUNTAJE", "DIF", "FECHA")
     columna = [
@@ -127,3 +140,13 @@ def mostrar_top10(puntajes, configuracion):
             break
     top10.close()
     configuracion.un_hide()
+
+def activar_desactivar_Botones_basicos(window, boolean):
+    """
+    Recibe un booleano, si el booleano es true entonces desactiva los botones principales para jugar
+    Si es falso entonces se pueden utilizar los botones
+    """
+    window["intercambiar"].Update(disabled=boolean)
+    window["intercambiar"].Update(disabled=boolean)
+    window["palabra"].Update(disabled=boolean)
+    window["sacar"].Update(disabled=boolean)
