@@ -4,11 +4,12 @@ import combinaciones
 import funcionesFichas
 import os
 import funciones
-def colocar(coord_x, coord_y, tamaño, window, tF, formadas):
-	 for i in range(tamaño):
-		coord = coord_x, i + coord_y
+def colocar(coord_x, coord_y, tamaño, window, tF, formada):
+	for i in range(tamaño):
+		coord = coord_x, i +coord_y
 		window[(coord)].update(image_filename= (os.path.join('imagenes', (formada[i] + '.png'))))
-		tF.update({coord : os.path.join('imagenes', (formada[i] + '.png')) })
+		tF.update({coord : os.path.join('imagenes', (formada[i] + '.png'))})
+
 def turno_maquina(coordPlay,tableroIm, tableroFichas, letrasM, window, colores, bolsa, copia):
 	""" 
 	Se encarga de todo el turno de la computadora en general. Esto incluye:
@@ -72,9 +73,8 @@ def turno_maquina(coordPlay,tableroIm, tableroFichas, letrasM, window, colores, 
 		# comprueba que las casillas no esten ocupadas osea que no este en tableroFichas.Keys
 		# Pero tambien debo verificar que existan esas posiciones en el tablero, para q no se vaya a la cuarta dimension
 		# Tiene cierta cantidad de intentos para ubicar su palabara en el tablero, sino pasa de turno
-		ponerpal=True
-		if(tableroF=={}):
-			colocar(coordPlay[1], coordPlay[0], tamaño, window, tableroFichas, formadas)
+		if(tableroFichas=={}):
+			colocar(coordPlay[1], coordPlay[0], tamaño, window, tableroFichas, formada)
 		else:
 			while intentos_ubicar > 0:
 				pos_elegida = (random.choice(list(tableroIm)))
@@ -100,8 +100,7 @@ def turno_maquina(coordPlay,tableroIm, tableroFichas, letrasM, window, colores, 
 		# tambien agrego al diccionario de ocupadas
 
 			if todas_disponibles == True:
-				colocar(coord_x, coord_y, tamaño, window, tableroFichas, formadas)
-
+				colocar(coord_x, coord_y, tamaño, window, tableroFichas, formada)
 				print(letrasM)
 
 			# quito las letras q utilicé
@@ -117,11 +116,11 @@ def turno_maquina(coordPlay,tableroIm, tableroFichas, letrasM, window, colores, 
 			# robo nuevas fichas
 
 			
-		else:     
-			print('no he podido formar o ubicar la palabra. Shame on me, paso turno')
-			# tira todas sus fichas a la basura
-			funcionesFichas.intercambiarFichas(letrasM, bolsa, copia, window, 7)
-			print(letrasM)
+			else:     
+				print('no he podido formar o ubicar la palabra. Shame on me, paso turno')
+				# tira todas sus fichas a la basura
+				funcionesFichas.intercambiarFichas(letrasM, bolsa, copia, window, 7)
+				print(letrasM)
 
 
 	botones_disable = False
