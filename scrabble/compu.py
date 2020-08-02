@@ -5,7 +5,7 @@ import funcionesFichas
 import os
 import funciones
 
-def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
+def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa, copia):
     """ 
     Se encarga de todo el turno de la computadora en general. Esto incluye:
     1. Gif animado para simular que la computadora esta procesando
@@ -99,7 +99,7 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
 
             print(letrasM)
 
-            # quito las letras q utilize
+            # quito las letras q utilicé
 
             for i in formada:
                 print(i)
@@ -114,16 +114,17 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
             
         else:     
             print('no he podido formar o ubicar la palabra. Shame on me, paso turno')
-
             # tira todas sus fichas a la basura
-            for key, value in letrasM.items():
-                letrasM[key] = ''
+            funcionesFichas.intercambiarFichas(letrasM, bolsa, copia, window, 7)
+            print(letrasM)
 
 
     botones_disable = False
     funciones.activar_desactivar_Botones_basicos(window, botones_disable)
 
+    botones_disable = False
+    funciones.activar_desactivar_Botones_basicos(window, botones_disable)
+
     # vuelve a robar fichas de a cuerdo a las que le faltan
-    funcionesFichas.repartir(letrasM, bolsa, window)
-    return
-    
+    fin=funcionesFichas.repartir(letrasM, bolsa, window)
+    return fin

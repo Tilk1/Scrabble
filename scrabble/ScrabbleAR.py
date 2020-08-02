@@ -140,10 +140,12 @@ def principal(n, lock):
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
 	palabras=palabras.split('/')
+	bolsaCopia=bolsa.copy()
 	# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
 	if(event!='configurar'):
 		inicio, window=con.cofigtab(tab,column1,tableroIm)
-	while(not event in (None, 'exit')):
+	estadoBolsa='sigo'
+	while(not event in (None, 'exit') and estadoBolsa=='sigo'):
 		if(event == 'jugar'):
 			menu.close()
 			event, values = window.read()
@@ -152,29 +154,31 @@ def principal(n, lock):
 					n.value = True
 				funciones.activarBotones(window)
 				# reparto fichas al usuario
-				colocar.repartir(letrasU, bolsa, window)
+				estadoBolsa=colocar.repartir(letrasU, bolsa, window)
 				# reparto fichas a la maquina
-				colocar.repartir(letrasM, bolsa, window)
+				estadoBolsa=colocar.repartir(letrasM, bolsa, window)
 				hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
-				while(not event in ('exit', None)):
+				while(not event in ('exit', None) and estadoBolsa=='sigo'):
 					puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
-					event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsa, puestas,palabras)  # comienza la jugada
+					event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsaCopia, puestas,palabras)  # comienza la jugada
 					if(event == 'palabra'):
 						puntajeU = puntajeU+valor
 						texto_reporte = texto_reporte + '\n' + 'Usuario: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
 						window["reporte"].update(texto_reporte)
 						window['puntU'].update('Puntaje:'+str(puntajeU))
 						# vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
-						colocar.repartir(letrasU, bolsa, window)
+						estadoBolsa=colocar.repartir(letrasU, bolsa, window)
 					if(event == 'intercambiar'):
 						if(hide):
 							popinter.UnHide()
 						event, values = popinter.read()
 						popinter.Hide()
 						hide = True
-						colocar.intercambiarFichas(
-							letrasU, bolsa, window, values['cant'])
-					compu.turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa)
+						colocar.intercambiarFichas(letrasU, bolsa, bolsaCopia, window, values['cant'])
+					estadoBolsa=compu.turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
+					print('uso la compu',bolsa)
+				if(estadoBolsa=='vacio'):
+					sg.popup('Se ha quedado sin letras en la bolsa, fin del juego ')
 			elif(event == 'terminar'):
 				window.close()
 			else:
@@ -190,6 +194,8 @@ def principal(n, lock):
 			t=values['time']
 			palabras=values['tiposP']
 			palabras=palabras.split('/')
+			bolsaCopia=bolsa.copy()
+			estadoBolsa='sigo'
 		elif(event == 'top10'):
 			menu.hide()
 			try:

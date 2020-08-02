@@ -4,44 +4,89 @@ import funciones
 import os
 
 def randomLetra(bolsa):   #elige una letra random de la bolsa y la quita d ela bolsa
-    otro = True
-    while(otro):
-        letra = random.choice(list(bolsa))
-        if(bolsa[letra]['cant'] > 0):
-            otro = False
-            bolsa[letra]['cant'] = bolsa[letra]['cant']-1
-    return letra
-
+	if(bolsa=={}):
+		return 'vacio'
+	else:
+		otro = True
+		while(otro):
+			letra = random.choice(list(bolsa))
+			if(bolsa[letra]['cant'] > 0):
+				otro = False
+				bolsa[letra]['cant'] = bolsa[letra]['cant']-1
+				if(bolsa[letra]['cant'] == 0):
+					del(bolsa[letra])
+		return letra
 
 def repartir(letras, bolsa, window):   #reparte las fichas al principio del juego y de cada jugada si faltan fichas
-	for x in letras:
-		if(letras[x]==''):    #Tengo en cuenta letras[x]=='' ya que al principio del juego, el diccionario letras es letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''} y cuando no hay ninguna letra en el atril en esa pos
-			letra=randomLetra(bolsa)
-			if(x.find('u')!=-1):  #corroboro que no es la maquina, ya que las fichas de la maquina tienen que estar boca abajo y no mostar la letra, entonces en la interfaz no se actualizaria la imagen
-				window[x].update(image_filename=os.path.join('imagenes',letra))
-			letras[x]=letra
-
-def intercambiarFichas(letras, bolsa, window, cant):
-	if(cant==7):                                          #cuando quiero intercambiar todas se hace automaticamentr y no elijo cuales de a una
-		for x in letras:
-			letra=randomLetra(bolsa)
-			window[x].update(image_filename=os.path.join('imagenes',letra))
-			bolsa[letras[x]]['cant']=bolsa[letras[x]]['cant']+1  #agrego la letra que intercambie a la bolsa
-			letras[x]=letra
+	if(bolsa=={}):
+		return 'vacio'
 	else:
-		cambios=list()    #no me deja intercambiar una letra que ya intercambie en ese momento
-		for _ in range(cant):
-			sigo=True
-			while(sigo):      #En el caso de que el evento no sea algunas de las fichas del atril para cambiarla, entonces sigue pidiendo que se elija y no hace nada
-				event,_=window.read()
-				if (not event in cambios) and (event in ('u0', 'u1','u2','u3','u4','u5','u6')):
-					cambios.append(event)
-					letra=randomLetra(bolsa)
-					window[event].update(image_filename=os.path.join('imagenes',letra))
-					letras[event]=letra
-					bolsa[letras[event]]['cant']=bolsa[letras[event]]['cant']+1
-					sigo=False
-	sg.popup('Intercambio realizado!')
+		x=0
+		letra=''
+		q=list(letras.keys())[0].split('0')[0]
+		while(letra!='vacio' and x<=6):
+			if(letras[q+str(x)]==''):    #Tengo en cuenta letras[x]=='' ya que al principio del juego, el diccionario letras es letrasU={'u0':'', 'u1':'','u2':'','u3':'','u4':'','u5':'','u6':''} y cuando no hay ninguna letra en el atril en esa pos
+				letra=randomLetra(bolsa)
+				if(letra!='vacio'):
+					print(q+str(x))
+					print(letra)
+					if(q=='u'):  #corroboro que no es la maquina, ya que las fichas de la maquina tienen que estar boca abajo y no mostar la letra, entonces en la interfaz no se actualizaria la imagen
+						window[q+str(x)].update(image_filename=os.path.join('imagenes',letra))
+					letras[q+str(x)]=letra
+			x=x+1
+		print(letra)
+		print(bolsa)
+		print('  ')
+		if(letra!='vacio'):
+			return 'sigo'
+
+def sumarFicha(bolsa, copia, letra):
+	print('devuelvo a la bolsa: ',letra)
+	if(bolsa.get(letra,0)==0):
+		bolsa[letra]=copia[letra]
+		bolsa[letra]['cant']=1
+	else:
+		bolsa[letra]['cant']=bolsa[letra]['cant']+1
+
+def intercambiarFichas(letras, bolsa, copia, window, cant):
+	if(bolsa=={}):
+		sg.popup('No quedan mas fichas en la bolsa, no se ha podido realizar el intercambio')
+	else:
+		letra=''
+		x=0
+		if(cant==7):                                          #cuando quiero intercambiar todas se hace automaticamentr y no elijo cuales de a una
+			q=list(letras.keys())[0].split('0')[0]
+			while(letra!='vacio' and x<=6):
+				letra=randomLetra(bolsa)
+				if(letra!='vacio'):
+					print('intercambio la ficha',letra, 'de ',q+str(x))
+					if(q=='u'):
+						window[q+str(x)].update(image_filename=os.path.join('imagenes',letra))
+					sumarFicha(bolsa, copia, letras[q+str(x)])  #agrego la letra que intercambie a la bolsa
+					letras[q+str(x)]=letra
+					x=x+1
+		else:
+			cambios=list()    #no me deja intercambiar una letra que ya intercambie en ese momento
+			while(x<cant and letra!='vacio'):
+				sigo=True
+				while(sigo):      #En el caso de que el evento no sea algunas de las fichas del atril para cambiarla, entonces sigue pidiendo que se elija y no hace nada
+					event,_=window.read()
+					if (not event in cambios) and (event in ('u0', 'u1','u2','u3','u4','u5','u6')):
+						letra=randomLetra(bolsa)
+						cambios.append(event)
+						if(letra!='vacio'):
+							print('intercambio la ficha',letra)
+							print(event)
+							window[event].update(image_filename=os.path.join('imagenes',letra))
+							sumarFicha(bolsa, copia, letras[event])
+							letras[event]=letra
+							x=x+1
+						sigo=False
+		if(letra=='vacio'):
+			sg.popup('No quedan mas fichas en la bolsa, se han intercambiado las posibles')
+		else:   
+			sg.popup('Intercambio realizado!')
+
 
 def ponerFicha(window,letra, puestas, event):
 	window[event].update(image_filename=os.path.join('imagenes',letra))
@@ -63,6 +108,7 @@ def sacarFicha(tableroI, puestas, originales, letras, event, window):
 		window[l].update(image_filename=os.path.join('imagenes',puestas[event]))   									#Pongo en el atril la ficha en la interfaz
 		letras[l]=puestas[event]    														#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
 		puestas=puestas.pop(event)          												#sacas la letra de las que pusiste en el tablero, ya que no esta mas
+
 def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, puestas, palpos):
 	originales=letras.copy()  #Fichas del atril que tenia en el comienzo de la jugada
 	#puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada

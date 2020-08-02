@@ -24,12 +24,8 @@ def configcustom(bolsa, c, a, values, cual):
     num=c
     for n in a:
         if(num==c):
-            print(n)
-            print(num)
             bolsa[n+'.png'][cual]=values[cual]
         else:
-            print(n)
-            print(num)
             bolsa[n+'.png'][cual]=values[cual+str(num)]
         num=num+1
 def elegirNivel(win, bolsa):
