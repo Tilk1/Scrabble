@@ -176,7 +176,7 @@ def principal(n, lock):
 						hide = True
 						colocar.intercambiarFichas(letrasU, bolsa, bolsaCopia, window, values['cant'])
 					estadoBolsa=compu.turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
-					print('uso el ususario',bolsa)
+					print('uso la compu',bolsa)
 				if(estadoBolsa=='vacio'):
 					sg.popup('Se ha quedado sin letras en la bolsa, fin del juego ')
 			elif(event == 'terminar'):
