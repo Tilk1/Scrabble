@@ -64,17 +64,14 @@ def turno_maquina(coordPlay,tableroIm, tableroFichas, letrasM, window, colores, 
 
 	#si no encuentra palabra tira todas sus fichas a la basura (esto podria hacerse funcion)
 
-	if formada == ('no_encontro'):       
-		for key, value in letrasM.items():
-			letrasM[key] = ''
-
-	else:
+	if formada != ('no_encontro'):
 		## se para en una posicion al azar de libres
 		# comprueba que las casillas no esten ocupadas osea que no este en tableroFichas.Keys
 		# Pero tambien debo verificar que existan esas posiciones en el tablero, para q no se vaya a la cuarta dimension
 		# Tiene cierta cantidad de intentos para ubicar su palabara en el tablero, sino pasa de turno
 		if(tableroFichas=={}):
 			colocar(coordPlay[1], coordPlay[0], tamaño, window, tableroFichas, formada)
+			todas_disponibles = True
 		else:
 			while intentos_ubicar > 0:
 				pos_elegida = (random.choice(list(tableroIm)))
@@ -95,16 +92,10 @@ def turno_maquina(coordPlay,tableroIm, tableroFichas, letrasM, window, colores, 
 					intentos_ubicar -= 1
 				else:
 					break
-		
-		# si estan disponibles entonces las dibujo
-		# tambien agrego al diccionario de ocupadas
-
-			if todas_disponibles == True:
-				colocar(coord_x, coord_y, tamaño, window, tableroFichas, formada)
+			if todas_disponibles == True: 											# si estan disponibles entonces las dibujo
+				colocar(coord_x, coord_y, tamaño, window, tableroFichas, formada)	# tambien agrego al diccionario de ocupadas
 				print(letrasM)
-
-			# quito las letras q utilicé
-
+		if(todas_disponibles == True):
 			for i in formada:
 				print(i)
 				for key, value in letrasM.items():
@@ -112,16 +103,10 @@ def turno_maquina(coordPlay,tableroIm, tableroFichas, letrasM, window, colores, 
 						print('Eliminando letra: ', letrasM[key])
 						letrasM[key] = ''
 						break
-
-			# robo nuevas fichas
-
-			
-			else:     
-				print('no he podido formar o ubicar la palabra. Shame on me, paso turno')
-				# tira todas sus fichas a la basura
-				funcionesFichas.intercambiarFichas(letrasM, bolsa, copia, window, 7)
-				print(letrasM)
-
+	if(formada =='no_encontro' or todas_disponibles == False):
+		print('no he podido formar o ubicar la palabra. Shame on me, paso turno')
+		funcionesFichas.intercambiarFichas(letrasM, bolsa, copia, window, 7) # robo nuevas fichas
+		print(letrasM)
 
 	botones_disable = False
 	funciones.activar_desactivar_Botones_basicos(window, botones_disable)
