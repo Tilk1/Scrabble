@@ -122,6 +122,9 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa, cop
     botones_disable = False
     funciones.activar_desactivar_Botones_basicos(window, botones_disable)
 
+    botones_disable = False
+    funciones.activar_desactivar_Botones_basicos(window, botones_disable)
+
     # vuelve a robar fichas de a cuerdo a las que le faltan
     fin=funcionesFichas.repartir(letrasM, bolsa, window)
     return fin
