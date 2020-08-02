@@ -3,6 +3,7 @@ import random
 import combinaciones
 import funcionesFichas
 import os
+import funciones
 
 def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     """ 
@@ -14,13 +15,17 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
     5. robar nuevas fichas 
 
     """
+    botones_disable = True
+    funciones.activar_desactivar_Botones_basicos(window, botones_disable)
+
+    intentos_formar = 35  # estos intentos deben setearse segun la dificultad
+    intentos_ubicar = 20
     # gif animado
-    segundos_de_loop = time.time() + 2
+    segundos_de_loop = time.time() + 0 #en este momento es 0 yaq no hace falta crear tiempo la PC tarda
     image = window['gifcompu']
     while time.time()  < segundos_de_loop:
         window.read(10)
         image.update_animation(os.path.join('imagenes','robot.gif'), 150)
-    image.update(os.path.join('imagenes','robot.gif'))
     print('TENGO ESTAS FICHAS:')
     print(letrasM)
 
@@ -31,7 +36,24 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
 
     ## Obtiene la palabra que puede formar
     print('PUEDO FORMAR LA PALABRA:')
-    formada = (combinaciones.intenta_las_combinaciones_quitando_una_letra(string_letras_maquina))
+    palabras_candidatas = []
+
+    for x in range(intentos_formar):   #intento 20 veces formar palabras
+        window.read(10)
+        image.update_animation(os.path.join('imagenes','robot.gif'), 150)   #carga el gif porq esto puede ser lento
+
+        formada = (combinaciones.intenta_las_combinaciones_quitando_una_letra(string_letras_maquina))
+        if formada != 'no_encontro':
+            palabras_candidatas.append(formada)
+        print('INTENTO NUMERO:', x)
+
+    image.update(os.path.join('imagenes','robot.gif'))  # deja la imagen estatica de la compu carita feliz
+    print(palabras_candidatas)
+    if not palabras_candidatas:  #si esta vacia la lista es porq no pudimos formar nada
+        formada = 'no_encontro'
+    else:
+        formada = max(palabras_candidatas, key=len) # tomo la mas grande
+
     tamaño = len(formada)
     print('la palabra formada es: ', formada, 'de tamaño: ', tamaño)
 
@@ -46,8 +68,7 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
         # comprueba que las casillas no esten ocupadas osea que no este en tableroFichas.Keys
         # Pero tambien debo verificar que existan esas posiciones en el tablero, para q no se vaya a la cuarta dimension
         # Tiene cierta cantidad de intentos para ubicar su palabara en el tablero, sino pasa de turno
-        intentos = 20
-        while intentos > 0:
+        while intentos_ubicar > 0:
             pos_elegida = (random.choice(list(tableroIm)))
             coord_x = pos_elegida[0]
             print('cordenada X : ',coord_x)
@@ -63,7 +84,7 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
                     todas_disponibles = False
                     break
             if todas_disponibles == False:
-                intentos -= 1
+                intentos_ubicar -= 1
             else:
                 break
         
@@ -98,6 +119,9 @@ def turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa):
             for key, value in letrasM.items():
                 letrasM[key] = ''
 
+
+    botones_disable = False
+    funciones.activar_desactivar_Botones_basicos(window, botones_disable)
 
     # vuelve a robar fichas de a cuerdo a las que le faltan
     funcionesFichas.repartir(letrasM, bolsa, window)

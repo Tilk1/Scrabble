@@ -140,3 +140,13 @@ def mostrar_top10(puntajes, configuracion):
             break
     top10.close()
     configuracion.un_hide()
+
+def activar_desactivar_Botones_basicos(window, boolean):
+    """
+    Recibe un booleano, si el booleano es true entonces desactiva los botones principales para jugar
+    Si es falso entonces se pueden utilizar los botones
+    """
+    window["intercambiar"].Update(disabled=boolean)
+    window["intercambiar"].Update(disabled=boolean)
+    window["palabra"].Update(disabled=boolean)
+    window["sacar"].Update(disabled=boolean)
