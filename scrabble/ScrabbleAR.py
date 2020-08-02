@@ -167,7 +167,8 @@ def principal(n, lock):
 			if(event == 'comenzar'):
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
-				turno = random.choice(turno)
+				#turno = random.choice(turno)
+				turno='compu'
 				print(turno)
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
 				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
