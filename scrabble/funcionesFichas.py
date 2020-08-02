@@ -55,14 +55,15 @@ def intercambiarFichas(letras, bolsa, copia, window, cant):
 		letra=''
 		x=0
 		if(cant==7):                                          #cuando quiero intercambiar todas se hace automaticamentr y no elijo cuales de a una
+			q=list(letras.keys())[0].split('0')[0]
 			while(letra!='vacio' and x<=6):
 				letra=randomLetra(bolsa)
 				if(letra!='vacio'):
-					print('intercambio la ficha',letra)
-					print('u'+str(x))
-					window['u'+str(x)].update(image_filename=os.path.join('imagenes',letra))
-					sumarFicha(bolsa, copia, letras['u'+str(x)])  #agrego la letra que intercambie a la bolsa
-					letras['u'+str(x)]=letra
+					print('intercambio la ficha',letra, 'de ',q+str(x))
+					if(q=='u'):
+						window[q+str(x)].update(image_filename=os.path.join('imagenes',letra))
+					sumarFicha(bolsa, copia, letras[q+str(x)])  #agrego la letra que intercambie a la bolsa
+					letras[q+str(x)]=letra
 					x=x+1
 		else:
 			cambios=list()    #no me deja intercambiar una letra que ya intercambie en ese momento
