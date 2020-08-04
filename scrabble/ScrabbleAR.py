@@ -12,12 +12,27 @@ import compu
 
 global arranca_timer
 
-
+def usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window):
+	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
+	event='comenzar'
+	puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
+	event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsaCopia, puestas,palabras)  # comienza la jugada
+	if(event == 'palabra'):
+		puntajeU = puntajeU+valor
+		texto_reporte = texto_reporte + '\n' + 'Usuario: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
+		window["reporte"].update(texto_reporte)
+		window['puntU'].update('Puntaje:'+str(puntajeU))
+		# vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
+		estadoBolsa=colocar.repartir(letrasU, bolsa, window)
+	if(event == 'intercambiar'):
+		if(hide):
+			popinter.UnHide()
+		event, values = popinter.read()
+		popinter.Hide()
+		hide = True
+		colocar.intercambiarFichas(letrasU, bolsa, bolsaCopia, window, values['cant'])
+	return estadoBolsa, event, puntajeU,texto_reporte
 def timer(n, lock):
-	"""
-	Se encarga de la visualizacion del timer como ventana independiente. Actua de forma concurrente
-	Espera la señal del programa principal  (n.value) booleano para comenzar la cuenta regresiva.
-	"""
 	tiempo = [[sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 20), justification='center', text_color='salmon',key='timer', background_color='white'),],]
 	sg.theme_background_color(color='White')
 	sg.theme_button_color(color=('White', 'White'))
@@ -135,7 +150,7 @@ def principal(n, lock):
 	popinter = sg.Window('intercambio', intercambiar)
 	menu = sg.Window('MENU', layoutmenu)
 	configuracion = sg.Window('config', config)
-	
+	turno=['compu','usuario']
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
@@ -152,33 +167,29 @@ def principal(n, lock):
 			if(event == 'comenzar'):
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
-				funciones.activarBotones(window)
-				# reparto fichas al usuario
-				estadoBolsa=colocar.repartir(letrasU, bolsa, window)
-				# reparto fichas a la maquina
-				estadoBolsa=colocar.repartir(letrasM, bolsa, window)
-				hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
-				while(not event in ('exit', None) and estadoBolsa=='sigo'):
-					puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
-					event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsaCopia, puestas,palabras)  # comienza la jugada
-					if(event == 'palabra'):
-						puntajeU = puntajeU+valor
-						texto_reporte = texto_reporte + '\n' + 'Usuario: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
-						window["reporte"].update(texto_reporte)
-						window['puntU'].update('Puntaje:'+str(puntajeU))
-						# vuelvo a repartir, si hay fichas restantes, van a quedar en el atril
-						estadoBolsa=colocar.repartir(letrasU, bolsa, window)
-					if(event == 'intercambiar'):
-						if(hide):
-							popinter.UnHide()
-						event, values = popinter.read()
-						popinter.Hide()
-						hide = True
-						colocar.intercambiarFichas(letrasU, bolsa, bolsaCopia, window, values['cant'])
-					estadoBolsa=compu.turno_maquina(tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
-					print('uso la compu',bolsa)
+				#turno = random.choice(turno)
+				turno='compu'
+				print(turno)
+				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
+				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
+				if(turno=='usuario'):
+					funciones.activarBotones(window)
+					estadoBolsa,event,puntajeU,texto_reporte=usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+					estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
+				else:
+					estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
+					funciones.activarBotones(window)
+					estadoBolsa,event,puntajeU,texto_reporte=usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+				while(not event in (None, 'exit') and estadoBolsa=='sigo'):
+					if(turno=='usuario'):
+						estadoBolsa,event,puntajeU,texto_reporte=usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+						estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
+					else:
+						estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
+						estadoBolsa,event,puntajeU,texto_reporte=usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+				print('la maquina dejo la bolsa:',bolsa)
 				if(estadoBolsa=='vacio'):
-					sg.popup('Se ha quedado sin letras en la bolsa, fin del juego ')
+					sg.popup('No quedan mas fichas en la bolsa, fin del juego')
 			elif(event == 'terminar'):
 				window.close()
 			else:
@@ -214,7 +225,6 @@ def principal(n, lock):
 	with lock:   # mando mensaje a robot2 para que se cierre
 		n.value = False
 	window.close()
-
 
 
 
