@@ -31,7 +31,6 @@ def intenta_las_combinaciones_quitando_una_letra(palabra):
     """
     formada = palabra
     while ((devuelve_primera_combinacion(formada) == "no_encontro") & (len(formada) >= 0 )): #mientras no formemos nada
-        print('DEBUG ',formada)
         letra_azar = formada[randrange(len(formada))]
         if letra_azar in vocales:                ## si la letra al azar es una vocal
             letra_azar = formada[randrange(len(formada))]  # vuelvo a sacar otra

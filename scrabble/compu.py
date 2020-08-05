@@ -43,8 +43,6 @@ def turno_maquina(coordPlay, tableroIm, tableroFichas, letrasM, window, colores,
     string_letras_maquina = ''
     for i in letrasM.items():
         string_letras_maquina = string_letras_maquina + i[1].split('.')[0][0]
-        print('-----------LETRITA---------------')
-        print(i[1].split('.')[0][0])
 
     # Obtiene la palabra que puede formar
     print('PUEDO FORMAR LA PALABRA:')
@@ -59,7 +57,6 @@ def turno_maquina(coordPlay, tableroIm, tableroFichas, letrasM, window, colores,
             string_letras_maquina))
         if formada != 'no_encontro':
             palabras_candidatas.append(formada)
-        print('INTENTO NUMERO:', x)
 
     # deja la imagen estatica de la compu carita feliz
     image.update(os.path.join('imagenes', 'robot.gif'))

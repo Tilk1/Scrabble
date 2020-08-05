@@ -9,8 +9,8 @@ import time
 from multiprocessing import Process, Lock, Value
 from ctypes import c_bool
 import compu
+from concurrent.futures import ThreadPoolExecutor as Executor
 
-global arranca_timer
 
 def usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window):
 	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
@@ -32,25 +32,35 @@ def usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU
 		hide = True
 		colocar.intercambiarFichas(letrasU, bolsa, bolsaCopia, window, values['cant'])
 	return estadoBolsa, event, puntajeU,texto_reporte
-def timer(n, lock):
-	tiempo = [[sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 20), justification='center', text_color='salmon',key='timer', background_color='white'),],]
-	sg.theme_background_color(color='White')
-	sg.theme_button_color(color=('White', 'White'))
-	sg.theme_element_background_color(color='White')
-	nuevas_coordenadas= (500,0)
-	ventana_tiempo = sg.Window('temporizador', tiempo, no_titlebar=True, margins = (0,0) ,location= nuevas_coordenadas, keep_on_top= True)
-	i = 12000
+
+
+
+def timer(n, lock,ventana_tiempo,tiempo_dificultad):
+	i = tiempo_dificultad
 	image = ventana_tiempo['relojito']
 	while n.value == False:  # ESPERA EL MENSAJE DE ROBOT1
-		time.sleep(0.10)  
-	while n.value == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
-		ventana_tiempo.read(10)
+		time.sleep(0.10) 
+
+	print(n.value)
+	comienza = n.value
+	
+	while comienza == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
+		time.sleep(0.10) 
 		ventana_tiempo['timer'].update('{:02d}:{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60, i % 100))
 		i = i - 1
 		image.update_animation(os.path.join('imagenes','relojito.gif'), 150)
 	ventana_tiempo.close()
 
-def principal(n, lock):
+
+## MULTI THREADING  ###########################
+
+if __name__ == '__main__':
+
+	executor = Executor()
+	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
+	lock = Lock()
+
+
 	sg.theme_background_color(color='White')
 	sg.theme_button_color(color=('Black', 'White'))
 	sg.theme_element_background_color(color='White')
@@ -143,6 +153,16 @@ def principal(n, lock):
 		[sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Combo(values=[(15,15),(15,17),(15,20)],default_value=(15,15), key='table', font=('Fixedsys', 15), text_color='purple', background_color='white')],
 		[sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')]
 	]   
+
+	# --------- Interfaz del timer -------
+	tiempo = [[sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 20), justification='center', text_color='salmon',key='timer', background_color='white'),],]
+	sg.theme_background_color(color='White')
+	sg.theme_button_color(color=('White', 'White'))
+	sg.theme_element_background_color(color='White')
+	nuevas_coordenadas= (500,0)
+	ventana_tiempo = sg.Window('temporizador', tiempo, no_titlebar=True, margins = (0,0) ,location= nuevas_coordenadas, keep_on_top= True)
+	# ----------------------------------------
+
 	# parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
 	colores = ['color1.png','color2.png',
 			'color3.png','color4.png','color5.png']
@@ -157,6 +177,9 @@ def principal(n, lock):
 	palabras=palabras.split('/')
 	bolsaCopia=bolsa.copy()
 	# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
+
+
+
 	if(event!='configurar'):
 		inicio, window=con.cofigtab(tab,column1,tableroIm)
 	estadoBolsa='sigo'
@@ -165,8 +188,15 @@ def principal(n, lock):
 			menu.close()
 			event, values = window.read()
 			if(event == 'comenzar'):
+
+				#------ segundo proceso timer-------
+				ventana_tiempo.read(1)
+				tiempo_dificultad = 12000     # TENGO que mandarle el tiempo segun la dificultad
+				executor.submit(timer,n,lock,ventana_tiempo,tiempo_dificultad)
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
+				#----------------------------------
+
 				#turno = random.choice(turno)
 				turno='compu'
 				print(turno)
@@ -225,19 +255,3 @@ def principal(n, lock):
 	with lock:   # mando mensaje a robot2 para que se cierre
 		n.value = False
 	window.close()
-
-
-
-## MULTI THREADING  ###########################
-
-def robot1(n, lock):
-	principal(n, lock)
-
-def robot2(n, lock):
-	timer(n, lock)
-
-if __name__ == '__main__':
-	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
-	lock = Lock()
-	Process(target=robot1, args=(n, lock)).start() 
-	Process(target=robot2, args=(n, lock)).start()
