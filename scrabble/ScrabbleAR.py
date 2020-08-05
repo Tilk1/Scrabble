@@ -161,14 +161,14 @@ def principal(n, lock):
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
 	palabras=palabras.split('/')
-	
+	posponer=True
 	# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
 	cantIntercambios=0
 	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
 	if(event!='configurar'):
 		inicio, window=con.cofigtab(tab,column1,tableroIm)
 	estadoBolsa='sigo'
-	while(not event in (None, 'exit','posponer') and estadoBolsa=='sigo'):
+	while(not event in (None, 'exit') and estadoBolsa=='sigo' and posponer):
 		if(event == 'jugar'):
 			menu.close()
 			event, values = partidaW.read()
@@ -231,6 +231,7 @@ def principal(n, lock):
 			with open('posponer.txt','w') as archivo:
 				datos={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'letrasU':letrasU,'letrasM':letrasM,'puntajeM':puntajeM,'puntajeU':puntajeU}
 				json.dump(datos, archivo)
+				posponer=False
 		elif(event == 'top10'):
 			menu.hide()
 			try:

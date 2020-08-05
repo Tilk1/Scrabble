@@ -46,5 +46,5 @@ cantIntercambios=0
 #pepe=tuple(pepe.strip('(').split(')').split(','))
 print(pepe)
 with open('posponer.txt','w') as archivo:
-	d={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'inicio':inicio,'tableroIm':tableroIm,'letrasU':letrasU,'letrasM':letrasM,'tableroFichas':tableroFichas,'puntajeM':puntajeM,'puntajeU':puntajeU}
+	d={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios}
 	json.dump(d, archivo)
