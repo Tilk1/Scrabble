@@ -172,14 +172,7 @@ def principal(n, lock):
 				cantIntercambios=0
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
 				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
-				if(turno=='usuario'):
-					funciones.activarBotones(window)
-					estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
-					estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
-				else:
-					estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
-					funciones.activarBotones(window)
-					estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+				funciones.activarBotones(window)
 				while(not event in (None, 'exit') and estadoBolsa=='sigo'):
 					if(turno=='usuario'):
 						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
