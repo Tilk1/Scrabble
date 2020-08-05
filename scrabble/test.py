@@ -34,5 +34,17 @@ bolsa = {'A.png': {'cant': 0, 'valor': 0},
 			'Z.png': {'cant': 7, 'valor': 1},
 			'LL.png': {'cant': 7, 'valor': 1},
 			'RR.png': {'cant': 7, 'valor': 1}}
-datos={'bolsa':[bolsa]}
-print(datos)
+
+pepe=(1,0)
+pepe=str(pepe)
+print(pepe)
+pepe=tuple(pepe.replace('(','').replace(')','').replace(',','').replace(' ',''))
+t=1
+palabras='sustantivos,adjetivos'
+turno='compu'
+cantIntercambios=0
+#pepe=tuple(pepe.strip('(').split(')').split(','))
+print(pepe)
+with open('posponer.txt','w') as archivo:
+	d={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'inicio':inicio,'tableroIm':tableroIm,'letrasU':letrasU,'letrasM':letrasM,'tableroFichas':tableroFichas,'puntajeM':puntajeM,'puntajeU':puntajeU}
+	json.dump(d, archivo)

@@ -182,7 +182,7 @@ def principal(n, lock):
 						turno=datos['turno']
 						cantIntercambios=datos['cantInter']
 						inicio=datos['inicio']
-						window=datos['widow']
+						inicio, window=con.cofigtab(datos['tab'],column1,datos['tableroIm'])
 						tableroIm=datos['tableroIm']
 						letrasU=datos['letrasU']
 						letrasM=datos['letrasM']
@@ -192,6 +192,7 @@ def principal(n, lock):
 				except FileNotFoundError:
 					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 			event, values = window.read()
+			print(tableroIm)
 			if(event == 'comenzar'):
 				bolsaCopia=bolsa.copy()
 				with lock:   # mando mensaje para comenzar timer
@@ -199,7 +200,7 @@ def principal(n, lock):
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
 				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
 				funciones.activarBotones(window)
-				while(not event in (None, 'exit') and estadoBolsa=='sigo'):
+				while(not event in (None, 'exit','posponer') and estadoBolsa=='sigo'):
 					if(turno=='usuario'):
 						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 						estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
@@ -220,7 +221,8 @@ def principal(n, lock):
 				event, values = configuracion.read()
 			con.configcustom(bolsa, -1, list(val.keys()), values, 'valor')
 			con.configcustom(bolsa, 27, list(cant.keys()), values, 'cant')
-			inicio, window=con.cofigtab(values['table'],column1,tableroIm)
+			tab=values['table']
+			inicio, windowt=con.cofigtab(tab,column1,tableroIm)
 			t=values['time']
 			palabras=values['tiposP']
 			palabras=palabras.split('/')
@@ -228,8 +230,8 @@ def principal(n, lock):
 			estadoBolsa='sigo'
 		elif(event=='posponer'):
 			with open('posponer.txt','w') as archivo:
-				datos={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'inicio':inicio,'widow':window,'tableroIm':tableroIm,'letrasU':letrasU,'letrasM':letrasM,'tableroFichas':tableroFichas,'puntajeM':puntajeM,'puntajeU':puntajeU}
-				json.dump(datos, archivo)
+				d={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'tableroIm':tableroIm,'letrasU':letrasU,'letrasM':letrasM,'tableroFichas':tableroFichas,'puntajeM':puntajeM,'puntajeU':puntajeU}
+				json.dump(d, archivo)
 		elif(event == 'top10'):
 			menu.hide()
 			try:
