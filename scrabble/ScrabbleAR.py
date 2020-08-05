@@ -12,10 +12,10 @@ import compu
 
 global arranca_timer
 
-def usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window):
+def usuario(cantInter,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window):
 	event='comenzar'
 	puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
-	event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsaCopia, puestas,palabras)  # comienza la jugada
+	event, valor = colocar.colocarFicha(cantInter,tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsaCopia, puestas,palabras)  # comienza la jugada
 	if(event == 'palabra'):
 		puntajeU = puntajeU+valor
 		texto_reporte = texto_reporte + '\n' + 'Usuario: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
@@ -29,8 +29,9 @@ def usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU
 		event, values = popinter.read()
 		popinter.Hide()
 		hide = True
+		cantInter=cantInter+1
 		colocar.intercambiarFichas(letrasU, bolsa, bolsaCopia, window, values['cant'])
-	return estadoBolsa, event, puntajeU,texto_reporte
+	return estadoBolsa, event, puntajeU,texto_reporte, hide, cantInter
 def timer(n, lock):
 	tiempo = [[sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White'), sg.Text('00:00', size=(8, 1), font=('Fixedsys', 20), justification='center', text_color='salmon',key='timer', background_color='white'),],]
 	sg.theme_background_color(color='White')
@@ -166,26 +167,26 @@ def principal(n, lock):
 			if(event == 'comenzar'):
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
-				#turno = random.choice(turno)
-				turno='compu'
-				print(turno)
+				turno = random.choice(turno)
+				hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
+				cantIntercambios=0
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
 				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
 				if(turno=='usuario'):
 					funciones.activarBotones(window)
-					estadoBolsa,event,puntajeU,texto_reporte=usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+					estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 					estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
 				else:
 					estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
 					funciones.activarBotones(window)
-					estadoBolsa,event,puntajeU,texto_reporte=usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+					estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 				while(not event in (None, 'exit') and estadoBolsa=='sigo'):
 					if(turno=='usuario'):
-						estadoBolsa,event,puntajeU,texto_reporte=usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 						estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
 					else:
 						estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
-						estadoBolsa,event,puntajeU,texto_reporte=usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 				print('la maquina dejo la bolsa:',bolsa)
 				if(estadoBolsa=='vacio'):
 					sg.popup('No quedan mas fichas en la bolsa, fin del juego')
