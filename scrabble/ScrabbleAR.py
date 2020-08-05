@@ -147,8 +147,17 @@ if __name__ == '__main__':
 		[sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')]
 	]   
 	# parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
+	menuJugar = [
+		[sg.Button('Nueva Partida', font=('Fixedsys', 18), button_color=('orange', 'White'), key='nuevaP'),sg.Button('Partida Vieja', font=('Fixedsys', 18), button_color=('Salmon', 'White'), key='viejaP')]   
+	]
+	# parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
 	colores = ['color1.png','color2.png',
 			'color3.png','color4.png','color5.png']
+
+	popinter = sg.Window('intercambio', intercambiar)
+	menu = sg.Window('MENU', layoutmenu)
+	configuracion = sg.Window('config', config)
+	partidaW = sg.Window('partida',menuJugar)
 
 	popinter = sg.Window('intercambio', intercambiar)
 	menu = sg.Window('MENU', layoutmenu)
