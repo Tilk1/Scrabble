@@ -13,7 +13,6 @@ import compu
 global arranca_timer
 
 def usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window):
-	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
 	event='comenzar'
 	puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
 	event, valor = colocar.colocarFicha(tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsaCopia, puestas,palabras)  # comienza la jugada
