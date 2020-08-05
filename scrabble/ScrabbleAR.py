@@ -193,7 +193,9 @@ if __name__ == '__main__':
 					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 			else:
 				inicio, window=con.cofigtab(tab,column1,tableroIm)
-				
+			event, values = window.read()
+			if(event == 'comenzar'):
+				bolsaCopia=bolsa.copy()
 				#------ segundo proceso timer-------
 				fin_tiempo = False
 				#window.read(1)
