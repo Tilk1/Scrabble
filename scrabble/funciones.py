@@ -3,7 +3,20 @@ from sys import platform as _platform
 import os
 import PySimpleGUI as sg
 
+def tuplasString(diccio):
+	t=dict()
+	for x in diccio:
+		t[str(x)]=diccio[x]
+	return t
 
+def tuplasInter(diccio):
+	t=dict()
+	for x in diccio:
+		n=tuple(x.replace('(','').replace(')','').replace(',','').replace(' ',''))
+		n=(int(n[0]),int(n[1]))
+		t[n]=diccio[x]
+	return t
+	
 def obtener_palabra(d):
     """
     Funciona mandandole un diccionario dentro de la funcion colocar fichas,
