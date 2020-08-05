@@ -176,6 +176,8 @@ def principal(n, lock):
 				try:
 					with open('posponer.txt','r') as archivo:
 						datos = json.load(archivo)
+						tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
+						tableroIm=funciones.tuplasInter(datos['tableroIm'])
 						bolsa=datos['bolsa']
 						t=datos['tiempo']
 						palabras=datos['palabras']
@@ -183,10 +185,9 @@ def principal(n, lock):
 						cantIntercambios=datos['cantInter']
 						inicio=datos['inicio']
 						inicio, window=con.cofigtab(datos['tab'],column1,datos['tableroIm'])
-						tableroIm=datos['tableroIm']
+						
 						letrasU=datos['letrasU']
 						letrasM=datos['letrasM']
-						tableroFichas=datos['tableroFichas']
 						puntajeM=datos['puntajeM']
 						puntajeU=datos['puntajeU']
 				except FileNotFoundError:

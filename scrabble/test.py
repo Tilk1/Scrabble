@@ -35,7 +35,7 @@ bolsa = {'A.png': {'cant': 0, 'valor': 0},
 			'LL.png': {'cant': 7, 'valor': 1},
 			'RR.png': {'cant': 7, 'valor': 1}}
 
-lala={(0,1):'hola.png',(0,3):'bebe.png'}
-tete=dict()
-for x in lala:
-	tete[str(x)]=lala[x]
+x='(1,2)'
+n=tuple(x.replace('(','').replace(')','').replace(',','').replace(' ',''))
+n=(int(n[0]),int(n[1]))
+print(n)
