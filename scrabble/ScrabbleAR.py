@@ -143,6 +143,9 @@ def principal(n, lock):
 		[sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Combo(values=[(15,15),(15,17),(15,20)],default_value=(15,15), key='table', font=('Fixedsys', 15), text_color='purple', background_color='white')],
 		[sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')]
 	]   
+	menuJugar = [
+		[sg.Button('Nueva Partida', font=('Fixedsys', 18), button_color=('orange', 'White'), key='nuevaP'),sg.Button('Partida Vieja', font=('Fixedsys', 18), button_color=('Salmon', 'White'), key='viejaP')]   
+	]
 	# parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
 	colores = ['color1.png','color2.png',
 			'color3.png','color4.png','color5.png']
@@ -150,6 +153,8 @@ def principal(n, lock):
 	popinter = sg.Window('intercambio', intercambiar)
 	menu = sg.Window('MENU', layoutmenu)
 	configuracion = sg.Window('config', config)
+	partidaW = sg.Window('partida',menuJugar)
+
 	turno=['compu','usuario']
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
@@ -163,6 +168,7 @@ def principal(n, lock):
 	while(not event in (None, 'exit') and estadoBolsa=='sigo'):
 		if(event == 'jugar'):
 			menu.close()
+			event, values = partidaW.read()
 			event, values = window.read()
 			if(event == 'comenzar'):
 				with lock:   # mando mensaje para comenzar timer
