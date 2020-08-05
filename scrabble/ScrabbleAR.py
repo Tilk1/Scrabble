@@ -204,7 +204,6 @@ if __name__ == '__main__':
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
 				#----------------------------------
-
 				turno = random.choice(turno)
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
 				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
@@ -236,6 +235,13 @@ if __name__ == '__main__':
 			palabras=palabras.split('/')
 			bolsaCopia=bolsa.copy()
 			estadoBolsa='sigo'
+		elif(event=='posponer'):
+			with open('posponer.txt','w') as archivo:
+				tb=funciones.tuplasString(tableroIm)
+				tF=funciones.tuplasString(tableroFichas)
+				datos={'tableroFichas':tF,'tableroIm':tb,'tab':tab,'inicio':inicio,'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'letrasU':letrasU,'letrasM':letrasM,'puntajeM':puntajeM,'puntajeU':puntajeU}
+				json.dump(datos, archivo)
+				posponer=False
 		elif(event == 'top10'):
 			menu.hide()
 			try:
