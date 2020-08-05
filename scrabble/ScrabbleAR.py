@@ -168,7 +168,7 @@ def principal(n, lock):
 	if(event!='configurar'):
 		inicio, window=con.cofigtab(tab,column1,tableroIm)
 	estadoBolsa='sigo'
-	while(not event in (None, 'exit') and estadoBolsa=='sigo'):
+	while(not event in (None, 'exit','posponer') and estadoBolsa=='sigo'):
 		if(event == 'jugar'):
 			menu.close()
 			event, values = partidaW.read()
@@ -192,7 +192,6 @@ def principal(n, lock):
 				except FileNotFoundError:
 					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 			event, values = window.read()
-			print(tableroIm)
 			if(event == 'comenzar'):
 				bolsaCopia=bolsa.copy()
 				with lock:   # mando mensaje para comenzar timer
@@ -222,7 +221,7 @@ def principal(n, lock):
 			con.configcustom(bolsa, -1, list(val.keys()), values, 'valor')
 			con.configcustom(bolsa, 27, list(cant.keys()), values, 'cant')
 			tab=values['table']
-			inicio, windowt=con.cofigtab(tab,column1,tableroIm)
+			inicio, window=con.cofigtab(tab,column1,tableroIm)
 			t=values['time']
 			palabras=values['tiposP']
 			palabras=palabras.split('/')
@@ -230,8 +229,8 @@ def principal(n, lock):
 			estadoBolsa='sigo'
 		elif(event=='posponer'):
 			with open('posponer.txt','w') as archivo:
-				d={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'tableroIm':tableroIm,'letrasU':letrasU,'letrasM':letrasM,'tableroFichas':tableroFichas,'puntajeM':puntajeM,'puntajeU':puntajeU}
-				json.dump(d, archivo)
+				datos={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'letrasU':letrasU,'letrasM':letrasM,'puntajeM':puntajeM,'puntajeU':puntajeU}
+				json.dump(datos, archivo)
 		elif(event == 'top10'):
 			menu.hide()
 			try:
