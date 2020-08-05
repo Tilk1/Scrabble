@@ -48,7 +48,6 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 		if i == 0:
 			fin_tiempo = True
 			break
-	window.close()
 
 if __name__ == '__main__':
 	executor = Executor()
