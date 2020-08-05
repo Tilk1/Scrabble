@@ -153,21 +153,46 @@ if __name__ == '__main__':
 	popinter = sg.Window('intercambio', intercambiar)
 	menu = sg.Window('MENU', layoutmenu)
 	configuracion = sg.Window('config', config)
+	
 	turno=['compu','usuario']
+	turno = random.choice(turno)
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
 	palabras=palabras.split('/')
-	bolsaCopia=bolsa.copy()
+	posponer=True
 	# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
-	if(event!='configurar'):
-		inicio, window=con.cofigtab(tab,column1,tableroIm)
+	cantIntercambios=0
+	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
 	estadoBolsa='sigo'
-	while(not event in (None, 'exit') and estadoBolsa=='sigo'):
+	while(not event in (None, 'exit') and estadoBolsa=='sigo' and posponer):
 		if(event == 'jugar'):
 			menu.close()
-			event, values = window.read()
-			if(event == 'comenzar'):
+			event, values = partidaW.read()
+			if(event=='viejaP'):
+				try:
+					with open('posponer.txt','r') as archivo:
+						datos = json.load(archivo)
+						tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
+						tableroIm=funciones.tuplasInter(datos['tableroIm'])
+						bolsa=datos['bolsa']
+						t=datos['tiempo']
+						palabras=datos['palabras']
+						turno=datos['turno']
+						cantIntercambios=datos['cantInter']
+						inicio=tuple(datos['inicio'])
+						inicio, window=con.cofigtab(tuple(datos['tab']),column1,tableroIm)
+						for x in tableroFichas:
+							window[x].update(image_filename=os.path.join('imagenes',tableroFichas[x]))
+						letrasU=datos['letrasU']
+						letrasM=datos['letrasM']
+						puntajeM=datos['puntajeM']
+						puntajeU=datos['puntajeU']
+						window['puntU'].update('Puntaje:'+str(puntajeU))
+				except FileNotFoundError:
+					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
+			else:
+				inicio, window=con.cofigtab(tab,column1,tableroIm)
 				
 				#------ segundo proceso timer-------
 				fin_tiempo = False
@@ -179,8 +204,6 @@ if __name__ == '__main__':
 				#----------------------------------
 
 				turno = random.choice(turno)
-				hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
-				cantIntercambios=0
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
 				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
 				funciones.activarBotones(window)
