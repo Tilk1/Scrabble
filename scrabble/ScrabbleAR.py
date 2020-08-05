@@ -229,7 +229,9 @@ def principal(n, lock):
 			estadoBolsa='sigo'
 		elif(event=='posponer'):
 			with open('posponer.txt','w') as archivo:
-				datos={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'letrasU':letrasU,'letrasM':letrasM,'puntajeM':puntajeM,'puntajeU':puntajeU}
+				tb=funciones.tuplasString(tableroIm)
+				tF=funciones.tuplasString(tableroFichas)
+				datos={'tableroFichas':tF,'tableroIm':tb,'tab':tab,'inicio':inicio,'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'letrasU':letrasU,'letrasM':letrasM,'puntajeM':puntajeM,'puntajeU':puntajeU}
 				json.dump(datos, archivo)
 				posponer=False
 		elif(event == 'top10'):

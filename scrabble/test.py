@@ -35,16 +35,7 @@ bolsa = {'A.png': {'cant': 0, 'valor': 0},
 			'LL.png': {'cant': 7, 'valor': 1},
 			'RR.png': {'cant': 7, 'valor': 1}}
 
-pepe=(1,0)
-pepe=str(pepe)
-print(pepe)
-pepe=tuple(pepe.replace('(','').replace(')','').replace(',','').replace(' ',''))
-t=1
-palabras='sustantivos,adjetivos'
-turno='compu'
-cantIntercambios=0
-#pepe=tuple(pepe.strip('(').split(')').split(','))
-print(pepe)
-with open('posponer.txt','w') as archivo:
-	d={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios}
-	json.dump(d, archivo)
+lala={(0,1):'hola.png',(0,3):'bebe.png'}
+tete=dict()
+for x in lala:
+	tete[str(x)]=lala[x]
