@@ -44,8 +44,8 @@ def timer(n, lock,ventana_tiempo,tiempo_dificultad,fin_tiempo):
 	comienza = n.value
 	
 	while comienza == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
-		time.sleep(0.10) 
-		ventana_tiempo['timer'].update('{:02d}:{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60, i % 100))
+		time.sleep(0.01) 
+		ventana_tiempo['timer'].update('{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60))
 		i = i - 1
 		image.update_animation(os.path.join('imagenes','relojito.gif'), 150)
 		if i == 0:
@@ -186,7 +186,7 @@ if __name__ == '__main__':
 				#------ segundo proceso timer-------
 				fin_tiempo = False
 				ventana_tiempo.read(1)
-				tiempo_dificultad = 100     # TENGO que mandarle el tiempo segun la dificultad
+				tiempo_dificultad = 10000     # TENGO que mandarle el tiempo segun la dificultad
 				executor.submit(timer,n,lock,ventana_tiempo,tiempo_dificultad,fin_tiempo)
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
