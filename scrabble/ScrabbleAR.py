@@ -39,10 +39,7 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 	image = window['relojito']
 	while n.value == False:  # ESPERA EL MENSAJE DE ROBOT1
 		time.sleep(0.10) 
-
-	print(n.value)
 	comienza = n.value
-	
 	while comienza == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
 		time.sleep(0.01) 
 		window['temporizador'].update('{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60))
@@ -108,10 +105,10 @@ if __name__ == '__main__':
 		[sg.Button(image_filename=(os.path.join('imagenes','sacar.png')), border_width=0,key='sacar', disabled=True)]
 	]
 	column1 = [
-		[sg.Image(os.path.join('imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje:00', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'), sg.Button(image_filename=os.path.join('imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= False), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
+		[sg.Image(os.path.join('imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje:00', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'), sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
 		[sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
 		[sg.Column([[sg.Text(texto_reporte, text_color='black', key='reporte',background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
-		[sg.Image(os.path.join('imagenes','jugador.png')), sg.Text(text='Puntaje:00', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
+		[sg.Image(os.path.join('imagenes','jugador.png')), sg.Text(text='Puntaje:00', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU'),sg.Button(image_filename=os.path.join('imagenes','inicio.gif'), border_width=0, key='comenzar')],
 		[sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True)],
 		[sg.Button(image_filename=os.path.join('imagenes','terminar.png'), key='exit', border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join('imagenes','posponer.png'), key='posponer', border_width=0)]
 	]
