@@ -35,7 +35,7 @@ def usuario(texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU
 
 
 
-def timer(n, lock,ventana_tiempo,tiempo_dificultad):
+def timer(n, lock,ventana_tiempo,tiempo_dificultad,fin_tiempo):
 	i = tiempo_dificultad
 	image = ventana_tiempo['relojito']
 	while n.value == False:  # ESPERA EL MENSAJE DE ROBOT1
@@ -49,6 +49,9 @@ def timer(n, lock,ventana_tiempo,tiempo_dificultad):
 		ventana_tiempo['timer'].update('{:02d}:{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60, i % 100))
 		i = i - 1
 		image.update_animation(os.path.join('imagenes','relojito.gif'), 150)
+		if i == 0:
+			fin_tiempo = True
+			break
 	ventana_tiempo.close()
 
 
@@ -190,9 +193,10 @@ if __name__ == '__main__':
 			if(event == 'comenzar'):
 
 				#------ segundo proceso timer-------
+				fin_tiempo = False
 				ventana_tiempo.read(1)
-				tiempo_dificultad = 12000     # TENGO que mandarle el tiempo segun la dificultad
-				executor.submit(timer,n,lock,ventana_tiempo,tiempo_dificultad)
+				tiempo_dificultad = 100     # TENGO que mandarle el tiempo segun la dificultad
+				executor.submit(timer,n,lock,ventana_tiempo,tiempo_dificultad,fin_tiempo)
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
 				#----------------------------------
