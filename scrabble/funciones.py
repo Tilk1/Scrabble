@@ -91,6 +91,7 @@ def activarBotones(window):
     Los botones comienzan desactivados para evitar que el usuario clickee en ellos cuando la partida aun no comenzo.
     """
     window.FindElement("comenzar").Update(visible=False, disabled=True)
+    window.FindElement('temporizador').Update(visible=True)
     window["comenzar"].Update(visible=False, disabled=True)
     window["intercambiar"].Update(disabled=False)
     window["palabra"].Update(disabled=False)
