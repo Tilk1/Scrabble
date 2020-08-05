@@ -165,8 +165,6 @@ def principal(n, lock):
 	# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
 	cantIntercambios=0
 	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
-	if(event!='configurar'):
-		inicio, window=con.cofigtab(tab,column1,tableroIm)
 	estadoBolsa='sigo'
 	while(not event in (None, 'exit') and estadoBolsa=='sigo' and posponer):
 		if(event == 'jugar'):
@@ -189,8 +187,11 @@ def principal(n, lock):
 						letrasM=datos['letrasM']
 						puntajeM=datos['puntajeM']
 						puntajeU=datos['puntajeU']
+						window['puntU'].update('Puntaje:'+str(puntajeU))
 				except FileNotFoundError:
 					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
+			else:
+				inicio, window=con.cofigtab(tab,column1,tableroIm)
 			event, values = window.read()
 			if(event == 'comenzar'):
 				bolsaCopia=bolsa.copy()
