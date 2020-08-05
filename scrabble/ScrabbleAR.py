@@ -161,7 +161,7 @@ def principal(n, lock):
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
 	palabras=palabras.split('/')
-	bolsaCopia=bolsa.copy()
+	
 	# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
 	cantIntercambios=0
 	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
@@ -176,11 +176,24 @@ def principal(n, lock):
 				try:
 					with open('posponer.txt','r') as archivo:
 						datos = json.load(archivo)
-
+						bolsa=datos['bolsa']
+						t=datos['tiempo']
+						palabras=datos['palabras']
+						turno=datos['turno']
+						cantIntercambios=datos['cantInter']
+						inicio=datos['inicio']
+						window=datos['widow']
+						tableroIm=datos['tableroIm']
+						letrasU=datos['letrasU']
+						letrasM=datos['letrasM']
+						tableroFichas=datos['tableroFichas']
+						puntajeM=datos['puntajeM']
+						puntajeU=datos['puntajeU']
 				except FileNotFoundError:
 					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 			event, values = window.read()
 			if(event == 'comenzar'):
+				bolsaCopia=bolsa.copy()
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
@@ -215,7 +228,8 @@ def principal(n, lock):
 			estadoBolsa='sigo'
 		elif(event=='posponer'):
 			with open('posponer.txt','w') as archivo:
-				datos={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'inicio':inicio,'widow':window,'tableroIm':tableroIm,'letrasU':letrasU,'letrasM':letrasM,'tableroFichas':tableroFichas}
+				datos={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'inicio':inicio,'widow':window,'tableroIm':tableroIm,'letrasU':letrasU,'letrasM':letrasM,'tableroFichas':tableroFichas,'puntajeM':puntajeM,'puntajeU':puntajeU}
+				json.dump(datos, archivo)
 		elif(event == 'top10'):
 			menu.hide()
 			try:
