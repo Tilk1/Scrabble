@@ -156,12 +156,15 @@ def principal(n, lock):
 	partidaW = sg.Window('partida',menuJugar)
 
 	turno=['compu','usuario']
+	turno = random.choice(turno)
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
 	palabras=palabras.split('/')
 	bolsaCopia=bolsa.copy()
 	# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
+	cantIntercambios=0
+	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
 	if(event!='configurar'):
 		inicio, window=con.cofigtab(tab,column1,tableroIm)
 	estadoBolsa='sigo'
@@ -169,23 +172,20 @@ def principal(n, lock):
 		if(event == 'jugar'):
 			menu.close()
 			event, values = partidaW.read()
+			if(event=='viejaP'):
+				try:
+					with open('posponer.txt','r') as archivo:
+						datos = json.load(archivo)
+
+				except FileNotFoundError:
+					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 			event, values = window.read()
 			if(event == 'comenzar'):
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
-				turno = random.choice(turno)
-				hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
-				cantIntercambios=0
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
 				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
-				if(turno=='usuario'):
-					funciones.activarBotones(window)
-					estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
-					estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
-				else:
-					estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
-					funciones.activarBotones(window)
-					estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+				funciones.activarBotones(window)
 				while(not event in (None, 'exit') and estadoBolsa=='sigo'):
 					if(turno=='usuario'):
 						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
@@ -213,6 +213,9 @@ def principal(n, lock):
 			palabras=palabras.split('/')
 			bolsaCopia=bolsa.copy()
 			estadoBolsa='sigo'
+		elif(event=='posponer'):
+			with open('posponer.txt','w') as archivo:
+				datos={'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'inicio':inicio,'widow':window,'tableroIm':tableroIm,'letrasU':letrasU,'letrasM':letrasM,'tableroFichas':tableroFichas}
 		elif(event == 'top10'):
 			menu.hide()
 			try:
