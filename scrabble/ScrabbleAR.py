@@ -176,6 +176,8 @@ def principal(n, lock):
 						datos = json.load(archivo)
 						tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
 						tableroIm=funciones.tuplasInter(datos['tableroIm'])
+						for x in tablerosFichas:
+							window[x].update(image_filename=os.path.join('imagenes',tablerosFichas[x]))
 						bolsa=datos['bolsa']
 						t=datos['tiempo']
 						palabras=datos['palabras']
