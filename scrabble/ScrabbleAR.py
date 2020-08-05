@@ -198,9 +198,11 @@ if __name__ == '__main__':
 					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 			else:
 				inicio, window=con.cofigtab(tab,column1,tableroIm)
+			partidaW.close()
 			event, values = window.read()
+			bolsaCopia=bolsa.copy()
 			if(event == 'comenzar'):
-				bolsaCopia=bolsa.copy()
+				
 				#------ segundo proceso timer-------
 				fin_tiempo = False
 				#window.read(1)
@@ -208,7 +210,8 @@ if __name__ == '__main__':
 				executor.submit(timer,n,lock,tiempo_dificultad,fin_tiempo,window)
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
-				#----------------------------------
+				#----------------------------------	
+				
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
 				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
 				funciones.activarBotones(window)
