@@ -109,7 +109,7 @@ def sacarFicha(tableroI, puestas, originales, letras, event, window):
 		letras[l]=puestas[event]    														#Vuelvo a poner en el dict de letras la letra segun corresponda a su posicion en el atril
 		puestas=puestas.pop(event)          												#sacas la letra de las que pusiste en el tablero, ya que no esta mas
 
-def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, puestas, palpos):
+def colocarFicha(inter,tableroI,tableroF,letras, window, colores,coordPlay, bolsa, puestas, palpos):
 	originales=letras.copy()  #Fichas del atril que tenia en el comienzo de la jugada
 	#puestas=dict()            #Fichas que voy poniendo en el tablero en esa jugada
 	poner=False				  #Poner va a ser True cuando tenga una letra en mano para poner en el tablero
@@ -179,10 +179,13 @@ def colocarFicha(tableroI,tableroF,letras, window, colores,coordPlay, bolsa, pue
 				sacarFicha(tableroI, puestas, originales, letras, event, window)
 				nro=0
 		elif(event=='intercambiar'):   #Si intento intercambiar fichas durante la jugada, tienen que estar todas las fichas en el atril, no puede haber puestas. UNa vez que saque todas puedo hacer el intercambio y vuelvo a empezar a colocar
-			if(puestas=={}):
-				salir=True
+			if(inter>=3):
+				sg.popup('el numero máximo de intercambios es 3, ha llegado al límite')
 			else:
-				sg.popup('Para hacer un intercambio no puede haber fichas colocadas en el tablero de la jugada actual, saquelas para poder hacerlo, pero perdera el turno')		
+				if(puestas=={}):
+					salir=True
+				else:
+					sg.popup('Para hacer un intercambio no puede haber fichas colocadas en el tablero de la jugada actual, saquelas para poder hacerlo, pero perdera el turno')		
 		elif(event=='palabra'):                                                     #Si toco el boton 'palabra', entonces significa que analizo si existe o no lo que forme en el tablero
 			ponerpal=True
 			if(tableroF=={}):
