@@ -233,7 +233,8 @@ if __name__ == '__main__':
 				event, values = configuracion.read()
 			con.configcustom(bolsa, -1, list(val.keys()), values, 'valor')
 			con.configcustom(bolsa, 27, list(cant.keys()), values, 'cant')
-			inicio, window=con.cofigtab(values['table'],column1,tableroIm)
+			tab=values['table']
+			inicio, window=con.cofigtab(tab,column1,tableroIm)
 			t=values['time']
 			palabras=values['tiposP']
 			palabras=palabras.split('/')
