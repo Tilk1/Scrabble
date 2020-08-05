@@ -54,8 +54,8 @@ def intercambiarFichas(letras, bolsa, copia, window, cant):
 	else:
 		letra=''
 		x=0
-		q=list(letras.keys())[0].split('0')[0]
 		if(cant==7):                                          #cuando quiero intercambiar todas se hace automaticamentr y no elijo cuales de a una
+			q=list(letras.keys())[0].split('0')[0]
 			while(letra!='vacio' and x<=6):
 				letra=randomLetra(bolsa)
 				if(letra!='vacio'):
@@ -84,7 +84,7 @@ def intercambiarFichas(letras, bolsa, copia, window, cant):
 						sigo=False
 		if(letra=='vacio'):
 			sg.popup('No quedan mas fichas en la bolsa, se han intercambiado las posibles')
-		elif(q=='u'):   
+		else:   
 			sg.popup('Intercambio realizado!')
 
 

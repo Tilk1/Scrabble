@@ -1,6 +1,4 @@
-def bla(x):
-    return x+20
-
-x = bla 
-r=x(2)
-print(r)
+import random
+turno=['compu','usuario']
+turno = random.choice(turno)
+print(turno)
