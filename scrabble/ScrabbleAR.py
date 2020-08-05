@@ -209,7 +209,6 @@ if __name__ == '__main__':
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
 				#----------------------------------
-				turno = random.choice(turno)
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
 				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
 				funciones.activarBotones(window)
