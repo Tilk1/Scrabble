@@ -197,7 +197,7 @@ if __name__ == '__main__':
 					n.value = True
 				#----------------------------------
 
-				turno = random.choice(turno)'
+				turno = random.choice(turno)
 				print(turno)
 				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
 				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
