@@ -27,15 +27,15 @@ def turno_maquina(coordPlay, tableroIm, tableroFichas, letrasM, window, colores,
     botones_disable = True
     funciones.activar_desactivar_Botones_basicos(window, botones_disable)
 
-    intentos_formar = 35  # estos intentos deben setearse segun la dificultad
+    intentos_formar = 10  # estos intentos deben setearse segun la dificultad
     intentos_ubicar = 20
     # gif animado
     # en este momento es 0 yaq no hace falta crear tiempo la PC tarda
     segundos_de_loop = time.time() + 0
     image = window['gifcompu']
-    while time.time() < segundos_de_loop:
-        window.read(10)
-        image.update_animation(os.path.join('imagenes', 'robot.gif'), 150)
+    # while time.time() < segundos_de_loop:
+    #     window.read(10)
+    #     image.update_animation(os.path.join('imagenes', 'robot.gif'), 150)
     print('TENGO ESTAS FICHAS:')
     print(letrasM)
 
