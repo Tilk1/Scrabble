@@ -27,7 +27,7 @@ def turno_maquina(coordPlay, tableroIm, tableroFichas, letrasM, window, colores,
     botones_disable = True
     funciones.activar_desactivar_Botones_basicos(window, botones_disable)
 
-    intentos_formar = 5  # estos intentos deben setearse segun la dificultad
+    intentos_formar = 10  # estos intentos deben setearse segun la dificultad
     intentos_ubicar = 15
     # gif animado
     # en este momento es 0 yaq no hace falta crear tiempo la PC tarda
