@@ -39,3 +39,6 @@ x='(1,2)'
 n=tuple(x.replace('(','').replace(')','').replace(',','').replace(' ',''))
 n=(int(n[0]),int(n[1]))
 print(n)
+p=[1,2]
+p=tuple(p)
+print(p)

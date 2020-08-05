@@ -183,9 +183,8 @@ def principal(n, lock):
 						palabras=datos['palabras']
 						turno=datos['turno']
 						cantIntercambios=datos['cantInter']
-						inicio=datos['inicio']
-						inicio, window=con.cofigtab(datos['tab'],column1,datos['tableroIm'])
-						
+						inicio=tuple(datos['inicio'])
+						inicio, window=con.cofigtab(tuple(datos['tab']),column1,tableroIm)
 						letrasU=datos['letrasU']
 						letrasM=datos['letrasM']
 						puntajeM=datos['puntajeM']
