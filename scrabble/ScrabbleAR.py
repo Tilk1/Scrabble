@@ -1,3 +1,17 @@
+import funciones
+import PySimpleGUI as sg
+import funcionesFichas as colocar
+import random
+import configuraciones as con
+import os
+import json
+import time
+from multiprocessing import Process, Lock, Value
+from ctypes import c_bool
+import compu
+
+global arranca_timer
+
 def usuario(cantInter,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window):
 	event='comenzar'
 	puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
@@ -227,4 +241,3 @@ if __name__ == '__main__':
 	lock = Lock()
 	Process(target=robot1, args=(n, lock)).start() 
 	Process(target=robot2, args=(n, lock)).start()
-
