@@ -176,8 +176,6 @@ def principal(n, lock):
 						datos = json.load(archivo)
 						tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
 						tableroIm=funciones.tuplasInter(datos['tableroIm'])
-						for x in tableroFichas:
-							window[x].update(image_filename=os.path.join('imagenes',tableroFichas[x]))
 						bolsa=datos['bolsa']
 						t=datos['tiempo']
 						palabras=datos['palabras']
@@ -185,6 +183,8 @@ def principal(n, lock):
 						cantIntercambios=datos['cantInter']
 						inicio=tuple(datos['inicio'])
 						inicio, window=con.cofigtab(tuple(datos['tab']),column1,tableroIm)
+						for x in tableroFichas:
+							window[x].update(image_filename=os.path.join('imagenes',tableroFichas[x]))
 						letrasU=datos['letrasU']
 						letrasM=datos['letrasM']
 						puntajeM=datos['puntajeM']
