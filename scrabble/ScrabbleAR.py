@@ -166,7 +166,7 @@ if __name__ == '__main__':
 	turno = random.choice(turno)
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
-	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
+	event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
 	menu.Hide()
 	bolsaCopia=bolsa.copy()
 	palabras=palabras.split('/')
@@ -185,7 +185,7 @@ if __name__ == '__main__':
 		print(event)
 		if(event=='volver'):
 			menu.UnHide()
-			event,t,palabras,tab = con.elegirNivel(menu, bolsa)
+			event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
 			menu.Hide()
 		elif(event == 'jugar'):
 			if(configB!=True):
