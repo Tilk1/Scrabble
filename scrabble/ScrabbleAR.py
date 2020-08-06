@@ -50,7 +50,7 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 			fin_tiempo = True
 			break
 	window.hide()
-	funciones.mostrar_fin_partida(puntajeM,puntajeU)
+	funciones.mostrar_fin_partida(nivel,puntajeM,puntajeU)
 
 if __name__ == '__main__':
 	executor = Executor()
@@ -99,7 +99,6 @@ if __name__ == '__main__':
 			'u3': '', 'u4': '', 'u5': '', 'u6': ''}
 	letrasM = {'m0': '', 'm1': '', 'm2': '',
 			'm3': '', 'm4': '', 'm5': '', 'm6': ''}
-	texto_reporte = '¡Bienvenido a ScrabbleAR! \n El nivel es: (dif)  \n Tiempo: (tiempo)\n Palabras validas: (verbo/adj)\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
 	columna = [
 		[sg.Text('', background_color='white')],
 		[sg.Button(image_filename=(os.path.join(cwd,'imagenes','bolsachica.png')), border_width=0,key='intercambiar', disabled=True)],
@@ -109,7 +108,7 @@ if __name__ == '__main__':
 	column1 = [
 		[sg.Image(os.path.join(cwd,'imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje:0000', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'),sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Button(image_filename=os.path.join('imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
 		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
-		[sg.Column([[sg.Text(texto_reporte, text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
+		[sg.Column([[sg.Text('', text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
 		[sg.Image(os.path.join(cwd,'imagenes','jugador.png')), sg.Text(text='Puntaje:0000', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
 		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True)],
 		[sg.Button(image_filename=os.path.join(cwd,'imagenes','terminar.png'), key='exit', border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join(cwd,'imagenes','posponer.png'), key='posponer', border_width=0)]
@@ -167,6 +166,7 @@ if __name__ == '__main__':
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
+	texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
 	menu.Hide()
 	bolsaCopia=bolsa.copy()
 	palabras=palabras.split('/')
@@ -186,6 +186,7 @@ if __name__ == '__main__':
 		if(event=='volver'):
 			menu.UnHide()
 			event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
+			texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
 			menu.Hide()
 		elif(event == 'jugar'):
 			if(configB!=True):
@@ -262,6 +263,7 @@ if __name__ == '__main__':
 			palabras=palabras.split('/')
 			bolsaCopia=bolsa.copy()
 			estadoBolsa='sigo'
+			texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
 		elif(event=='posponer'):
 			with open('posponer.txt','w') as archivo:
 				tb=funciones.tuplasString(tableroIm)

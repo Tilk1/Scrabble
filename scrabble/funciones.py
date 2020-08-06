@@ -175,7 +175,7 @@ def activar_desactivar_Botones_basicos(window, boolean):
     window["sacar"].Update(disabled=boolean)
 
 
-def mostrar_fin_partida(puntajeM,puntajeU):
+def mostrar_fin_partida(nivel,puntajeM,puntajeU):
     puntajeU += 999 #quitar es para debugear!!!!!
     try:
         with open((os.path.join(cwd,"puntajes.json"))) as arc:
@@ -201,7 +201,7 @@ def mostrar_fin_partida(puntajeM,puntajeU):
             today = date.today()
             puntajes[0][0] = 'NUEVO'       #nombre
             puntajes[0][1] = puntajeU      # puntaje
-            puntajes[0][2] = 'desconocida' #dificultad
+            puntajes[0][2] = nivel         #dificultad
             puntajes[0][3] = str(today)    #fecha
             json.dump(puntajes, arc2)
 
