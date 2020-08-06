@@ -93,12 +93,12 @@ def calcularPuntaje(l, im, b): #l(puestas) im(tableroimagenes) b(bolsa)
             suma = suma+(b[l[x]]['valor']-2)
         elif(cas == '-3.png'):
             suma = suma+(b[l[x]]['valor']-3)
-        elif(cas == 'px2.png'):
-            multi.append(2)
-        elif(cas == 'px3.png'):
-            multi.append(3)
         else:
             suma = suma+b[l[x]]['valor']
+            if(cas == 'px2.png'):
+                multi.append(2)
+            elif(cas == 'px3.png'):
+                multi.append(3)
     for y in multi:
         suma = suma*y
     return suma
