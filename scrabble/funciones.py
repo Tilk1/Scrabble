@@ -197,7 +197,7 @@ def mostrar_fin_partida(puntajeM,puntajeU):
         quedotop10 = False
 
     if quedotop10 == True:
-        with open('puntajes.json','w') as arc2:  #quito al ultimo
+        with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
             today = date.today()
             puntajes[0][0] = 'NUEVO'       #nombre
             puntajes[0][1] = puntajeU      # puntaje
