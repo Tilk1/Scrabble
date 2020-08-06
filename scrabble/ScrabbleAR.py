@@ -157,7 +157,7 @@ if __name__ == '__main__':
 	popinter = sg.Window('intercambio', intercambiar, force_toplevel= True, disable_close = True)
 	menu = sg.Window('MENU', layoutmenu)
 	configuracion = sg.Window('config', config)
-	partidaW = sg.Window('partida',menuJugar)
+	partidaW = sg.Window('partida',menuJugar, disable_close = True)
 	
 	turno=['compu','usuario']
 	turno = random.choice(turno)
