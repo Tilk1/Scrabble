@@ -3,6 +3,7 @@ from sys import platform as _platform
 import os
 import PySimpleGUI as sg
 import json
+from datetime import date
 
 cwd = os.getcwd()
 
@@ -174,28 +175,36 @@ def activar_desactivar_Botones_basicos(window, boolean):
     window["sacar"].Update(disabled=boolean)
 
 
-def mostrar_fin_partida(x,y):
+def mostrar_fin_partida(puntajeM,puntajeU):
+    puntajeU += 999 #quitar es para debugear!!!!!
     try:
-        with open("puntajes.json") as arc:
+        with open((os.path.join(cwd,"puntajes.json"))) as arc:
             datos = json.load(arc)
             if not datos:
                 sg.popup('Archivo de puntajes no encontrado')
             else:
                 puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
-                print('pepe')
 
     except FileNotFoundError:
         sg.popup('Archivo de puntajes no encontrado')
 
-
-    puntajeU = x
-    puntajeM = y
+    ptosU = puntajeU
 
     # me fijo si supera al mas bajo de todos para quedar en el top 10
     if puntajeU > puntajes[0][1]:
         quedotop10 = True
     else:
         quedotop10 = False
+
+    if quedotop10 == True:
+        print('llego acaaa')
+        with open('puntajes.json','w') as arc2:  #quito al ultimo
+            today = date.today()
+            puntajes[0][0] = 'NUEVO'
+            puntajes[0][1] = puntajeU  # reemplazo el puntaje
+            puntajes[0][2] = 'desconocida'
+            puntajes[0][3] = str(today)
+            json.dump(puntajes, arc2)
 
     # agrego el nuevo puntaje una vez que lo haya escrito y toco el boton OK
     #puntajes.append = ["juuuu",  999, "easy", "3/3/2050"]
@@ -222,9 +231,8 @@ def mostrar_fin_partida(x,y):
         [sg.Text('',background_color= 'White')],
         [sg.Text('Puntuacion Usuario    :', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeU), font=('Fixedsys', 20),text_color=color_usuario, background_color='white')],
         [sg.Text('Puntuacion Computadora:', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeM), font=('Fixedsys', 20),text_color=color_compu, background_color='white')],
-        [sg.Text('',background_color= 'White')],
-        [sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', background_color='white', visible= quedotop10),sg.Input(size=(12,8),font=('Fixedsys', 17),visible= quedotop10),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='volver',visible= quedotop10)],
-        [sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=True)],
+        [sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', background_color='white', visible= False),sg.Input(size=(12,8),font=('Fixedsys', 17),visible= False),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='volver',visible= False)],
+        [sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=False)],
             ]
 
     fin_partida = sg.Window("fin", layout, resizable=True,finalize=True)

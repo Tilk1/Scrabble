@@ -50,9 +50,7 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 			fin_tiempo = True
 			break
 	window.hide()
-	x= puntajeM
-	y= puntajeU
-	funciones.mostrar_fin_partida(x,y)
+	funciones.mostrar_fin_partida(puntajeM,puntajeU)
 
 if __name__ == '__main__':
 	executor = Executor()
@@ -194,7 +192,7 @@ if __name__ == '__main__':
 				event, values = partidaW.read()
 				if(event=='viejaP'):
 					try:
-						with open('posponer.txt','r') as archivo:
+						with open((os.path.join(cwd,'posponer.txt'),'r')) as archivo:
 							datos = json.load(archivo)
 							tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
 							#tableroIm=funciones.tuplasInter(datos['tableroIm'])
@@ -227,7 +225,7 @@ if __name__ == '__main__':
 				
 				#------ segundo proceso timer-------
 				fin_tiempo = False
-				tiempo_dificultad = 6000*t     # TENGO que mandarle el tiempo segun la dificultad
+				tiempo_dificultad = 600*t     # TENGO que mandarle el tiempo segun la dificultad
 				executor.submit(timer,n,lock,tiempo_dificultad,fin_tiempo,window)
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
@@ -273,7 +271,7 @@ if __name__ == '__main__':
 				posponer=False
 		elif(event == 'top10'):
 			try:
-				with open("puntajes.json") as arc:
+				with open((os.path.join(cwd,"puntajes.json"))) as arc:
 					datos = json.load(arc)
 					if not datos:
 						sg.popup('Archivo de puntajes no encontrado')
