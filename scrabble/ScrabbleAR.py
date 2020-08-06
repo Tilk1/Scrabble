@@ -96,7 +96,7 @@ if __name__ == '__main__':
 			'u3': '', 'u4': '', 'u5': '', 'u6': ''}
 	letrasM = {'m0': '', 'm1': '', 'm2': '',
 			'm3': '', 'm4': '', 'm5': '', 'm6': ''}
-	texto_reporte = 'info sobre la partida'
+	texto_reporte = '¡Bienvenido a ScrabbleAR! \n El nivel es: (dif)  \n Tiempo: (tiempo)\n Palabras validas: (verbo/adj)\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
 	columna = [
 		[sg.Text('', background_color='white')],
 		[sg.Button(image_filename=(os.path.join('imagenes','bolsachica.png')), border_width=0,key='intercambiar', disabled=True)],
@@ -106,7 +106,7 @@ if __name__ == '__main__':
 	column1 = [
 		[sg.Image(os.path.join('imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje:00', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'),sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Button(image_filename=os.path.join('imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
 		[sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
-		[sg.Column([[sg.Text(texto_reporte, text_color='black', key='reporte',background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
+		[sg.Column([[sg.Text(texto_reporte, text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
 		[sg.Image(os.path.join('imagenes','jugador.png')), sg.Text(text='Puntaje:00', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
 		[sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename=os.path.join('imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True)],
 		[sg.Button(image_filename=os.path.join('imagenes','terminar.png'), key='exit', border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join('imagenes','posponer.png'), key='posponer', border_width=0)]
@@ -157,7 +157,7 @@ if __name__ == '__main__':
 	popinter = sg.Window('intercambio', intercambiar, force_toplevel= True, disable_close = True)
 	menu = sg.Window('MENU', layoutmenu)
 	configuracion = sg.Window('config', config)
-	partidaW = sg.Window('partida',menuJugar)
+	partidaW = sg.Window('partida',menuJugar, disable_close = True)
 	
 	turno=['compu','usuario']
 	turno = random.choice(turno)
