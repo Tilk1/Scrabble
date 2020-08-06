@@ -49,10 +49,13 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 		if i == 0:
 			fin_tiempo = True
 			break
+	funciones.cargar(puntajeU,name,nivel)
 	window.hide()
-	funciones.mostrar_fin_partida(nivel,puntajeM,puntajeU)
+	funciones.mostrar_fin_partida(puntajeU,puntajeM)
 
+global name
 if __name__ == '__main__':
+	name = sg.popup_get_text('Title', 'Please input something')
 	executor = Executor()
 	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
 	lock = Lock()

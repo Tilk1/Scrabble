@@ -175,7 +175,34 @@ def activar_desactivar_Botones_basicos(window, boolean):
     window["sacar"].Update(disabled=boolean)
 
 
-def mostrar_fin_partida(nivel,puntajeM,puntajeU):
+def cargar(puntajeU,name,nivel):
+    puntajeU = 999
+    print('ENTROO A CARGAR')
+    try:
+        with open(os.path.join(cwd,"puntajes.json")) as arc:
+            datos = json.load(arc)
+            if not datos:
+                sg.popup('Archivo de puntajes no encontrado')
+            else:
+                puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
+
+    except FileNotFoundError:
+        sg.popup('Archivo de puntajes no encontrado')
+    
+    if puntajeU > puntajes[0][1]:
+        quedotop10 = True
+    else:
+        quedotop10 = False
+        print('FALSOO')
+
+    if quedotop10 == True:
+        with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
+            print('LEEE 1111')
+            puntajes[0][0] = name
+            puntajes[0][2] = nivel
+            json.dump(puntajes, arc2)
+      
+def mostrar_fin_partida(puntajeU,puntajeM):
     try:
         with open((os.path.join(cwd,"puntajes.json"))) as arc:
             datos = json.load(arc)
@@ -187,7 +214,8 @@ def mostrar_fin_partida(nivel,puntajeM,puntajeU):
     except FileNotFoundError:
         sg.popup('Archivo de puntajes no encontrado')
 
-    ptosU = puntajeU
+    puntajeU = 999
+    puntajeM = 2
 
     # me fijo si supera al mas bajo de todos para quedar en el top 10
     if puntajeU > puntajes[0][1]:
@@ -197,10 +225,9 @@ def mostrar_fin_partida(nivel,puntajeM,puntajeU):
 
     if quedotop10 == True:
         with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
+            print('LEEE 222')
             today = date.today()
-            puntajes[0][0] = 'NUEVO'       #nombre
             puntajes[0][1] = puntajeU      # puntaje
-            puntajes[0][2] = nivel         #dificultad
             puntajes[0][3] = str(today)    #fecha
             json.dump(puntajes, arc2)
 
