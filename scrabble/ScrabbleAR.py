@@ -70,27 +70,27 @@ if __name__ == '__main__':
 			'F.png': {'cant': 0, 'valor': 0},
 			'G.png': {'cant': 0, 'valor': 0},
 			'H.png': {'cant': 0, 'valor': 0},
-			'I.png': {'cant': 7, 'valor': 1},
-			'J.png': {'cant': 7, 'valor': 1},
-			'K.png': {'cant': 7, 'valor': 1},
-			'L.png': {'cant': 7, 'valor': 1},
-			'M.png': {'cant': 7, 'valor': 1},
-			'N.png': {'cant': 7, 'valor': 1},
-			'Ñ.png': {'cant': 7, 'valor': 1},
-			'O.png': {'cant': 7, 'valor': 1},
-			'P.png': {'cant': 7, 'valor': 1},
-			'Q.png': {'cant': 7, 'valor': 1},
-			'R.png': {'cant': 7, 'valor': 1},
-			'S.png': {'cant': 7, 'valor': 1},
-			'T.png': {'cant': 7, 'valor': 1},
-			'U.png': {'cant': 7, 'valor': 1},
-			'V.png': {'cant': 7, 'valor': 1},
-			'W.png': {'cant': 7, 'valor': 1},
-			'X.png': {'cant': 7, 'valor': 1},
-			'Y.png': {'cant': 7, 'valor': 1},
-			'Z.png': {'cant': 7, 'valor': 1},
-			'LL.png': {'cant': 7, 'valor': 1},
-			'RR.png': {'cant': 7, 'valor': 1}}
+			'I.png': {'cant': 0, 'valor': 0},
+			'J.png': {'cant': 0, 'valor': 0},
+			'K.png': {'cant': 0, 'valor': 0},
+			'L.png': {'cant': 0, 'valor': 0},
+			'M.png': {'cant': 0, 'valor': 0},
+			'N.png': {'cant': 0, 'valor': 0},
+			'Ñ.png': {'cant': 0, 'valor': 0},
+			'O.png': {'cant': 0, 'valor': 0},
+			'P.png': {'cant': 0, 'valor': 0},
+			'Q.png': {'cant': 0, 'valor': 0},
+			'R.png': {'cant': 0, 'valor': 0},
+			'S.png': {'cant': 0, 'valor': 0},
+			'T.png': {'cant': 0, 'valor': 0},
+			'U.png': {'cant': 0, 'valor': 0},
+			'V.png': {'cant': 0, 'valor': 0},
+			'W.png': {'cant': 0, 'valor': 0},
+			'X.png': {'cant': 0, 'valor': 0},
+			'Y.png': {'cant': 0, 'valor': 0},
+			'Z.png': {'cant': 0, 'valor': 0},
+			'LL.png': {'cant': 0, 'valor': 0},
+			'RR.png': {'cant': 0, 'valor': 0}}
 	# diccionario que lleva la cuenta de que iagen(letra) se encuentra en cada posicion del atril a todo momento
 	letrasU = {'u0': '', 'u1': '', 'u2': '',
 			'u3': '', 'u4': '', 'u5': '', 'u6': ''}
@@ -164,12 +164,14 @@ if __name__ == '__main__':
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
+	menu.Hide()
 	bolsaCopia=bolsa.copy()
 	palabras=palabras.split('/')
 	posponer=True
 	# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
 	cantIntercambios=0
 	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
+	hideTop10= False
 	estadoBolsa='sigo'
 	if(event=='configurar'):
 		configB=True
@@ -177,8 +179,11 @@ if __name__ == '__main__':
 		configB=False
 	while(not event in (None, 'exit') and estadoBolsa=='sigo' and posponer):
 		print(event)
-		if(event == 'jugar'):
-			menu.close()
+		if(event=='volver'):
+			menu.UnHide()
+			event,t,palabras,tab = con.elegirNivel(menu, bolsa)
+			menu.Hide()
+		elif(event == 'jugar'):
 			if(configB!=True):
 				event, values = partidaW.read()
 				if(event=='viejaP'):
@@ -209,9 +214,11 @@ if __name__ == '__main__':
 				for x in tableroFichas:
 					window[x].update(image_filename=tableroFichas[x])
 				window['puntU'].update('Puntaje:'+str(puntajeU))
+				window['puntM'].update('Puntaje:'+str(puntajeM))
 				for y in letrasU:
 					window[y].update(image_filename=letrasU[y])
 				window["reporte"].update(texto_reporte)
+				
 				#------ segundo proceso timer-------
 				fin_tiempo = False
 				tiempo_dificultad = 6000*t     # TENGO que mandarle el tiempo segun la dificultad
@@ -258,7 +265,6 @@ if __name__ == '__main__':
 				json.dump(datos, archivo)
 				posponer=False
 		elif(event == 'top10'):
-			menu.hide()
 			try:
 				with open("puntajes.json") as arc:
 					datos = json.load(arc)
@@ -266,7 +272,8 @@ if __name__ == '__main__':
 						sg.popup('Archivo de puntajes no encontrado')
 					else:
 						puntajes = sorted(datos, reverse=True, key=lambda x: x[1])
-						funciones.mostrar_top10(puntajes,menu)
+						hideTop10,event=funciones.mostrar_top10(hideTop10,puntajes,menu)
+						print('hola')
 
 			except FileNotFoundError:
 				sg.popup('Archivo de puntajes no encontrado')

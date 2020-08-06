@@ -120,8 +120,9 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 						print('Eliminando letra: ', letrasM[key])
 						letrasM[key] = ''
 						break
-		puntaje=puntaje+funciones.calcularPuntaje(puestas,tableroIm, copia)
-		tr = tr + '\n' + 'Maquina: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(puntaje) + ' puntos'  # /n es un espacio
+		valor=funciones.calcularPuntaje(puestas,tableroIm, copia)
+		puntaje=puntaje+valor
+		tr = tr + '\n' + 'Maquina: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
 		window["reporte"].update(tr)
 		window['puntM'].update('Puntaje:'+str(puntaje))
 	if(formada == 'no_encontro' or todas_disponibles == False):
