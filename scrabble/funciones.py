@@ -188,8 +188,8 @@ def mostrar_fin_partida():
         sg.popup('Archivo de puntajes no encontrado')
 
 
-    puntajeU = -1
-    puntajeM = 3
+    puntajeU = 999
+    puntajeM = 2
 
     # me fijo si supera al mas bajo de todos para quedar en el top 10
     if puntajeU > puntajes[0][1]:
@@ -224,8 +224,14 @@ def mostrar_fin_partida():
         [sg.Text('Puntuacion Computadora:', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeM), font=('Fixedsys', 20),text_color=color_compu, background_color='white')],
         [sg.Text('',background_color= 'White')],
         [sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', background_color='white', visible= quedotop10),sg.Input(size=(12,8),font=('Fixedsys', 17),visible= quedotop10),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='volver',visible= quedotop10)],
-        [sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='volver')],
+        [sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=False)],
             ]
-    fin_partida = sg.Window("TOP 10", layout, resizable=True,finalize=True).Finalize()
-    
-    event, values = fin_partida.read()
+
+    fin_partida = sg.Window("fin", layout, resizable=True,finalize=True)
+    while True:
+        event, values = fin_partida.read()
+        fin_partida.UnHide()
+        print(event,values)
+        if event == 'salir2' or event == None:
+            break
+    fin_partida.Close()
