@@ -72,7 +72,7 @@ def tipoPalabra(d):
         return tipo
 
 
-def calcularPuntaje(l, im, b):
+def calcularPuntaje(l, im, b): #l(puestas) im(tableroimagenes) b(bolsa)
     suma = 0
     multi = list()
     for x in l:

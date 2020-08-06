@@ -180,21 +180,17 @@ if __name__ == '__main__':
 					with open('posponer.txt','r') as archivo:
 						datos = json.load(archivo)
 						tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
-						tableroIm=funciones.tuplasInter(datos['tableroIm'])
+						#tableroIm=funciones.tuplasInter(datos['tableroIm'])
+						inicio, window=con.cofigtab(tuple(datos['tab']),column1,tableroIm)
 						bolsa=datos['bolsa']
 						t=datos['tiempo']
 						palabras=datos['palabras']
 						turno=datos['turno']
 						cantIntercambios=datos['cantInter']
-						inicio=tuple(datos['inicio'])
-						inicio, window=con.cofigtab(tuple(datos['tab']),column1,tableroIm)
-						for x in tableroFichas:
-							window[x].update(image_filename=os.path.join('imagenes',tableroFichas[x]))
 						letrasU=datos['letrasU']
 						letrasM=datos['letrasM']
 						puntajeM=datos['puntajeM']
 						puntajeU=datos['puntajeU']
-						window['puntU'].update('Puntaje:'+str(puntajeU))
 				except FileNotFoundError:
 					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 			else:
@@ -203,7 +199,11 @@ if __name__ == '__main__':
 			event, values = window.read()
 			bolsaCopia=bolsa.copy()
 			if(event == 'comenzar'):
-				
+				for x in tableroFichas:
+					window[x].update(image_filename=tableroFichas[x])
+				window['puntU'].update('Puntaje:'+str(puntajeU))
+				for y in letrasU:
+					window[y].update(image_filename=letrasU[y])
 				#------ segundo proceso timer-------
 				fin_tiempo = False
 				#window.read(1)
@@ -223,7 +223,8 @@ if __name__ == '__main__':
 					else:
 						estadoBolsa=compu.turno_maquina(inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
 						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
-				print(event)
+				print(tableroFichas)
+				print(tableroIm)
 				if(estadoBolsa=='vacio'):
 					sg.popup('No quedan mas fichas en la bolsa, fin del juego')
 			elif(event == 'terminar'):
