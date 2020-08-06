@@ -55,9 +55,8 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 
 global name
 if __name__ == '__main__':
-	# turno=['compu','usuario']
-	# turno = random.choice(turno)
-	turno = 'usuario'
+	turno=['compu','usuario']
+	turno = random.choice(turno)
 	name = sg.popup_get_text('Ingresa tu nombre para jugar', 'ScrabbleAR')
 	executor = Executor()
 	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
@@ -168,7 +167,7 @@ if __name__ == '__main__':
 	partidaW = sg.Window('partida',menuJugar, disable_close = True)
 	
 
-	#turno= 'usuario'
+	#turno= 'usuario' aca iba antes
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
@@ -247,9 +246,9 @@ if __name__ == '__main__':
 				while(not event in (None, 'exit','posponer') and estadoBolsa=='sigo'):
 					if(turno=='usuario'):
 						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
-						estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
+						estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia,nivel)
 					else:
-						estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
+						estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia,nivel)
 						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 				if(estadoBolsa=='vacio'):
 					sg.popup('No quedan mas fichas en la bolsa, fin del juego')

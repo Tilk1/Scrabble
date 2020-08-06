@@ -61,8 +61,8 @@ def tipoPalabra(d):
     palabra = obtener_palabra(d)
     analisis = parse(palabra, tags=True, chunks=False).split(' ')
     tipo = clasificar(analisis)
-    #if len(palabra) == 1:      #SIRVE PARA TESTEAR POR AHORA
-    #    return 'no_existe'
+    if len(palabra) == 1:      #SIRVE PARA TESTEAR POR AHORA
+        return 'no_existe'
     if(tipo == 'sustantivos'):
         if not palabra.lower() in verbs:
             if not palabra.lower() in spelling:
@@ -176,7 +176,6 @@ def activar_desactivar_Botones_basicos(window, boolean):
 
 
 def cargar(puntajeU,name,nivel):
-    puntajeU = 999
     print('ENTROO A CARGAR')
     try:
         with open(os.path.join(cwd,"puntajes.json")) as arc:
