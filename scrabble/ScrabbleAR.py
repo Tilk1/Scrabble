@@ -50,7 +50,9 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 			fin_tiempo = True
 			break
 	window.hide()
-	funciones.mostrar_fin_partida()
+	x= puntajeM
+	y= puntajeU
+	funciones.mostrar_fin_partida(x,y)
 
 if __name__ == '__main__':
 	executor = Executor()
@@ -176,7 +178,7 @@ if __name__ == '__main__':
 	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
 	hideTop10= False
 	estadoBolsa='sigo'
-	funciones.mostrar_fin_partida()
+	#funciones.mostrar_fin_partida()
 	if(event=='configurar'):
 		configB=True
 	else:

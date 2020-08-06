@@ -174,7 +174,7 @@ def activar_desactivar_Botones_basicos(window, boolean):
     window["sacar"].Update(disabled=boolean)
 
 
-def mostrar_fin_partida():
+def mostrar_fin_partida(x,y):
     try:
         with open("puntajes.json") as arc:
             datos = json.load(arc)
@@ -188,8 +188,8 @@ def mostrar_fin_partida():
         sg.popup('Archivo de puntajes no encontrado')
 
 
-    puntajeU = 999
-    puntajeM = 2
+    puntajeU = x
+    puntajeM = y
 
     # me fijo si supera al mas bajo de todos para quedar en el top 10
     if puntajeU > puntajes[0][1]:
