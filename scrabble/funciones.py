@@ -176,7 +176,6 @@ def activar_desactivar_Botones_basicos(window, boolean):
 
 
 def mostrar_fin_partida(nivel,puntajeM,puntajeU):
-    puntajeU += 999 #quitar es para debugear!!!!!
     try:
         with open((os.path.join(cwd,"puntajes.json"))) as arc:
             datos = json.load(arc)
