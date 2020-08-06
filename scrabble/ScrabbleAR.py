@@ -171,34 +171,39 @@ if __name__ == '__main__':
 	cantIntercambios=0
 	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
 	estadoBolsa='sigo'
+	if(event=='configurar'):
+		configB=True
+	else:
+		configB=False
 	while(not event in (None, 'exit') and estadoBolsa=='sigo' and posponer):
 		print(event)
 		if(event == 'jugar'):
 			menu.close()
-			event, values = partidaW.read()
-			if(event=='viejaP'):
-				try:
-					with open('posponer.txt','r') as archivo:
-						datos = json.load(archivo)
-						tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
-						#tableroIm=funciones.tuplasInter(datos['tableroIm'])
-						inicio, window=con.cofigtab(tuple(datos['tab']),column1,tableroIm)
-						bolsa=datos['bolsa']
-						bolsaCopia=datos['bolsaCopia']
-						t=datos['tiempo']
-						palabras=datos['palabras']
-						turno=datos['turno']
-						cantIntercambios=datos['cantInter']
-						letrasU=datos['letrasU']
-						letrasM=datos['letrasM']
-						puntajeM=datos['puntajeM']
-						puntajeU=datos['puntajeU']
-						texto_reporte=datos['texto_reporte']
-				except FileNotFoundError:
-					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
-			else:
-				inicio, window=con.cofigtab(tab,column1,tableroIm)
-			partidaW.close()
+			if(configB!=True):
+				event, values = partidaW.read()
+				if(event=='viejaP'):
+					try:
+						with open('posponer.txt','r') as archivo:
+							datos = json.load(archivo)
+							tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
+							#tableroIm=funciones.tuplasInter(datos['tableroIm'])
+							inicio, window=con.cofigtab(tuple(datos['tab']),column1,tableroIm)
+							bolsa=datos['bolsa']
+							bolsaCopia=datos['bolsaCopia']
+							t=datos['tiempo']
+							palabras=datos['palabras']
+							turno=datos['turno']
+							cantIntercambios=datos['cantInter']
+							letrasU=datos['letrasU']
+							letrasM=datos['letrasM']
+							puntajeM=datos['puntajeM']
+							puntajeU=datos['puntajeU']
+							texto_reporte=datos['texto_reporte']
+					except FileNotFoundError:
+						sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
+				elif(event=='nuevaP'):
+					inicio, window=con.cofigtab(tab,column1,tableroIm)
+				partidaW.close()
 			event, values = window.read()
 			if(event == 'comenzar'):
 				for x in tableroFichas:
@@ -210,7 +215,7 @@ if __name__ == '__main__':
 				#------ segundo proceso timer-------
 				fin_tiempo = False
 				#window.read(1)
-				tiempo_dificultad = 6000     # TENGO que mandarle el tiempo segun la dificultad
+				tiempo_dificultad = 6000*t     # TENGO que mandarle el tiempo segun la dificultad
 				executor.submit(timer,n,lock,tiempo_dificultad,fin_tiempo,window)
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
