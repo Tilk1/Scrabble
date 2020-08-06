@@ -198,6 +198,7 @@ if __name__ == '__main__':
 			if(configB!=True):
 				event, values = partidaW.read()
 				if(event=='viejaP'):
+					viejaP=True
 					try:
 						with open(os.path.join(cwd,'posponer.txt'),'r') as archivo:
 							datos = json.load(archivo)
@@ -219,15 +220,17 @@ if __name__ == '__main__':
 						sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 				elif(event=='nuevaP'):
 					inicio, window=con.cofigtab(tab,column1,tableroIm)
+					viejaP=False
 				partidaW.close()
 			event, values = window.read()
 			if(event == 'comenzar'):
-				for x in tableroFichas:
-					window[x].update(image_filename=tableroFichas[x])
-				window['puntU'].update('Puntaje:'+str(puntajeU))
-				window['puntM'].update('Puntaje:'+str(puntajeM))
-				for y in letrasU:
-					window[y].update(image_filename=letrasU[y])
+				if(viejaP):
+					for x in tableroFichas:
+						window[x].update(image_filename=os.path.join(cwd,'imagenes',tableroFichas[x]))
+					window['puntU'].update('Puntaje:'+str(puntajeU))
+					window['puntM'].update('Puntaje:'+str(puntajeM))
+					for y in letrasU:
+						window[y].update(image_filename=os.path.join(cwd,'imagenes',letrasU[y]))
 				window["reporte"].update(texto_reporte)
 				
 				#------ segundo proceso timer-------
