@@ -193,6 +193,7 @@ if __name__ == '__main__':
 						letrasM=datos['letrasM']
 						puntajeM=datos['puntajeM']
 						puntajeU=datos['puntajeU']
+						texto_reporte=datos['texto_reporte']
 				except FileNotFoundError:
 					sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 			else:
@@ -205,6 +206,7 @@ if __name__ == '__main__':
 				window['puntU'].update('Puntaje:'+str(puntajeU))
 				for y in letrasU:
 					window[y].update(image_filename=letrasU[y])
+				window["reporte"].update(texto_reporte)
 				#------ segundo proceso timer-------
 				fin_tiempo = False
 				#window.read(1)
@@ -250,7 +252,7 @@ if __name__ == '__main__':
 			with open('posponer.txt','w') as archivo:
 				tb=funciones.tuplasString(tableroIm)
 				tF=funciones.tuplasString(tableroFichas)
-				datos={'bolsaCopia':bolsaCopia,'tableroFichas':tF,'tableroIm':tb,'tab':tab,'inicio':inicio,'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'letrasU':letrasU,'letrasM':letrasM,'puntajeM':puntajeM,'puntajeU':puntajeU}
+				datos={'texto_reporte':texto_reporte,'bolsaCopia':bolsaCopia,'tableroFichas':tF,'tableroIm':tb,'tab':tab,'inicio':inicio,'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'letrasU':letrasU,'letrasM':letrasM,'puntajeM':puntajeM,'puntajeU':puntajeU}
 				json.dump(datos, archivo)
 				posponer=False
 		elif(event == 'top10'):

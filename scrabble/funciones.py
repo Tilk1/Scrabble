@@ -12,8 +12,10 @@ def tuplasString(diccio):
 def tuplasInter(diccio):
 	t=dict()
 	for x in diccio:
-		n=tuple(x.replace('(','').replace(')','').replace(',','').replace(' ',''))
+		n=tuple(x.replace('(','').replace(')','').replace(' ','').replace(',',' ').split(' '))
 		n=(int(n[0]),int(n[1]))
+		print(x)
+		print(diccio[x])
 		t[n]=diccio[x]
 	return t
 	

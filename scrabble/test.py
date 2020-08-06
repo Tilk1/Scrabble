@@ -11,10 +11,11 @@ print(letrasM)
 #    if(x[1]=='RR.png'):(
 palabra=list()
 pal='perrorro'
-for x in (range(pal.count('rr'))):
+#for x in (range(pal.count('rr'))):
     #palabra.append('RR')
-    letrasM.
-pal=pal.replace('rr','')
-print(palabra)
-pal=','.join(pal).split(',')
-print(pal)
+    #letrasM.
+t='(14, 3)'
+n=tuple(t.replace('(','').replace(')','').replace(' ','').replace(',',' ').split(' '))
+print(n)
+n=(int(n[0]),int(n[1]))
+print(n)
