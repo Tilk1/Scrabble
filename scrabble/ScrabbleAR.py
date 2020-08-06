@@ -154,7 +154,7 @@ if __name__ == '__main__':
 	colores = ['color1.png','color2.png',
 			'color3.png','color4.png','color5.png']
 
-	popinter = sg.Window('intercambio', intercambiar)
+	popinter = sg.Window('intercambio', intercambiar, force_toplevel= True, disable_close = True)
 	menu = sg.Window('MENU', layoutmenu)
 	configuracion = sg.Window('config', config)
 	partidaW = sg.Window('partida',menuJugar)
@@ -214,7 +214,6 @@ if __name__ == '__main__':
 				window["reporte"].update(texto_reporte)
 				#------ segundo proceso timer-------
 				fin_tiempo = False
-				#window.read(1)
 				tiempo_dificultad = 6000*t     # TENGO que mandarle el tiempo segun la dificultad
 				executor.submit(timer,n,lock,tiempo_dificultad,fin_tiempo,window)
 				with lock:   # mando mensaje para comenzar timer
