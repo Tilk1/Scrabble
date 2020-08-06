@@ -2,6 +2,7 @@ from pattern.text.es import verbs, tag, spelling, lexicon, parse
 from sys import platform as _platform
 import os
 import PySimpleGUI as sg
+import json
 
 cwd = os.getcwd()
 
@@ -171,3 +172,60 @@ def activar_desactivar_Botones_basicos(window, boolean):
     window["intercambiar"].Update(disabled=boolean)
     window["palabra"].Update(disabled=boolean)
     window["sacar"].Update(disabled=boolean)
+
+
+def mostrar_fin_partida():
+    try:
+        with open("puntajes.json") as arc:
+            datos = json.load(arc)
+            if not datos:
+                sg.popup('Archivo de puntajes no encontrado')
+            else:
+                puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
+                print('pepe')
+
+    except FileNotFoundError:
+        sg.popup('Archivo de puntajes no encontrado')
+
+
+    puntajeU = -1
+    puntajeM = 3
+
+    # me fijo si supera al mas bajo de todos para quedar en el top 10
+    if puntajeU > puntajes[0][1]:
+        quedotop10 = True
+    else:
+        quedotop10 = False
+
+    # agrego el nuevo puntaje una vez que lo haya escrito y toco el boton OK
+    #puntajes.append = ["juuuu",  999, "easy", "3/3/2050"]
+    #print(puntajes) 
+
+    color_usuario = 'red'
+    color_compu = 'red'
+
+    if puntajeU > puntajeM:
+        ganador = 'Usuario'
+        imagen_ganador = 'jugador.png'
+        color_usuario = 'green'
+    else:
+        ganador = 'Computadora'
+        imagen_ganador = 'robot.gif'
+        color_compu = 'green'
+
+
+    layout = [
+        [sg.Text('¡La partida ha terminado!', font=('Fixedsys', 30),text_color='salmon', background_color='white')],
+        [sg.Text('       Has quedado en el top 10', font=('Fixedsys', 20),text_color='green', background_color='white', visible = quedotop10)],
+        [sg.Text('',background_color= 'White')],
+        [sg.Text('Ganador: ', font=('Fixedsys', 17),text_color='salmon', background_color='white'), sg.Text(ganador, font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Image(os.path.join('imagenes',imagen_ganador))],
+        [sg.Text('',background_color= 'White')],
+        [sg.Text('Puntuacion Usuario    :', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeU), font=('Fixedsys', 20),text_color=color_usuario, background_color='white')],
+        [sg.Text('Puntuacion Computadora:', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeM), font=('Fixedsys', 20),text_color=color_compu, background_color='white')],
+        [sg.Text('',background_color= 'White')],
+        [sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', background_color='white', visible= quedotop10),sg.Input(size=(12,8),font=('Fixedsys', 17),visible= quedotop10),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='volver',visible= quedotop10)],
+        [sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='volver')],
+            ]
+    fin_partida = sg.Window("TOP 10", layout, resizable=True,finalize=True).Finalize()
+    
+    event, values = fin_partida.read()
