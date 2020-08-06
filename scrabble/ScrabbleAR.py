@@ -229,7 +229,7 @@ if __name__ == '__main__':
 				
 				#------ segundo proceso timer-------
 				fin_tiempo = False
-				tiempo_dificultad = 600*t     # TENGO que mandarle el tiempo segun la dificultad
+				tiempo_dificultad = 6000*t     # TENGO que mandarle el tiempo segun la dificultad
 				executor.submit(timer,n,lock,tiempo_dificultad,fin_tiempo,window)
 				with lock:   # mando mensaje para comenzar timer
 					n.value = True
