@@ -17,7 +17,7 @@ def colocar(coord_x, coord_y, tamaño, window, tF, formada):
 		puestas[coord]=formada[i]+'.png'
 	return puestas
 
-def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, window, colores, bolsa, copia):
+def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, window, colores, bolsa, copia,nivel):
 	""" 
 	Se encarga de todo el turno de la computadora en general. Esto incluye:
 	1. Gif animado para simular que la computadora esta procesando
@@ -30,7 +30,17 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 	botones_disable = True
 	funciones.activar_desactivar_Botones_basicos(window, botones_disable)
 
-	intentos_formar = 10  # estos intentos deben setearse segun la dificultad
+	if nivel == 'Nivel fácil': # estos intentos deben setearse segun la dificultad
+		intentos_formar = 3  
+		intentos_ubicar = 5
+	if nivel == 'Nivel medio':
+		intentos_formar = 10  
+		intentos_ubicar = 15
+	if nivel == 'Nivel difícil':
+		intentos_formar = 20  
+		intentos_ubicar = 30
+
+	intentos_formar = 10
 	intentos_ubicar = 15
 	image = window['gifcompu']
 
