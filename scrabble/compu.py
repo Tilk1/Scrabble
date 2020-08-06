@@ -32,8 +32,6 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 
 	intentos_formar = 10  # estos intentos deben setearse segun la dificultad
 	intentos_ubicar = 15
-	# gif animado
-	# en este momento es 0 yaq no hace falta crear tiempo la PC tarda
 	image = window['gifcompu']
 
 	print('TENGO ESTAS FICHAS:')

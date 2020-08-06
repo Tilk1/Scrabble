@@ -55,9 +55,8 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 
 global name
 if __name__ == '__main__':
-	# turno=['compu','usuario']
-	# turno = random.choice(turno)
-	turno = 'usuario'
+	turno=['compu','usuario']
+	turno = random.choice(turno)
 	name = sg.popup_get_text('Ingresa tu nombre para jugar', 'ScrabbleAR')
 	executor = Executor()
 	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
@@ -168,7 +167,7 @@ if __name__ == '__main__':
 	partidaW = sg.Window('partida',menuJugar, disable_close = True)
 	
 
-	#turno= 'usuario'
+	#turno= 'usuario' aca iba antes
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
