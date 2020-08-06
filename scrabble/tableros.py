@@ -1,4 +1,5 @@
 import os
+cwd = os.getcwd()
 
 def crearTablero(tab, fila, column, imagenes, sg):
 	tablero = []
@@ -25,7 +26,7 @@ def crearTablero(tab, fila, column, imagenes, sg):
 			else:
 				im = 'vacio.png'  # si no es una casilla especial
 			imagenes[(x, y)] = im
-			row.append(sg.Button('', image_filename=os.path.join('imagenes',im), border_width=0, image_size=(
+			row.append(sg.Button('', image_filename=os.path.join(cwd,'imagenes',im), border_width=0, image_size=(
 				46, 46), pad=(0, 0), key=(x, y)))  # agrega a la fila, la imagen en esa columna
 		tablero.append(row)
 	return tablero

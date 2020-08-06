@@ -3,6 +3,8 @@ from sys import platform as _platform
 import os
 import PySimpleGUI as sg
 
+cwd = os.getcwd()
+
 def tuplasString(diccio):
 	t=dict()
 	for x in diccio:
@@ -57,8 +59,8 @@ def tipoPalabra(d):
     palabra = obtener_palabra(d)
     analisis = parse(palabra, tags=True, chunks=False).split(' ')
     tipo = clasificar(analisis)
-    if len(palabra) == 1:      #SIRVE PARA TESTEAR POR AHORA
-        return 'no_existe'
+    #if len(palabra) == 1:      #SIRVE PARA TESTEAR POR AHORA
+    #    return 'no_existe'
     if(tipo == 'sustantivos'):
         if not palabra.lower() in verbs:
             if not palabra.lower() in spelling:
@@ -141,7 +143,7 @@ def mostrar_top10(hide,puntajes, configuracion):
     ]
     layout = [
         [sg.Text('TOP PUNTAJES ALTOS', font=('Fixedsys', 20),
-                 text_color='salmon', background_color='white'), sg.Image(os.path.join('imagenes','trofeo.png'))],
+                 text_color='salmon', background_color='white'), sg.Image(os.path.join(cwd, 'imagenes','trofeo.png'))],
         [sg.Column(columna, ""), sg.Table(puntajes, headings, select_mode="none", col_widths=ancho_columnas,
                                           num_rows=10, text_color="black", auto_size_columns=True, font=('Fixedsys', 6))],
         [sg.Text('      ', font=('Fixedsys', 18), background_color='white'), sg.Button(
