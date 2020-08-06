@@ -224,6 +224,7 @@ def mostrar_fin_partida(nivel,puntajeM,puntajeU):
     layout = [
         [sg.Text('¡La partida ha terminado!', font=('Fixedsys', 30),text_color='salmon', background_color='white')],
         [sg.Text('       Has quedado en el top 10', font=('Fixedsys', 20),text_color='green', background_color='white', visible = quedotop10)],
+        [sg.Text('No alcanzaste para quedar en el top 10', font=('Fixedsys', 20),text_color='red', background_color='white', visible = not(quedotop10))],
         [sg.Text('',background_color= 'White')],
         [sg.Text('Ganador: ', font=('Fixedsys', 17),text_color='salmon', background_color='white'), sg.Text(ganador, font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Image(os.path.join('imagenes',imagen_ganador))],
         [sg.Text('',background_color= 'White')],
