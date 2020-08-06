@@ -224,7 +224,7 @@ def mostrar_fin_partida():
         [sg.Text('Puntuacion Computadora:', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeM), font=('Fixedsys', 20),text_color=color_compu, background_color='white')],
         [sg.Text('',background_color= 'White')],
         [sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', background_color='white', visible= quedotop10),sg.Input(size=(12,8),font=('Fixedsys', 17),visible= quedotop10),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='volver',visible= quedotop10)],
-        [sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=False)],
+        [sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=True)],
             ]
 
     fin_partida = sg.Window("fin", layout, resizable=True,finalize=True)

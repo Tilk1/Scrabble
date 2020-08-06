@@ -176,7 +176,7 @@ if __name__ == '__main__':
 	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
 	hideTop10= False
 	estadoBolsa='sigo'
-	#funciones.mostrar_fin_partida()
+	funciones.mostrar_fin_partida()
 	if(event=='configurar'):
 		configB=True
 	else:
