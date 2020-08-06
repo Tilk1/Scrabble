@@ -57,8 +57,8 @@ def tipoPalabra(d):
     palabra = obtener_palabra(d)
     analisis = parse(palabra, tags=True, chunks=False).split(' ')
     tipo = clasificar(analisis)
-    #if len(palabra) == 1:      SIRVE PARA TESTEAR POR AHORA
-    #    return 'no_existe'
+    if len(palabra) == 1:      #SIRVE PARA TESTEAR POR AHORA
+        return 'no_existe'
     if(tipo == 'sustantivos'):
         if not palabra.lower() in verbs:
             if not palabra.lower() in spelling:
@@ -130,7 +130,7 @@ def activarBotones(window):
     window.FindElement("u6").Widget.config(cursor="hand2")
 
 
-def mostrar_top10(puntajes, configuracion):
+def mostrar_top10(hide,puntajes, configuracion):
     """
     Se encarga unicamente de la visualizacion de la ventana top10 
     """
@@ -149,13 +149,16 @@ def mostrar_top10(puntajes, configuracion):
     ]
     top10 = sg.Window("TOP 10", layout, resizable=True,
                        finalize=True).Finalize()
+    if(hide):
+        top10.UnHide()
     while True:
         event, values = top10.read()
         print(event, values)
         if event == 'volver' or event == None:
             break
-    top10.close()
-    configuracion.un_hide()
+    top10.Hide()
+    hide = True
+    return hide, event
 
 def activar_desactivar_Botones_basicos(window, boolean):
     """
