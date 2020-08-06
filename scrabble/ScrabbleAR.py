@@ -55,7 +55,7 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 
 global name
 if __name__ == '__main__':
-	name = sg.popup_get_text('Title', 'Please input something')
+	name = sg.popup_get_text('Hola!', 'Ingresa tu nombre para jugar')
 	executor = Executor()
 	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
 	lock = Lock()
