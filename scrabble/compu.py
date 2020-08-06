@@ -11,8 +11,7 @@ def colocar(coord_x, coord_y, tamaño, window, tF, formada):
         coord = coord_x, i + coord_y
         window[(coord)].update(image_filename=(
             os.path.join('imagenes', (formada[i] + '.png'))))
-        for x in formada:
-            tF[x]=formada[x]+'.png'
+        tF.update({coord: os.path.join('imagenes', (formada[i] + '.png'))})
 
 
 def turno_maquina(coordPlay, tableroIm, tableroFichas, letrasM, window, colores, bolsa, copia):
