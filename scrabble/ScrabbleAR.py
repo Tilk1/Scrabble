@@ -36,17 +36,17 @@ def usuario(cantInter,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tablero
 	return estadoBolsa, event, puntajeU,texto_reporte, hide, cantInter
 
 def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
-	i = tiempo_dificultad
-	image = window['relojito']
+	ii = tiempo_dificultad
+	image3 = window['relojito']
 	while n.value == False:  # ESPERA EL MENSAJE DE ROBOT1
 		time.sleep(0.10) 
 	comienza = n.value
 	while comienza == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
 		time.sleep(0.01) 
-		window['temporizador'].update('{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60))
-		i = i - 1
-		image.update_animation(os.path.join(cwd,'imagenes','relojito.gif'), 150)
-		if i == 0:
+		window['temporizador'].update('{:02d}:{:02d}'.format((ii // 100) // 60, (ii // 100) % 60))
+		ii = ii - 1
+		image3.update_animation(os.path.join(cwd,'imagenes','relojito.gif'), 150)
+		if ii == 0:
 			fin_tiempo = True
 			break
 	funciones.cargar(puntajeU,name,nivel)
@@ -55,6 +55,9 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 
 global name
 if __name__ == '__main__':
+	# turno=['compu','usuario']
+	# turno = random.choice(turno)
+	turno = 'usuario'
 	name = sg.popup_get_text('Ingresa tu nombre para jugar', 'ScrabbleAR')
 	executor = Executor()
 	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
@@ -164,8 +167,8 @@ if __name__ == '__main__':
 	configuracion = sg.Window('config', config)
 	partidaW = sg.Window('partida',menuJugar, disable_close = True)
 	
-	turno=['compu','usuario']
-	turno = random.choice(turno)
+
+	#turno= 'usuario'
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)

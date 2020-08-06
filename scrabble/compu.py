@@ -34,11 +34,8 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 	intentos_ubicar = 15
 	# gif animado
 	# en este momento es 0 yaq no hace falta crear tiempo la PC tarda
-	segundos_de_loop = time.time() + 0
 	image = window['gifcompu']
-	while time.time() < segundos_de_loop:
-		window.read(10)
-		image.update_animation(os.path.join(cwd,'imagenes', 'robot.gif'), 150)
+
 	print('TENGO ESTAS FICHAS:')
 	print(letrasM)
 
@@ -54,12 +51,10 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 	palabras_candidatas = []
 
 	for x in range(intentos_formar):  # intento 20 veces formar palabras
-		window.read(10)
+		window.read(1)
 		# carga el gif porq esto puede ser lento
 		image.update_animation(os.path.join(cwd,'imagenes', 'robot.gif'), 150)
-
-		formada = (combinaciones.intenta_las_combinaciones_quitando_una_letra(
-			string_letras_maquina))
+		formada = (combinaciones.intenta_las_combinaciones_quitando_una_letra(string_letras_maquina))
 		if formada != 'no_encontro':
 			palabras_candidatas.append(formada)
 		print('INTENTO NUMERO:', x)
