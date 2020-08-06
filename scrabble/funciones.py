@@ -197,13 +197,12 @@ def mostrar_fin_partida(puntajeM,puntajeU):
         quedotop10 = False
 
     if quedotop10 == True:
-        print('llego acaaa')
         with open('puntajes.json','w') as arc2:  #quito al ultimo
             today = date.today()
-            puntajes[0][0] = 'NUEVO'
-            puntajes[0][1] = puntajeU  # reemplazo el puntaje
-            puntajes[0][2] = 'desconocida'
-            puntajes[0][3] = str(today)
+            puntajes[0][0] = 'NUEVO'       #nombre
+            puntajes[0][1] = puntajeU      # puntaje
+            puntajes[0][2] = 'desconocida' #dificultad
+            puntajes[0][3] = str(today)    #fecha
             json.dump(puntajes, arc2)
 
     # agrego el nuevo puntaje una vez que lo haya escrito y toco el boton OK
