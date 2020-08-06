@@ -144,11 +144,11 @@ def mostrar_top10(hide,puntajes, configuracion):
         [sg.Image(os.path.join('imagenes','rankings.png'))],
     ]
     layout = [
-        [sg.Text('TOP PUNTAJES ALTOS', font=('Fixedsys', 20),
+        [sg.Text('   TOP PUNTAJES ALTOS', font=('Fixedsys', 20),
                  text_color='salmon', background_color='white'), sg.Image(os.path.join(cwd, 'imagenes','trofeo.png'))],
         [sg.Column(columna, ""), sg.Table(puntajes, headings, select_mode="none", col_widths=ancho_columnas,
                                           num_rows=10, text_color="black", auto_size_columns=True, font=('Fixedsys', 6))],
-        [sg.Text('      ', font=('Fixedsys', 18), background_color='white'), sg.Button(
+        [sg.Text('         ', font=('Fixedsys', 18), background_color='white'), sg.Button(
             'VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='volver')],
     ]
     top10 = sg.Window("TOP 10", layout, resizable=True,
