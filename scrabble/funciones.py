@@ -59,8 +59,8 @@ def tipoPalabra(d):
     palabra = obtener_palabra(d)
     analisis = parse(palabra, tags=True, chunks=False).split(' ')
     tipo = clasificar(analisis)
-    if len(palabra) == 1:      #SIRVE PARA TESTEAR POR AHORA
-        return 'no_existe'
+    #if len(palabra) == 1:      #SIRVE PARA TESTEAR POR AHORA
+    #    return 'no_existe'
     if(tipo == 'sustantivos'):
         if not palabra.lower() in verbs:
             if not palabra.lower() in spelling:
