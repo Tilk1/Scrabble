@@ -10,8 +10,8 @@ PySimpleGUI (Libreria)
 
 Pattern (Libreria)
 
-## Notas adicionales ATENCION!
-Usuarios de Linux: El programa es compatible con Linux,
+## Notas adicionales linux ATENCION!
+Usuarios de Linux: El programa es compatible
 Sin embargo si se desea utilizar el entorno virtual ofrecido en catedras (https://archivos.linti.unlp.edu.ar/index.php/s/t9enmc3IlRfkDtz)  deberan hacer algunas modificaciones.
 Al parecer la carpeta de PySimpleGUI tiene problemas como ya viene instalada. Asique se debe volver a descargar o reemplazar por
 una que funcione. Aqui estan los pasos que me han funcionado:
@@ -20,7 +20,14 @@ una que funcione. Aqui estan los pasos que me han funcionado:
 (Es posible que tambien funcione borrando la carpeta y volviendo a hacer un pip install PySimpleGUI)
 3. A jugar!
 
-## Instrucciones
+## Instrucciones windows para jugar rapido:
+
+1. Descargar e instalar python https://www.python.org/ftp/python/3.6.3/python-3.6.3-embed-amd64.zip
+2. Abrir una consola y ejecutar comando pip install pattern
+3. Desde la misma consola cuando haya terminado ejecutar comando  pip install PySimpleGUI
+4. Descargar la version Jugar 1.1 https://github.com/Tilk1/ScrabblleUNLPAgusSanti/archive/1.1.zip  , abrir carpeta scrabble, ejecutar JUGAR.pyw
+
+## Instrucciones opcionales para desarrolladores
 
 Hay dos opciones de correr el juego: 
 1. La primera por medio de un IDE, seleccionando abrir carpeta ScrabblleUNLPAgusSanti y luego ejecutando ScrabbleAR.py
