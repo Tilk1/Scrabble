@@ -35,7 +35,8 @@ Hay dos opciones de correr el juego:
 de ningun IDE y tampoco muestra ninguna consola. Los requisitos siguen siendo los mismos. Se debe tener por defecto la version
 3.6 de python(con el comando "py -0" podemos saber nuestra version por defecto), la libreria de pattern y la libreria de pySimpleGUI
 
-##Jugando. Algunas reglas
+## Jugando. Algunas reglas
+
 Para comenzar la partida se debe ingresar un nombre luego tocar la opcion Jugar, y finalmente 'iniciar'. Es opcional entrar
 a configuraciones.
 La primera palabra debe pasar por el centro del tablero.
