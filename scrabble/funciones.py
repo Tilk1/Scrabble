@@ -241,9 +241,6 @@ def mostrar_fin_partida(puntajeU,puntajeM):
 	except FileNotFoundError:
 		sg.popup('Archivo de puntajes no encontrado')
 
-	puntajeU = 999
-	puntajeM = 2
-
 	# me fijo si supera al mas bajo de todos para quedar en el top 10
 	if puntajeU > puntajes[0][1]:
 		quedotop10 = True
