@@ -2,8 +2,6 @@ from pattern.text.es import verbs, tag, spelling, lexicon, parse
 from sys import platform as _platform
 import os
 import PySimpleGUI as sg
-import json
-from datetime import date
 
 cwd = os.getcwd()
 
@@ -61,8 +59,8 @@ def tipoPalabra(d):
     palabra = obtener_palabra(d)
     analisis = parse(palabra, tags=True, chunks=False).split(' ')
     tipo = clasificar(analisis)
-    if len(palabra) == 1:      #SIRVE PARA TESTEAR POR AHORA
-        return 'no_existe'
+    #if len(palabra) == 1:      #SIRVE PARA TESTEAR POR AHORA
+    #    return 'no_existe'
     if(tipo == 'sustantivos'):
         if not palabra.lower() in verbs:
             if not palabra.lower() in spelling:
@@ -93,12 +91,12 @@ def calcularPuntaje(l, im, b): #l(puestas) im(tableroimagenes) b(bolsa)
             suma = suma+(b[l[x]]['valor']-2)
         elif(cas == '-3.png'):
             suma = suma+(b[l[x]]['valor']-3)
+        elif(cas == 'px2.png'):
+            multi.append(2)
+        elif(cas == 'px3.png'):
+            multi.append(3)
         else:
             suma = suma+b[l[x]]['valor']
-            if(cas == 'px2.png'):
-                multi.append(2)
-            elif(cas == 'px3.png'):
-                multi.append(3)
     for y in multi:
         suma = suma*y
     return suma
@@ -144,11 +142,11 @@ def mostrar_top10(hide,puntajes, configuracion):
         [sg.Image(os.path.join('imagenes','rankings.png'))],
     ]
     layout = [
-        [sg.Text('   TOP PUNTAJES ALTOS', font=('Fixedsys', 20),
+        [sg.Text('TOP PUNTAJES ALTOS', font=('Fixedsys', 20),
                  text_color='salmon', background_color='white'), sg.Image(os.path.join(cwd, 'imagenes','trofeo.png'))],
         [sg.Column(columna, ""), sg.Table(puntajes, headings, select_mode="none", col_widths=ancho_columnas,
                                           num_rows=10, text_color="black", auto_size_columns=True, font=('Fixedsys', 6))],
-        [sg.Text('         ', font=('Fixedsys', 18), background_color='white'), sg.Button(
+        [sg.Text('      ', font=('Fixedsys', 18), background_color='white'), sg.Button(
             'VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='volver')],
     ]
     top10 = sg.Window("TOP 10", layout, resizable=True,
@@ -173,98 +171,3 @@ def activar_desactivar_Botones_basicos(window, boolean):
     window["intercambiar"].Update(disabled=boolean)
     window["palabra"].Update(disabled=boolean)
     window["sacar"].Update(disabled=boolean)
-
-
-def cargar(puntajeU,name,nivel):
-    print('ENTROO A CARGAR')
-    try:
-        with open(os.path.join(cwd,"puntajes.json")) as arc:
-            datos = json.load(arc)
-            if not datos:
-                sg.popup('Archivo de puntajes no encontrado')
-            else:
-                puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
-
-    except FileNotFoundError:
-        sg.popup('Archivo de puntajes no encontrado')
-    
-    if puntajeU > puntajes[0][1]:
-        quedotop10 = True
-    else:
-        quedotop10 = False
-        print('FALSOO')
-
-    if quedotop10 == True:
-        with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
-            print('LEEE 1111')
-            puntajes[0][0] = name
-            puntajes[0][2] = nivel
-            json.dump(puntajes, arc2)
-      
-def mostrar_fin_partida(puntajeU,puntajeM):
-    try:
-        with open((os.path.join(cwd,"puntajes.json"))) as arc:
-            datos = json.load(arc)
-            if not datos:
-                sg.popup('Archivo de puntajes no encontrado')
-            else:
-                puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
-
-    except FileNotFoundError:
-        sg.popup('Archivo de puntajes no encontrado')
-
-    puntajeU = 999
-    puntajeM = 2
-
-    # me fijo si supera al mas bajo de todos para quedar en el top 10
-    if puntajeU > puntajes[0][1]:
-        quedotop10 = True
-    else:
-        quedotop10 = False
-
-    if quedotop10 == True:
-        with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
-            print('LEEE 222')
-            today = date.today()
-            puntajes[0][1] = puntajeU      # puntaje
-            puntajes[0][3] = str(today)    #fecha
-            json.dump(puntajes, arc2)
-
-    # agrego el nuevo puntaje una vez que lo haya escrito y toco el boton OK
-    #puntajes.append = ["juuuu",  999, "easy", "3/3/2050"]
-    #print(puntajes) 
-
-    color_usuario = 'red'
-    color_compu = 'red'
-
-    if puntajeU > puntajeM:
-        ganador = 'Usuario'
-        imagen_ganador = 'jugador.png'
-        color_usuario = 'green'
-    else:
-        ganador = 'Computadora'
-        imagen_ganador = 'robot.gif'
-        color_compu = 'green'
-
-
-    layout = [
-        [sg.Text('¡La partida ha terminado!', font=('Fixedsys', 30),text_color='salmon', background_color='white')],
-        [sg.Text('       Has quedado en el top 10', font=('Fixedsys', 20),text_color='green', background_color='white', visible = quedotop10)],
-        [sg.Text('No alcanzaste para quedar en el top 10', font=('Fixedsys', 20),text_color='red', background_color='white', visible = not(quedotop10))],
-        [sg.Text('',background_color= 'White')],
-        [sg.Text('Ganador: ', font=('Fixedsys', 17),text_color='salmon', background_color='white'), sg.Text(ganador, font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Image(os.path.join('imagenes',imagen_ganador))],
-        [sg.Text('',background_color= 'White')],
-        [sg.Text('Puntuacion Usuario    :', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeU), font=('Fixedsys', 20),text_color=color_usuario, background_color='white')],
-        [sg.Text('Puntuacion Computadora:', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeM), font=('Fixedsys', 20),text_color=color_compu, background_color='white')],
-        [sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', background_color='white', visible= False),sg.Input(size=(12,8),font=('Fixedsys', 17),visible= False),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='volver',visible= False)],
-        [sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=False)],
-            ]
-
-    fin_partida = sg.Window("fin", layout, resizable=True,finalize=True)
-    while True:
-        event, values = fin_partida.read()
-        fin_partida.UnHide()
-        print(event,values)
-        if event == 'salir2' or event == None:
-            break
-    fin_partida.Close()
