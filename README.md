@@ -4,7 +4,7 @@
 
 ## Requisitos
 
-Python 3.6
+Python 3.6  (https://www.python.org/ftp/python/3.6.3/python-3.6.3-embed-amd64.zip)
 
 PySimpleGUI (Libreria)
 
