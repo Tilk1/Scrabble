@@ -194,6 +194,11 @@ def activar_desactivar_Botones_basicos(window, boolean):
 
 
 def cargar(puntajeU,name,nivel):
+	"""
+    Recibe algunos datos de la partida para colocar en el top10 en caso de superar
+    el puntaje del que esta ultimo.(Con json una lista verificando el ultimo elemento)
+
+    """
 	print('ENTROO A CARGAR')
 	try:
 		with open(os.path.join(cwd,"puntajes.json")) as arc:
@@ -220,6 +225,11 @@ def cargar(puntajeU,name,nivel):
 			json.dump(puntajes, arc2)
 	  
 def mostrar_fin_partida(puntajeU,puntajeM):
+	 """
+    Recibe algunos datos de la partida para colocar en el top10 en caso de superar
+    el puntaje del que esta ultimo. (Con json una lista verificando el ultimo elemento)
+    Tambien muestra la ultima ventana final para ver tu puntaje y si entraste al top 10
+    """
 	try:
 		with open((os.path.join(cwd,"puntajes.json"))) as arc:
 			datos = json.load(arc)
