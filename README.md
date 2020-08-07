@@ -37,7 +37,11 @@ Al colocar las fichas en el tablero estas se pueden quitar individualmente tocan
 
 
 
--
+## Capturas de pantalla del juego
+
+![](https://i.imgur.com/qOjQ1NO.png)
+![](https://i.imgur.com/OYfMrIh.png)
+![](https://i.imgur.com/O7vRM8o.png)
 
 ## Participantes
 
