@@ -5,21 +5,16 @@ import os
 cwd = os.getcwd()
 
 def randomLetra(bolsa):   #elige una letra random de la bolsa y la quita d ela bolsa
-	"""
-    Elige una letra random de la bolsa y la saca de esta en caso de haber cant suficiente, sino, intenta encontrar otra letra.
-	En caso de estar vacia la bolsa, devuelve vacio, para que se termine la partida.
-
-    """
 	if(bolsa=={}):
 		return 'vacio'
 	else:
 		otro = True
 		while(otro):
-			letra = random.choice(list(bolsa))  #eleccion random dela letra
+			letra = random.choice(list(bolsa))
 			if(bolsa[letra]['cant'] > 0):
 				otro = False
-				bolsa[letra]['cant'] = bolsa[letra]['cant']-1  #resta la letra de la bolsa
-				if(bolsa[letra]['cant'] == 0):                 #elimino la letra de la bolsa cuando ya no quedan más
+				bolsa[letra]['cant'] = bolsa[letra]['cant']-1
+				if(bolsa[letra]['cant'] == 0):
 					del(bolsa[letra])
 		return letra
 

@@ -55,9 +55,8 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 
 global name
 if __name__ == '__main__':
-	# turno=['compu','usuario']
-	# turno = random.choice(turno)
-	turno = 'usuario'
+	turno=['compu','usuario']
+	turno = random.choice(turno)
 	name = sg.popup_get_text('Ingresa tu nombre para jugar', 'ScrabbleAR')
 	executor = Executor()
 	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
@@ -168,7 +167,7 @@ if __name__ == '__main__':
 	partidaW = sg.Window('partida',menuJugar, disable_close = True)
 	
 
-	#turno= 'usuario'
+	#turno= 'usuario' aca iba antes
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
@@ -198,6 +197,7 @@ if __name__ == '__main__':
 			if(configB!=True):
 				event, values = partidaW.read()
 				if(event=='viejaP'):
+					viejaP=True
 					try:
 						with open(os.path.join(cwd,'posponer.txt'),'r') as archivo:
 							datos = json.load(archivo)
@@ -219,16 +219,17 @@ if __name__ == '__main__':
 						sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 				elif(event=='nuevaP'):
 					inicio, window=con.cofigtab(tab,column1,tableroIm)
-					print(inicio)
+					viejaP=False
 				partidaW.close()
 			event, values = window.read()
 			if(event == 'comenzar'):
-				for x in tableroFichas:
-					window[x].update(image_filename=tableroFichas[x])
-				window['puntU'].update('Puntaje:'+str(puntajeU))
-				window['puntM'].update('Puntaje:'+str(puntajeM))
-				for y in letrasU:
-					window[y].update(image_filename=letrasU[y])
+				if(viejaP):
+					for x in tableroFichas:
+						window[x].update(image_filename=os.path.join(cwd,'imagenes',tableroFichas[x]))
+					window['puntU'].update('Puntaje:'+str(puntajeU))
+					window['puntM'].update('Puntaje:'+str(puntajeM))
+					for y in letrasU:
+						window[y].update(image_filename=os.path.join(cwd,'imagenes',letrasU[y]))
 				window["reporte"].update(texto_reporte)
 				
 				#------ segundo proceso timer-------
@@ -245,9 +246,9 @@ if __name__ == '__main__':
 				while(not event in (None, 'exit','posponer') and estadoBolsa=='sigo'):
 					if(turno=='usuario'):
 						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
-						estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
+						estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia,nivel)
 					else:
-						estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia)
+						estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia,nivel)
 						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 				if(estadoBolsa=='vacio'):
 					sg.popup('No quedan mas fichas en la bolsa, fin del juego')
@@ -266,7 +267,6 @@ if __name__ == '__main__':
 			con.configcustom(bolsa, 27, list(cant.keys()), values, 'cant')
 			tab=values['table']
 			inicio, window=con.cofigtab(tab,column1,tableroIm)
-			print(inicio)
 			t=values['time']
 			palabras=values['tiposP']
 			palabras=palabras.split('/')
