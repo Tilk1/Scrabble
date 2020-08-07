@@ -180,7 +180,6 @@ if __name__ == '__main__':
 	else:
 		configB=False
 	while(not event in (None, 'exit') and estadoBolsa=='sigo' and posponer):
-		print(event)
 		if(event=='volver'):
 			menu.UnHide()
 			event,t,palabras,tab = con.elegirNivel(menu, bolsa)
@@ -210,8 +209,9 @@ if __name__ == '__main__':
 						sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 				elif(event=='nuevaP'):
 					inicio, window=con.cofigtab(tab,column1,tableroIm)
-					print(inicio)
 				partidaW.close()
+			else:
+				configuracion.close()
 			event, values = window.read()
 			if(event == 'comenzar'):
 				for x in tableroFichas:
@@ -255,12 +255,12 @@ if __name__ == '__main__':
 			con.configcustom(bolsa, 27, list(cant.keys()), values, 'cant')
 			tab=values['table']
 			inicio, window=con.cofigtab(tab,column1,tableroIm)
-			print(inicio)
 			t=values['time']
 			palabras=values['tiposP']
 			palabras=palabras.split('/')
 			bolsaCopia=bolsa.copy()
 			estadoBolsa='sigo'
+			configB=True
 		elif(event=='posponer'):
 			with open('posponer.txt','w') as archivo:
 				tb=funciones.tuplasString(tableroIm)
