@@ -17,7 +17,7 @@ def colocar(coord_x, coord_y, tamaño, window, tF, formada):
 		puestas[coord]=formada[i]+'.png'
 	return puestas
 
-def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, window, colores, bolsa, copia):
+def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, window, colores, bolsa, copia,nivel):
 	""" 
 	Se encarga de todo el turno de la computadora en general. Esto incluye:
 	1. Gif animado para simular que la computadora esta procesando
@@ -30,15 +30,20 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 	botones_disable = True
 	funciones.activar_desactivar_Botones_basicos(window, botones_disable)
 
-	intentos_formar = 10  # estos intentos deben setearse segun la dificultad
+	if nivel == 'Nivel fácil': # estos intentos deben setearse segun la dificultad
+		intentos_formar = 3  
+		intentos_ubicar = 5
+	if nivel == 'Nivel medio':
+		intentos_formar = 10  
+		intentos_ubicar = 15
+	if nivel == 'Nivel difícil':
+		intentos_formar = 20  
+		intentos_ubicar = 30
+
+	intentos_formar = 10
 	intentos_ubicar = 15
-	# gif animado
-	# en este momento es 0 yaq no hace falta crear tiempo la PC tarda
-	segundos_de_loop = time.time() + 0
 	image = window['gifcompu']
-	while time.time() < segundos_de_loop:
-		window.read(10)
-		image.update_animation(os.path.join(cwd,'imagenes', 'robot.gif'), 150)
+
 	print('TENGO ESTAS FICHAS:')
 	print(letrasM)
 
@@ -54,12 +59,10 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 	palabras_candidatas = []
 
 	for x in range(intentos_formar):  # intento 20 veces formar palabras
-		window.read(10)
+		window.read(1)
 		# carga el gif porq esto puede ser lento
 		image.update_animation(os.path.join(cwd,'imagenes', 'robot.gif'), 150)
-
-		formada = (combinaciones.intenta_las_combinaciones_quitando_una_letra(
-			string_letras_maquina))
+		formada = (combinaciones.intenta_las_combinaciones_quitando_una_letra(string_letras_maquina))
 		if formada != 'no_encontro':
 			palabras_candidatas.append(formada)
 		print('INTENTO NUMERO:', x)
@@ -114,6 +117,11 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 						window, tableroFichas, formada)
 				print(letrasM)
 		if(todas_disponibles == True):
+			valor=funciones.calcularPuntaje(puestas,tableroIm, copia)
+			puntaje=puntaje+valor
+			tr = tr + '\n' + 'Maquina: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
+			window["reporte"].update(tr)
+			window['puntM'].update('Puntaje:'+str(puntaje))
 			for i in formada:
 				print(i)
 				for key, value in letrasM.items():
@@ -121,11 +129,6 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 						print('Eliminando letra: ', letrasM[key])
 						letrasM[key] = ''
 						break
-		valor=funciones.calcularPuntaje(puestas,tableroIm, copia)
-		puntaje=puntaje+valor
-		tr = tr + '\n' + 'Maquina: ' + funciones.tipoPalabra(puestas) + ' ' + funciones.obtener_palabra(puestas) + ' ' +  str(valor) + ' puntos'  # /n es un espacio
-		window["reporte"].update(tr)
-		window['puntM'].update('Puntaje:'+str(puntaje))
 	if(formada == 'no_encontro' or todas_disponibles == False):
 		print('no he podido formar o ubicar la palabra. Shame on me, paso turno')
 		funcionesFichas.intercambiarFichas(
