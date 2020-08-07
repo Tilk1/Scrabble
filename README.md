@@ -12,9 +12,13 @@ Pattern (Libreria)
 
 ## Instrucciones
 
-Se debe ejecutar el archivo SrabbleAR.py dentro del directorio scrabble para comenzar el juego. 
+Hay dos opciones de correr el juego. La primera es desde el directorio ScrabblleUNLPAgusSanti por medio de un IDE.
+La segunda opcion es desde la branch version_JUGAR.  Esta version incluye directamente un pyw que se ejecuta sin necesidad
+de ningun IDE y tampoco muestra ninguna consola. Los requisitos siguen siendo los mismos. Se debe tener por defecto la version
+3.6 de python , la libreria de pattern y la libreria de pySimpleGUI
 
-Para comenzar la partida se debe tocar 'iniciar'. Todavia no se configuró el funcionamiento de la IA, por lo que siempre es el turno del usuario, y el tiempo no se tiene en cuenta.
+Para comenzar la partida se debe ingresar un nombre luego tocar la opcion Jugar, y finalmente 'iniciar'. Es opcional entrar
+a configuraciones.
 
 La primera ficha debe ser colocada en el centro del tablero.
 
@@ -22,8 +26,7 @@ Al colocar las fichas en el tablero estas se pueden quitar individualmente tocan
 
 ## Notas adicionales
 
-El archivo funciones.py contiene funciones varias relacionadas al analisis de la palabra formada y su puntaje. El archivo funcionesFichas.py tiene funciones relacionadas al manejo de las fichas como colocarFicha, SacarFicha, Repartir, entre otras. El archivo tableros.py tine los tableros disponibles y una funcion para crear el tablero.
-Actualmente se usa un tablero de 15x15 pero uno de 15x20 tambien esta disponible, se tiene que modificar el código del archivo SrabbleAR.py para hacerlo, ya que todavia no se puede configurar desde la interfaz.
+-
 
 ## Participantes
 
