@@ -16,9 +16,9 @@ cwd = os.getcwd()
 
 def usuario(cantInter,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window):
 	"""
-    Turno del usuario. Coloca la ficha, en caso de intercambiar se realiza en intercambio, se actualiza el puntaje en la interfaz y las palabras que colocó.
+	Turno del usuario. Coloca la ficha, en caso de intercambiar se realiza en intercambio, se actualiza el puntaje en la interfaz y las palabras que colocó.
 
-    """
+	"""
 	event='comenzar'
 	puestas=dict() #Fichas que voy poniendo en el tablero en esa jugada
 	event, valor = colocar.colocarFicha(cantInter,tableroIm, tableroFichas, letrasU, window, colores, inicio, bolsaCopia, puestas,palabras)  # comienza la jugada
