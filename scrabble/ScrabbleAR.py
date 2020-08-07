@@ -174,134 +174,135 @@ if __name__ == '__main__':
 	#turno= 'usuario' aca iba antes
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
-	event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
-	texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
-	menu.Hide()
-	bolsaCopia=bolsa.copy()
-	palabras=palabras.split('/')
-	posponer=True
-	# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
-	cantIntercambios=0
-	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
-	hideTop10= False
-	estadoBolsa='sigo'
-	#funciones.mostrar_fin_partida()
-	viejaP=False
-	if(event=='configurar'):
-		configB=True
-	else:
-		configB=False
-	while(not event in (None, 'exit') and estadoBolsa=='sigo' and posponer):
-		print(event)
-		if(event=='volver'):
-			menu.UnHide()
-			event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
-			texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
-			menu.Hide()
-		elif(event == 'jugar'):
-			if(configB!=True):
-				event, values = partidaW.read()
-				if(event=='viejaP'):
-					viejaP=True
-					try:
-						with open(os.path.join(cwd,'posponer.txt'),'r') as archivo:
-							datos = json.load(archivo)
-							tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
-							#tableroIm=funciones.tuplasInter(datos['tableroIm'])
-							inicio, window=con.cofigtab(tuple(datos['tab']),column1,tableroIm)
-							bolsa=datos['bolsa']
-							bolsaCopia=datos['bolsaCopia']
-							t=datos['tiempo']
-							palabras=datos['palabras']
-							turno=datos['turno']
-							cantIntercambios=datos['cantInter']
-							letrasU=datos['letrasU']
-							letrasM=datos['letrasM']
-							puntajeM=datos['puntajeM']
-							puntajeU=datos['puntajeU']
-							texto_reporte=datos['texto_reporte']
-					except FileNotFoundError:
-						sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
-				elif(event=='nuevaP'):
-					inicio, window=con.cofigtab(tab,column1,tableroIm)
-					viejaP=False
-				partidaW.close()
-			else:
-				configuracion.close()
-			event, values = window.read()
-			if(event == 'comenzar'):
-				if(viejaP):
-					for x in tableroFichas:
-						window[x].update(image_filename=os.path.join(cwd,'imagenes',tableroFichas[x]))
-					window['puntU'].update('Puntaje:'+str(puntajeU))
-					window['puntM'].update('Puntaje:'+str(puntajeM))
-					for y in letrasU:
-						window[y].update(image_filename=os.path.join(cwd,'imagenes',letrasU[y]))
-				window["reporte"].update(texto_reporte)
-				
-				#------ segundo proceso timer-------
-				fin_tiempo = False
-				tiempo_dificultad = 6000*t     # TENGO que mandarle el tiempo segun la dificultad
-				executor.submit(timer,n,lock,tiempo_dificultad,fin_tiempo,window)
-				with lock:   # mando mensaje para comenzar timer
-					n.value = True
-				#----------------------------------	
-				
-				estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
-				estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
-				funciones.activarBotones(window)
-				while(not event in (None, 'exit','posponer') and estadoBolsa=='sigo'):
-					if(turno=='usuario'):
-						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
-						estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia,nivel)
-					else:
-						estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia,nivel)
-						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
-				if(estadoBolsa=='vacio'):
-					sg.popup('No quedan mas fichas en la bolsa, fin del juego')
-					funciones.cargar(puntajeU, name, nivel)
-					funciones.mostrar_fin_partida(puntajeU,puntajeM)
-			elif(event == 'terminar'):
-				window.close()
-			else:
-				event, values = window.read()
-		elif(event =='configurar'):
-			menu.close()
-			event, values = configuracion.read()
-			while(event!='jugar'):
-				event, values = configuracion.read()
-			configuracion.Hide()
-			con.configcustom(bolsa, -1, list(val.keys()), values, 'valor')
-			con.configcustom(bolsa, 27, list(cant.keys()), values, 'cant')
-			tab=values['table']
-			inicio, window=con.cofigtab(tab,column1,tableroIm)
-			t=values['time']
-			palabras=values['tiposP']
-			palabras=palabras.split('/')
-			bolsaCopia=bolsa.copy()
-			estadoBolsa='sigo'
+	if(name!=None):
+		event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
+		texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
+		menu.Hide()
+		bolsaCopia=bolsa.copy()
+		palabras=palabras.split('/')
+		posponer=True
+		# funcion para crear tablero, las coordenadas dependen de el tablero elegido en configuracion
+		cantIntercambios=0
+		hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
+		hideTop10= False
+		estadoBolsa='sigo'
+		#funciones.mostrar_fin_partida()
+		viejaP=False
+		if(event=='configurar'):
 			configB=True
-			texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
-		elif(event=='posponer'):
-			with open('posponer.txt','w') as archivo:
-				tb=funciones.tuplasString(tableroIm)
-				tF=funciones.tuplasString(tableroFichas)
-				datos={'texto_reporte':texto_reporte,'bolsaCopia':bolsaCopia,'tableroFichas':tF,'tableroIm':tb,'tab':tab,'inicio':inicio,'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'letrasU':letrasU,'letrasM':letrasM,'puntajeM':puntajeM,'puntajeU':puntajeU}
-				json.dump(datos, archivo)
-				posponer=False
-		elif(event == 'top10'):
-			try:
-				with open((os.path.join(cwd,"puntajes.json"))) as arc:
-					datos = json.load(arc)
-					if not datos:
-						sg.popup('Archivo de puntajes no encontrado')
-					else:
-						puntajes = sorted(datos, reverse=True, key=lambda x: x[1])
-						hideTop10,event=funciones.mostrar_top10(hideTop10,puntajes,menu)
-						print('hola')
+		else:
+			configB=False
+		while(not event in (None, 'exit') and estadoBolsa=='sigo' and posponer):
+			print(event)
+			if(event=='volver'):
+				menu.UnHide()
+				event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
+				texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
+				menu.Hide()
+			elif(event == 'jugar'):
+				if(configB!=True):
+					event, values = partidaW.read()
+					if(event=='viejaP'):
+						viejaP=True
+						try:
+							with open(os.path.join(cwd,'posponer.txt'),'r') as archivo:
+								datos = json.load(archivo)
+								tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
+								#tableroIm=funciones.tuplasInter(datos['tableroIm'])
+								inicio, window=con.cofigtab(tuple(datos['tab']),column1,tableroIm)
+								bolsa=datos['bolsa']
+								bolsaCopia=datos['bolsaCopia']
+								t=datos['tiempo']
+								palabras=datos['palabras']
+								turno=datos['turno']
+								cantIntercambios=datos['cantInter']
+								letrasU=datos['letrasU']
+								letrasM=datos['letrasM']
+								puntajeM=datos['puntajeM']
+								puntajeU=datos['puntajeU']
+								texto_reporte=datos['texto_reporte']
+						except FileNotFoundError:
+							sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
+					elif(event=='nuevaP'):
+						inicio, window=con.cofigtab(tab,column1,tableroIm)
+						viejaP=False
+					partidaW.close()
+				else:
+					configuracion.close()
+				event, values = window.read()
+				if(event == 'comenzar'):
+					if(viejaP):
+						for x in tableroFichas:
+							window[x].update(image_filename=os.path.join(cwd,'imagenes',tableroFichas[x]))
+						window['puntU'].update('Puntaje:'+str(puntajeU))
+						window['puntM'].update('Puntaje:'+str(puntajeM))
+						for y in letrasU:
+							window[y].update(image_filename=os.path.join(cwd,'imagenes',letrasU[y]))
+					window["reporte"].update(texto_reporte)
+					
+					#------ segundo proceso timer-------
+					fin_tiempo = False
+					tiempo_dificultad = 6000*t     # TENGO que mandarle el tiempo segun la dificultad
+					executor.submit(timer,n,lock,tiempo_dificultad,fin_tiempo,window)
+					with lock:   # mando mensaje para comenzar timer
+						n.value = True
+					#----------------------------------	
+					
+					estadoBolsa=colocar.repartir(letrasU, bolsa, window) # reparto fichas al usuario
+					estadoBolsa=colocar.repartir(letrasM, bolsa, window) # reparto fichas a la maquina
+					funciones.activarBotones(window)
+					while(not event in (None, 'exit','posponer') and estadoBolsa=='sigo'):
+						if(turno=='usuario'):
+							estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+							estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia,nivel)
+						else:
+							estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia,nivel)
+							estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
+					if(estadoBolsa=='vacio'):
+						sg.popup('No quedan mas fichas en la bolsa, fin del juego')
+						funciones.cargar(puntajeU, name, nivel)
+						funciones.mostrar_fin_partida(puntajeU,puntajeM)
+				elif(event == 'terminar'):
+					window.close()
+				else:
+					event, values = window.read()
+			elif(event =='configurar'):
+				menu.close()
+				event, values = configuracion.read()
+				while(event!='jugar'):
+					event, values = configuracion.read()
+				configuracion.Hide()
+				con.configcustom(bolsa, -1, list(val.keys()), values, 'valor')
+				con.configcustom(bolsa, 27, list(cant.keys()), values, 'cant')
+				tab=values['table']
+				inicio, window=con.cofigtab(tab,column1,tableroIm)
+				t=values['time']
+				palabras=values['tiposP']
+				palabras=palabras.split('/')
+				bolsaCopia=bolsa.copy()
+				estadoBolsa='sigo'
+				configB=True
+				texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
+			elif(event=='posponer'):
+				with open('posponer.txt','w') as archivo:
+					tb=funciones.tuplasString(tableroIm)
+					tF=funciones.tuplasString(tableroFichas)
+					datos={'texto_reporte':texto_reporte,'bolsaCopia':bolsaCopia,'tableroFichas':tF,'tableroIm':tb,'tab':tab,'inicio':inicio,'bolsa':bolsa,'tiempo':t,'palabras':palabras,'turno':turno,'cantInter':cantIntercambios,'letrasU':letrasU,'letrasM':letrasM,'puntajeM':puntajeM,'puntajeU':puntajeU}
+					json.dump(datos, archivo)
+					posponer=False
+			elif(event == 'top10'):
+				try:
+					with open((os.path.join(cwd,"puntajes.json"))) as arc:
+						datos = json.load(arc)
+						if not datos:
+							sg.popup('Archivo de puntajes no encontrado')
+						else:
+							puntajes = sorted(datos, reverse=True, key=lambda x: x[1])
+							hideTop10,event=funciones.mostrar_top10(hideTop10,puntajes,menu)
+							print('hola')
 
-			except FileNotFoundError:
-				sg.popup('Archivo de puntajes no encontrado')
+				except FileNotFoundError:
+					sg.popup('Archivo de puntajes no encontrado')
 		
 
 	with lock:   # mando mensaje a robot2 para que se cierre
