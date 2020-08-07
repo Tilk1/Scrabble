@@ -4,7 +4,7 @@
 
 ## Requisitos
 
-Python 3.6  (NO FUNCIONA VERSIONES POSTERIORES 3.8 NI 3.7)  Link: (https://www.python.org/ftp/python/3.6.3/python-3.6.3-embed-amd64.zip)
+Python 3.6  (NO FUNCIONA VERSIONES POSTERIORES 3.8 NI 3.7)  Link: (https://www.python.org/ftp/python/3.6.4/python-3.6.4.exe)
 
 PySimpleGUI (Libreria)
 
@@ -24,7 +24,7 @@ una que funcione. Aqui estan los pasos que me han funcionado:
 
 ## Instrucciones Windows para jugar rapido:
 
-1. Descargar e instalar python https://www.python.org/ftp/python/3.6.3/python-3.6.3-embed-amd64.zip
+1. Descargar e instalar python https://www.python.org/ftp/python/3.6.4/python-3.6.4.exe
 2. Abrir una consola y ejecutar comando pip install pattern
 3. Desde la misma consola cuando haya terminado ejecutar comando  pip install PySimpleGUI
 4. Descargar la version Jugar 1.1 https://github.com/Tilk1/ScrabblleUNLPAgusSanti/archive/1.1.zip  , abrir carpeta scrabble, ejecutar JUGAR.pyw
