@@ -161,7 +161,8 @@ if __name__ == '__main__':
 	partidaW = sg.Window('partida',menuJugar, disable_close = True)
 	
 	turno=['compu','usuario']
-	turno = random.choice(turno)
+	#turno = random.choice(turno)
+	turno='compu'
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
@@ -209,6 +210,7 @@ if __name__ == '__main__':
 						sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
 				elif(event=='nuevaP'):
 					inicio, window=con.cofigtab(tab,column1,tableroIm)
+					print(inicio)
 				partidaW.close()
 			event, values = window.read()
 			if(event == 'comenzar'):
@@ -253,6 +255,7 @@ if __name__ == '__main__':
 			con.configcustom(bolsa, 27, list(cant.keys()), values, 'cant')
 			tab=values['table']
 			inicio, window=con.cofigtab(tab,column1,tableroIm)
+			print(inicio)
 			t=values['time']
 			palabras=values['tiposP']
 			palabras=palabras.split('/')

@@ -83,7 +83,7 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 		# Pero tambien debo verificar que existan esas posiciones en el tablero, para q no se vaya a la cuarta dimension
 		# Tiene cierta cantidad de intentos para ubicar su palabara en el tablero, sino pasa de turno
 		if(tableroFichas == {}):
-			puestas=colocar(coordPlay[1], coordPlay[0], tamaño,
+			puestas=colocar(coordPlay[0], coordPlay[1], tamaño,
 					window, tableroFichas, formada)
 			todas_disponibles = True
 		else:
