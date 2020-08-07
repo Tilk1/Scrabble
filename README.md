@@ -35,11 +35,11 @@ Hay dos opciones de correr el juego:
 de ningun IDE y tampoco muestra ninguna consola. Los requisitos siguen siendo los mismos. Se debe tener por defecto la version
 3.6 de python(con el comando "py -0" podemos saber nuestra version por defecto), la libreria de pattern y la libreria de pySimpleGUI
 
+##Jugando. Algunas reglas
 Para comenzar la partida se debe ingresar un nombre luego tocar la opcion Jugar, y finalmente 'iniciar'. Es opcional entrar
 a configuraciones.
-
-La primera ficha debe ser colocada en el centro del tablero.
-
+La primera palabra debe pasar por el centro del tablero.
+Las casillas especiales tienen bonus positivos o negativos de puntos
 Al colocar las fichas en el tablero estas se pueden quitar individualmente tocando sobre la ultima colocada, en caso de querer sacar todas se usa el botón 'sacar todas' como antes dicho. En el caso de tener una ficha en mano y arrepentirse de colocarla en el tablero, si se presiona la posición de la ficha en donde estaba en el átril, esta vuelve a donde estaba. 
 
 
