@@ -4,8 +4,7 @@
 
 ## Requisitos
 
-Python 3.6  (https://www.python.org/ftp/python/3.6.3/python-3.6.3-embed-amd64.zip)
-(NO FUNCIONA VERSIONES POSTERIORES 3.8 NI 3.7)
+Python 3.6  (NO FUNCIONA VERSIONES POSTERIORES 3.8 NI 3.7)  Link: (https://www.python.org/ftp/python/3.6.3/python-3.6.3-embed-amd64.zip)
 
 PySimpleGUI (Libreria)
 
