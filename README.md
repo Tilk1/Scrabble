@@ -11,7 +11,7 @@ PySimpleGUI (Libreria)
 Pattern (Libreria)
 
 ## Instrucciones Linux
-Usuarios de Linux: El programa es compatible
+Usuarios de Linux: El programa es compatible. Solo se debe hacer un pip install de cada libreria y tener python 3.6
 Sin embargo si se desea utilizar el entorno virtual ofrecido en catedras (https://archivos.linti.unlp.edu.ar/index.php/s/t9enmc3IlRfkDtz)  deberan hacer algunas modificaciones.
 Al parecer la carpeta de PySimpleGUI tiene problemas como ya viene instalada. Asique se debe volver a descargar o reemplazar por
 una que funcione. Aqui estan los pasos que me han funcionado:
