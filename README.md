@@ -10,7 +10,7 @@ PySimpleGUI (Libreria)
 
 Pattern (Libreria)
 
-## Notas adicionales linux ATENCION!
+## Instrucciones Linux
 Usuarios de Linux: El programa es compatible
 Sin embargo si se desea utilizar el entorno virtual ofrecido en catedras (https://archivos.linti.unlp.edu.ar/index.php/s/t9enmc3IlRfkDtz)  deberan hacer algunas modificaciones.
 Al parecer la carpeta de PySimpleGUI tiene problemas como ya viene instalada. Asique se debe volver a descargar o reemplazar por
@@ -20,7 +20,7 @@ una que funcione. Aqui estan los pasos que me han funcionado:
 (Es posible que tambien funcione borrando la carpeta y volviendo a hacer un pip install PySimpleGUI)
 3. A jugar!
 
-## Instrucciones windows para jugar rapido:
+## Instrucciones Windows para jugar rapido:
 
 1. Descargar e instalar python https://www.python.org/ftp/python/3.6.3/python-3.6.3-embed-amd64.zip
 2. Abrir una consola y ejecutar comando pip install pattern
