@@ -2,6 +2,11 @@ import os
 cwd = os.getcwd()
 
 def crearTablero(tab, fila, column, imagenes, sg):
+	"""
+    Crea una matriz con columnas y filas segun el tablero especifico. Segun la dimension de esta, las imagenes que va a 
+	usar para cada coordenada.
+
+    """
 	tablero = []
 	for x in range(fila):  # crea el tablero
 		row = []
