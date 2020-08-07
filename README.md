@@ -16,7 +16,7 @@ Sin embargo si se desea utilizar el entorno virtual ofrecido en catedras (https:
 Al parecer la carpeta de PySimpleGUI tiene problemas como ya viene instalada. Asique se debe volver a descargar o reemplazar por
 una que funcione. Aqui estan los pasos que me han funcionado:
 1. En primer lugar utilizar la version 3.6.3 de python como interprete
-2. Ir a la libreria PySimpleGUI y borrar la carpeta. La misma se encuentra en: /usr/local/lib/python3.6/dist-packages   Reemplazarla por la que se puede decargar de aqui: https://github.com/Tilk1/seminario_python
+2. Ir a /usr/local/lib/python3.6/dist-packages y borrar la carpeta PySimpleGUI. Reemplazarla por la que se puede decargar de aqui: https://github.com/Tilk1/seminario_python
 (Es posible que tambien funcione borrando la carpeta y volviendo a hacer un pip install PySimpleGUI)
 3. A jugar!
 
