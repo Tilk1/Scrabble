@@ -36,21 +36,29 @@ def usuario(cantInter,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tablero
 	return estadoBolsa, event, puntajeU,texto_reporte, hide, cantInter
 
 def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
-	i = tiempo_dificultad
-	image = window['relojito']
+	ii = tiempo_dificultad
+	image3 = window['relojito']
 	while n.value == False:  # ESPERA EL MENSAJE DE ROBOT1
 		time.sleep(0.10) 
 	comienza = n.value
 	while comienza == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
 		time.sleep(0.01) 
-		window['temporizador'].update('{:02d}:{:02d}'.format((i // 100) // 60, (i // 100) % 60))
-		i = i - 1
-		image.update_animation(os.path.join(cwd,'imagenes','relojito.gif'), 150)
-		if i == 0:
+		window['temporizador'].update('{:02d}:{:02d}'.format((ii // 100) // 60, (ii // 100) % 60))
+		ii = ii - 1
+		image3.update_animation(os.path.join(cwd,'imagenes','relojito.gif'), 150)
+		if ii == 0:
 			fin_tiempo = True
 			break
+	funciones.cargar(puntajeU,name,nivel)
+	window.hide()
+	funciones.mostrar_fin_partida(puntajeU,puntajeM)
 
+global name
 if __name__ == '__main__':
+	# turno=['compu','usuario']
+	# turno = random.choice(turno)
+	turno = 'usuario'
+	name = sg.popup_get_text('Ingresa tu nombre para jugar', 'ScrabbleAR')
 	executor = Executor()
 	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
 	lock = Lock()
@@ -97,7 +105,6 @@ if __name__ == '__main__':
 			'u3': '', 'u4': '', 'u5': '', 'u6': ''}
 	letrasM = {'m0': '', 'm1': '', 'm2': '',
 			'm3': '', 'm4': '', 'm5': '', 'm6': ''}
-	texto_reporte = '¡Bienvenido a ScrabbleAR! \n El nivel es: (dif)  \n Tiempo: (tiempo)\n Palabras validas: (verbo/adj)\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
 	columna = [
 		[sg.Text('', background_color='white')],
 		[sg.Button(image_filename=(os.path.join(cwd,'imagenes','bolsachica.png')), border_width=0,key='intercambiar', disabled=True)],
@@ -105,10 +112,10 @@ if __name__ == '__main__':
 		[sg.Button(image_filename=(os.path.join(cwd,'imagenes','sacar.png')), border_width=0,key='sacar', disabled=True)]
 	]
 	column1 = [
-		[sg.Image(os.path.join(cwd,'imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje:00', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'),sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Button(image_filename=os.path.join('imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
-		[sg.Button('', image_filename=os.path.join('imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
-		[sg.Column([[sg.Text(texto_reporte, text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
-		[sg.Image(os.path.join(cwd,'imagenes','jugador.png')), sg.Text(text='Puntaje:00', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
+		[sg.Image(os.path.join(cwd,'imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'),sg.Image(os.path.join('imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Button(image_filename=os.path.join('imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
+		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
+		[sg.Column([[sg.Text('', text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
+		[sg.Image(os.path.join(cwd,'imagenes','jugador.png')), sg.Text(text='Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
 		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True)],
 		[sg.Button(image_filename=os.path.join(cwd,'imagenes','terminar.png'), key='exit', border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join(cwd,'imagenes','posponer.png'), key='posponer', border_width=0)]
 	]
@@ -160,12 +167,12 @@ if __name__ == '__main__':
 	configuracion = sg.Window('config', config)
 	partidaW = sg.Window('partida',menuJugar, disable_close = True)
 	
-	turno=['compu','usuario']
-	#turno = random.choice(turno)
-	turno='compu'
+
+	#turno= 'usuario'
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
-	event,t,palabras,tab = con.elegirNivel(menu, bolsa)
+	event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
+	texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
 	menu.Hide()
 	bolsaCopia=bolsa.copy()
 	palabras=palabras.split('/')
@@ -175,6 +182,7 @@ if __name__ == '__main__':
 	hide = False  # Para cunado necesito esconder la ventana de intercambio de fichas
 	hideTop10= False
 	estadoBolsa='sigo'
+	#funciones.mostrar_fin_partida()
 	if(event=='configurar'):
 		configB=True
 	else:
@@ -183,14 +191,15 @@ if __name__ == '__main__':
 		print(event)
 		if(event=='volver'):
 			menu.UnHide()
-			event,t,palabras,tab = con.elegirNivel(menu, bolsa)
+			event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
+			texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
 			menu.Hide()
 		elif(event == 'jugar'):
 			if(configB!=True):
 				event, values = partidaW.read()
 				if(event=='viejaP'):
 					try:
-						with open('posponer.txt','r') as archivo:
+						with open(os.path.join(cwd,'posponer.txt'),'r') as archivo:
 							datos = json.load(archivo)
 							tableroFichas=funciones.tuplasInter(datos['tableroFichas'])
 							#tableroIm=funciones.tuplasInter(datos['tableroIm'])
@@ -242,6 +251,7 @@ if __name__ == '__main__':
 						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 				if(estadoBolsa=='vacio'):
 					sg.popup('No quedan mas fichas en la bolsa, fin del juego')
+					funciones.mostrar_fin_partida(nivel,puntajeM,puntajeU)
 			elif(event == 'terminar'):
 				window.close()
 			else:
@@ -251,6 +261,7 @@ if __name__ == '__main__':
 			event, values = configuracion.read()
 			while(event!='jugar'):
 				event, values = configuracion.read()
+			configuracion.Hide()
 			con.configcustom(bolsa, -1, list(val.keys()), values, 'valor')
 			con.configcustom(bolsa, 27, list(cant.keys()), values, 'cant')
 			tab=values['table']
@@ -261,6 +272,7 @@ if __name__ == '__main__':
 			palabras=palabras.split('/')
 			bolsaCopia=bolsa.copy()
 			estadoBolsa='sigo'
+			texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
 		elif(event=='posponer'):
 			with open('posponer.txt','w') as archivo:
 				tb=funciones.tuplasString(tableroIm)
@@ -270,7 +282,7 @@ if __name__ == '__main__':
 				posponer=False
 		elif(event == 'top10'):
 			try:
-				with open("puntajes.json") as arc:
+				with open((os.path.join(cwd,"puntajes.json"))) as arc:
 					datos = json.load(arc)
 					if not datos:
 						sg.popup('Archivo de puntajes no encontrado')
