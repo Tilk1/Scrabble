@@ -8,6 +8,11 @@ import funciones
 cwd = os.getcwd()
 
 def colocar(coord_x, coord_y, tamaño, window, tF, formada):
+	"""
+    COloca las fichas de la maquina en el tablero, actualiza la interfaz con las imagenes, creo un diccionario puestas para 
+	saber que fichas colocó en cada casilla, de esa manera se puede luego calcular el puntaje.
+
+    """
 	puestas=dict()
 	for i in range(tamaño):
 		coord = coord_x, i + coord_y
