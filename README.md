@@ -42,6 +42,7 @@ Al colocar las fichas en el tablero estas se pueden quitar individualmente tocan
 ![](https://i.imgur.com/qOjQ1NO.png)
 ![](https://i.imgur.com/45gNJkF.png)
 ![](https://i.imgur.com/VVULFtw.png)
+(Nota: Las imagenes podrian tener diferencias con la version final)
 
 ## Participantes
 
