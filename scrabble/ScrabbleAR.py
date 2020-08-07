@@ -259,7 +259,7 @@ if __name__ == '__main__':
 						estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 				if(estadoBolsa=='vacio'):
 					sg.popup('No quedan mas fichas en la bolsa, fin del juego')
-					funciones.mostrar_fin_partida(nivel,puntajeM,puntajeU)
+					funciones.mostrar_fin_partida(puntajeU,puntajeM)
 			elif(event == 'terminar'):
 				window.close()
 			else:
