@@ -303,8 +303,3 @@ if __name__ == '__main__':
 
 				except FileNotFoundError:
 					sg.popup('Archivo de puntajes no encontrado')
-		
-
-	with lock:   # mando mensaje a robot2 para que se cierre
-		n.value = False
-	window.close()
