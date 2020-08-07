@@ -10,8 +10,6 @@ PySimpleGUI (Libreria)
 
 Pattern (Libreria)
 
-Microsoft Visual C++ 14.0 + (Para el pattern y solo en windows)
-
 ## Instrucciones Linux
 Usuarios de Linux: El programa es compatible. Solo se debe hacer un pip install de cada libreria y tener python 3.6
 Sin embargo si se desea utilizar el entorno virtual ofrecido en catedras (https://archivos.linti.unlp.edu.ar/index.php/s/t9enmc3IlRfkDtz)  deberan hacer algunas modificaciones.
