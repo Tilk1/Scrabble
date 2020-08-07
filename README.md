@@ -12,10 +12,11 @@ Pattern (Libreria)
 
 ## Instrucciones
 
-Hay dos opciones de correr el juego. La primera es desde el directorio ScrabblleUNLPAgusSanti por medio de un IDE.
-La segunda opcion es desde la branch version_JUGAR.  Esta version incluye directamente un pyw que se ejecuta sin necesidad
+Hay dos opciones de correr el juego: 
+#La primera es desde el directorio ScrabblleUNLPAgusSanti por medio de un IDE.
+#La segunda opcion es desde la branch version_JUGAR.  Esta version incluye directamente un pyw que se ejecuta sin necesidad
 de ningun IDE y tampoco muestra ninguna consola. Los requisitos siguen siendo los mismos. Se debe tener por defecto la version
-3.6 de python , la libreria de pattern y la libreria de pySimpleGUI
+3.6 de python(con el comando "py -0" podemos saber nuestra version por defecto), la libreria de pattern y la libreria de pySimpleGUI
 
 Para comenzar la partida se debe ingresar un nombre luego tocar la opcion Jugar, y finalmente 'iniciar'. Es opcional entrar
 a configuraciones.
