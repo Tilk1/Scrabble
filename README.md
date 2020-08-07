@@ -10,6 +10,16 @@ PySimpleGUI (Libreria)
 
 Pattern (Libreria)
 
+## Notas adicionales ATENCION!
+Usuarios de Linux: El programa es compatible con Linux,
+Sin embargo si se desea utilizar el entorno virtual ofrecido en catedras deberan hacer algunas modificaciones.
+Al parecer la carpeta de PySimpleGUI tiene problemas como ya viene instalada. Asique se debe volver a descargar o reemplazar por
+una que funcione. Aqui estan los pasos que me han funcionado:
+1. En primer lugar utilizar la version 3.6.3 de python como interprete
+2. Ir a la libreria PySimpleGUI y borrar la carpeta. Reemplazarla por la que se puede decargar de aqui: https://github.com/Tilk1/seminario_python
+(Es posible que tambien funcione borrando la carpeta y volviendo a hacer un pip install PySimpleGUI)
+3. A jugar!
+
 ## Instrucciones
 
 Hay dos opciones de correr el juego: 
@@ -25,7 +35,7 @@ La primera ficha debe ser colocada en el centro del tablero.
 
 Al colocar las fichas en el tablero estas se pueden quitar individualmente tocando sobre la ultima colocada, en caso de querer sacar todas se usa el botón 'sacar todas' como antes dicho. En el caso de tener una ficha en mano y arrepentirse de colocarla en el tablero, si se presiona la posición de la ficha en donde estaba en el átril, esta vuelve a donde estaba. 
 
-## Notas adicionales
+
 
 -
 
