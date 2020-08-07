@@ -1,4 +1,4 @@
-# ScrabblleUNLPAgusSanti
+# ScrabblleAR
 ![](https://i.imgur.com/O7vRM8o.png)
 
 
