@@ -19,7 +19,7 @@ def cofigtab(tab,column1,tableroIm):
     elif(tab==(15,17)):
         tipotab=tableros.tablero2
     elif(tab==(15,20)):
-        tipotab=tableros.tablero2
+        tipotab=tableros.tablero3
     tablero = tableros.crearTablero(tipotab, tab[0], tab[1], tableroIm, sg)  #llamo funcion crearTablero para crearlo, me actualiza tableroIm que tiene las imagenes del tablero, según cada coordenada
     inicio = tipotab['play'][1]   #botón de inicio, donde debe pasar la primera palabra del juego entero
     layout = [
