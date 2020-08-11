@@ -6,7 +6,7 @@
 
 Python 3.6  (NO FUNCIONA VERSIONES POSTERIORES 3.8 NI 3.7)  Link: (https://www.python.org/ftp/python/3.6.4/python-3.6.4.exe)
 
-PySimpleGUI (Libreria)
+PySimpleGUI (Libreria) 4.16.0
 
 Pattern (Libreria)
 
