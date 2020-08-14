@@ -13,7 +13,6 @@ from concurrent.futures import ThreadPoolExecutor as Executor
 cwd = os.getcwd()
 
 
-
 def usuario(cantInter,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window):
 	"""
 	Turno del usuario. Coloca la ficha, en caso de intercambiar se realiza en intercambio, se actualiza el puntaje en la interfaz y las palabras que colocó.
@@ -246,6 +245,7 @@ if __name__ == '__main__':
 					#------ segundo proceso timer-------
 					fin_tiempo = False
 					tiempo_dificultad = 6000*t     # TENGO que mandarle el tiempo segun la dificultad
+					time.sleep(1) #para garantizar q siempre llegue
 					executor.submit(timer,n,lock,tiempo_dificultad,fin_tiempo,window)
 					with lock:   # mando mensaje para comenzar timer
 						n.value = True
