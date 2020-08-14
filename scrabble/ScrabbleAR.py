@@ -55,7 +55,6 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 				fin_tiempo = True
 				break
 	except:
-			print('-----------CRASHEOOOOOOOOOOOOOOOO---------------------------')
 			print(n.value)
 			if n.value == True:
 				timer(n, lock,ii,fin_tiempo,window)
