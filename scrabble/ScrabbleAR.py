@@ -51,12 +51,15 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 			window['temporizador'].update('{:02d}:{:02d}'.format((ii // 100) // 60, (ii // 100) % 60))
 			ii = ii - 1
 			image3.update_animation(os.path.join(cwd,'imagenes','relojito.gif'), 150)
+			crashes = 0
 			if ii == 0:
 				fin_tiempo = True
 				break
 	except:
+		crashes += 1
 		print('------- HA CRASHEADOOOOOOO, no problem bro, restart---------------------')
-		timer(n, lock,ii,fin_tiempo,window)
+		if crashes < 3:
+			timer(n, lock,ii,fin_tiempo,window)
 	funciones.cargar(puntajeU,name,nivel)
 	window.hide()
 	funciones.mostrar_fin_partida(puntajeU,puntajeM)
