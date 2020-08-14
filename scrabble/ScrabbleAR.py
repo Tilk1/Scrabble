@@ -42,8 +42,11 @@ def usuario(cantInter,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tablero
 def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 	ii = tiempo_dificultad
 	image3 = window['relojito']
+	while n.value == False:  # ESPERA EL MENSAJE DE ROBOT1
+		time.sleep(0.10) 
+	comienza = n.value
 	try:
-		while True:  #  RECIBO MENSAJE ENTONCES COMIENZO
+		while comienza == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
 			time.sleep(0.01) 
 			window['temporizador'].update('{:02d}:{:02d}'.format((ii // 100) // 60, (ii // 100) % 60))
 			ii = ii - 1
