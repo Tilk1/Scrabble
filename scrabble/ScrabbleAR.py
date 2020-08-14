@@ -312,3 +312,5 @@ if __name__ == '__main__':
 
 				except FileNotFoundError:
 					sg.popup('Archivo de puntajes no encontrado')
+		with lock:   # que termine el timer
+			n.value = False
