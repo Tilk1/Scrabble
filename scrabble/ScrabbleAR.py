@@ -57,8 +57,7 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 				break
 	except:
 		crashes += 1
-		print('------- HA CRASHEADOOOOOOO, no problem bro, restart---------------------')
-		if crashes < 3:
+		if crashes < 4:
 			timer(n, lock,ii,fin_tiempo,window)
 	funciones.cargar(puntajeU,name,nivel)
 	window.hide()
