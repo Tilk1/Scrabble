@@ -45,14 +45,18 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 	while n.value == False:  # ESPERA EL MENSAJE DE ROBOT1
 		time.sleep(0.10) 
 	comienza = n.value
-	while comienza == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
-		time.sleep(0.01) 
-		window['temporizador'].update('{:02d}:{:02d}'.format((ii // 100) // 60, (ii // 100) % 60))
-		ii = ii - 1
-		image3.update_animation(os.path.join(cwd,'imagenes','relojito.gif'), 150)
-		if ii == 0:
-			fin_tiempo = True
-			break
+	try:
+		while comienza == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
+			time.sleep(0.01) 
+			window['temporizador'].update('{:02d}:{:02d}'.format((ii // 100) // 60, (ii // 100) % 60))
+			ii = ii - 1
+			image3.update_animation(os.path.join(cwd,'imagenes','relojito.gif'), 150)
+			if ii == 0:
+				fin_tiempo = True
+				break
+	except:
+		print('------- HA CRASHEADOOOOOOO, no problem bro, restart---------------------')
+		timer(n, lock,ii,fin_tiempo,window)
 	funciones.cargar(puntajeU,name,nivel)
 	window.hide()
 	funciones.mostrar_fin_partida(puntajeU,puntajeM)

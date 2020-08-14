@@ -36,17 +36,15 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 	funciones.activar_desactivar_Botones_basicos(window, botones_disable)
 
 	if nivel == 'Nivel fácil': # estos intentos deben setearse segun la dificultad
-		intentos_formar = 3  
-		intentos_ubicar = 5
-	if nivel == 'Nivel medio':
 		intentos_formar = 10  
+		intentos_ubicar = 10
+	if nivel == 'Nivel medio':
+		intentos_formar = 15  
 		intentos_ubicar = 15
 	if nivel == 'Nivel difícil':
 		intentos_formar = 20  
-		intentos_ubicar = 30
+		intentos_ubicar = 20
 
-	intentos_formar = 10
-	intentos_ubicar = 15
 	image = window['gifcompu']
 
 	print('TENGO ESTAS FICHAS:')
