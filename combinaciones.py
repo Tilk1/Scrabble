@@ -37,7 +37,7 @@ def intenta_las_combinaciones_quitando_una_letra(palabra):
     Por eso esta funcion va quitando letras del string. Por ejemplo si quitamos la z ya se puede formar autoz
     """
     formada = palabra
-    while ((devuelve_primera_combinacion(formada) == "no_encontro") & (len(formada) >= 0 )): #mientras no formemos nada
+    while ((devuelve_primera_combinacion(formada) == "no_encontro") & (len(formada) > 0 )): #mientras no formemos nada
         print('DEBUG ',formada)
         letra_azar = formada[randrange(len(formada))]
         if letra_azar in vocales:                ## si la letra al azar es una vocal
