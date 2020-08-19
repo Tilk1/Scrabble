@@ -36,7 +36,7 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 	funciones.activar_desactivar_Botones_basicos(window, botones_disable)
 
 	if nivel == 'Nivel fácil': # estos intentos deben setearse segun la dificultad
-		intentos_formar = 10
+		intentos_formar = 1
 		intentos_ubicar = 10
 	if nivel == 'Nivel medio':
 		intentos_formar = 15  

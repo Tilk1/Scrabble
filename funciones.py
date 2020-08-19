@@ -1,11 +1,13 @@
-from pattern.text.es import verbs, tag, spelling, lexicon, parse
+#from pattern.text.es import verbs, tag, spelling, lexicon, parse
 from sys import platform as _platform
 import os
 import PySimpleGUI as sg
 import json
 from datetime import date
+import pickle
 
 cwd = os.getcwd()
+
 
 def tuplasString(diccio):
 	"""
@@ -70,24 +72,14 @@ def tipoPalabra(d):
 	Aqui se hace la segunda comprobacion con lexicon para clasificar si el sustantivo es realmente una palabra o simplemente
 	entro en esa categoria y no existe.
 	"""
+	file = open(os.path.join(cwd,'lista_palabras_arg.pickle'), 'rb')
+	data = pickle.load(file)
+	file.close()
 	palabra = obtener_palabra(d)
-	analisis = parse(palabra, tags=True, chunks=False).split(' ')
-	tipo = clasificar(analisis)
-	if len(palabra) == 1:      #SIRVE PARA TESTEAR POR AHORA
-		return 'no_existe'
-	if(tipo == 'sustantivos'):
-		if not palabra.lower() in verbs:
-			if not palabra.lower() in spelling:
-				if (not(palabra.lower() in lexicon) and not(palabra.upper() in lexicon) and not(palabra.capitalize() in lexicon)):
-					return 'no_existe'
-				else:
-					return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
-			else:
-				return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
-		else:
-			return clasificar(tag(palabra, tokenize=True, encoding='utf-8')[0][1])
+	if palabra in data:
+		return 'sustantivos'
 	else:
-		return tipo
+		return 'no_existe'
 
 
 def calcularPuntaje(l, im, b): #l(puestas) im(tableroimagenes) b(bolsa)
