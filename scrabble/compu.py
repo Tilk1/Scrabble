@@ -47,7 +47,6 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 
 	intentos_formar = 10
 	intentos_ubicar = 15
-
 	image = window['gifcompu']
 
 	print('TENGO ESTAS FICHAS:')
