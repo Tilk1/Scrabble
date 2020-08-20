@@ -176,7 +176,7 @@ if __name__ == '__main__':
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
 	if(name!=None):
 		event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
-		texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando fichas de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio \n Boton validar palabra: comprueba si es corecta la palabra formada \n Intercambiar: Debes seleccionar cuales quieres intercambiar!  \n  ----------------------------------------- \n'
+		texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando fichas de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio \n Boton validar palabra: comprueba si es correcta la palabra formada \n Intercambiar: Debes seleccionar cuales quieres intercambiar!  \n  ----------------------------------------- \n'
 		menu.Hide()
 		bolsaCopia=bolsa.copy()
 		palabras=palabras.split('/')
