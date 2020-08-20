@@ -159,7 +159,7 @@ def mostrar_top10(hide,puntajes, configuracion):
 	ancho_columnas = (10, 10)
 	headings = ("NOMBRE", "PUNTAJE", "DIF", "FECHA")
 	columna = [
-		[sg.Image(os.path.join('imagenes','rankings.png'))],
+		[sg.Image(os.path.join(cwd,'imagenes','rankings.png'))],
 	]
 	layout = [
 		[sg.Text('   TOP PUNTAJES ALTOS', font=('Fixedsys', 20),
@@ -277,7 +277,7 @@ def mostrar_fin_partida(puntajeU,puntajeM):
 		[sg.Text('       Has quedado en el top 10', font=('Fixedsys', 20),text_color='green', background_color='white', visible = quedotop10)],
 		[sg.Text('No alcanzaste para quedar en el top 10', font=('Fixedsys', 20),text_color='red', background_color='white', visible = not(quedotop10))],
 		[sg.Text('',background_color= 'White')],
-		[sg.Text('Ganador: ', font=('Fixedsys', 17),text_color='salmon', background_color='white'), sg.Text(ganador, font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Image(os.path.join('imagenes',imagen_ganador))],
+		[sg.Text('Ganador: ', font=('Fixedsys', 17),text_color='salmon', background_color='white'), sg.Text(ganador, font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Image(os.path.join(cwd,'imagenes',imagen_ganador))],
 		[sg.Text('',background_color= 'White')],
 		[sg.Text('Puntuacion Usuario    :', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeU), font=('Fixedsys', 20),text_color=color_usuario, background_color='white')],
 		[sg.Text('Puntuacion Computadora:', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeM), font=('Fixedsys', 20),text_color=color_compu, background_color='white')],
