@@ -56,6 +56,7 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 				break
 	except:
 			print(n.value)
+			print('crash')
 			if n.value == True:
 				timer(n, lock,ii,fin_tiempo,window)
 	funciones.cargar(puntajeU,name,nivel)
@@ -158,7 +159,7 @@ if __name__ == '__main__':
 		row2,
 		row3,
 		[sg.Text('Tiempo: ', font=('Fixedsys', 15), text_color='orange', background_color='white'), sg.Combo(values=[x for x in range(1, 61)], default_value=1,key='time', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Text('min', font=('Fixedsys', 15), text_color='salmon', background_color='white')],
-		[sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Combo(values=['adjetivos','sustantivos','verbos','adjetivos/sustantivos/verbos', 'sustantivos/verbos','adjetivos/sustantivos','adjetivos/verbos'],default_value='adjetivo', key='tiposP', font=('Fixedsys', 15), text_color='purple', background_color='white')],
+		[sg.Text('Palabras posibles: ', font=('Fixedsys', 15), text_color='salmon', background_color='white'), sg.Combo(values=['adjetivos/sustantivos/verbos'],default_value='adjetivos/sustantivos/verbos', key='tiposP', font=('Fixedsys', 15), text_color='purple', background_color='white')],
 		[sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Combo(values=[(15,15),(15,17),(15,20)],default_value=(15,15), key='table', font=('Fixedsys', 15), text_color='purple', background_color='white')],
 		[sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar')]
 	]   

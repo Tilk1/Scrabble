@@ -75,8 +75,11 @@ def tipoPalabra(d):
 	file = open(os.path.join(cwd,'lista_palabras_arg.pickle'), 'rb')
 	data = pickle.load(file)
 	file.close()
+	file = open(os.path.join(cwd,'lista_verbos_sin_acento.pickle'), 'rb')
+	data2 = pickle.load(file)
+	file.close()
 	palabra = obtener_palabra(d)
-	if palabra in data:
+	if palabra in data or palabra in data2:
 		return 'sustantivos'
 	else:
 		return 'no_existe'

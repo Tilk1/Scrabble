@@ -75,10 +75,10 @@ def elegirNivel(win, bolsa):
             elif('Nivel medio' == values['niveles']):
                 nivel=values['niveles']
                 tiempo=6
-                palabras='adjetivos/verbos'
+                palabras='sustantivos/adjetivos/verbos'
                 tab=(15,17)
                 win['tiempo'].update('6min')
-                win['palabras'].update('adjetivos/verbos')
+                win['palabras'].update('sustantivos/adjetivos/verbos')
                 win['pun'].update(values=list(val2.keys()))
                 win['cant'].update(values=list(cant2.keys()))
                 win['punV'].update(val2['A'])
@@ -89,10 +89,10 @@ def elegirNivel(win, bolsa):
             elif('Nivel difícil' == values['niveles']):
                 nivel=values['niveles']
                 tiempo=4
-                palabras='adjetivos/verbos'
+                palabras='sustantivos/adjetivos/verbos'
                 tab=(15,20)
                 win['tiempo'].update('4min')
-                win['palabras'].update('adjetivos/verbos')
+                win['palabras'].update('sustantivos/adjetivos/verbos')
                 win['pun'].update(values=list(val3.keys()))
                 win['cant'].update(values=list(cant3.keys()))
                 win['punV'].update(val3['A'])

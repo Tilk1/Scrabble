@@ -39,10 +39,10 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 		intentos_formar = 1
 		intentos_ubicar = 10
 	if nivel == 'Nivel medio':
-		intentos_formar = 15  
+		intentos_formar = 1  
 		intentos_ubicar = 15
 	if nivel == 'Nivel difícil':
-		intentos_formar = 20  
+		intentos_formar = 1  
 		intentos_ubicar = 20
 
 	image = window['gifcompu']
