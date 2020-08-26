@@ -20,16 +20,17 @@ una que funcione. Aqui estan los pasos que me han funcionado:
 (Es posible que tambien funcione borrando la carpeta y volviendo a hacer un pip install PySimpleGUI)
 3. A jugar!
 
-## Instrucciones Windows para jugar rapido:
+## Instrucciones Windows para jugar rapido sin instalar nada:
 
-1. Descargar e instalar python https://www.python.org/ftp/python/3.6.4/python-3.6.4.exe
-2. Abrir una consola y ejecutar comando pip install pattern
-3. Desde la misma consola cuando haya terminado ejecutar comando  pip install PySimpleGUI
-4. Descargar la version Jugar 1.1 https://github.com/Tilk1/ScrabblleUNLPAgusSanti/archive/1.1.zip  , abrir carpeta scrabble, ejecutar JUGAR.pyw
+1. Descargar https://github.com/Tilk1/ScrabblleUNLPAgusSanti/archive/0.9.zip
+2. Correr ScrabbleAR.exe
+
+Nota: Esta version esta en fase de desarrollo y tiene menos funcionalidades.
 
 ## Instrucciones opcionales para desarrolladores
 
-Hay dos opciones de correr el juego: 
+0. El primer paso seria descargar la ultima version de master zip, o clonando el repositorio
+Hay dos opciones de correr el juego:
 1. La primera por medio de un IDE, seleccionando abrir carpeta ScrabblleUNLPAgusSanti y luego ejecutando ScrabbleAR.py
 2. La segunda opcion es desde la branch version_JUGAR. O la ultima release Version jugar 1.1. Esta version incluye directamente un pyw que se ejecuta sin necesidad
 de ningun IDE y tampoco muestra ninguna consola. Los requisitos siguen siendo los mismos. Se debe tener por defecto la version
