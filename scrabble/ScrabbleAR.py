@@ -70,7 +70,6 @@ if __name__ == '__main__':
 	executor = Executor()
 	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
 	lock = Lock()
-
 	sg.theme_background_color(color='White')
 	sg.theme_button_color(color=('Black', 'White'))
 	sg.theme_element_background_color(color='White')
@@ -317,5 +316,13 @@ if __name__ == '__main__':
 		with lock:   # que termine el timer
 			n.value = False
 		window.hide()
-		funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel)
+		if not event in 'posponer':
+			funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel)
+		else:
+				guardada = [
+							[sg.Text('Partida guardada!', font=('Fixedsys', 17), text_color='salmon', background_color='white')]  
+							]
+				guarda = sg.Window('Adios',guardada)
+				guarda.read(2)
+				
 		sys.exit()
