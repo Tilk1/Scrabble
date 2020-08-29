@@ -4,6 +4,7 @@ import funcionesFichas as colocar
 import random
 import configuraciones as con
 import os
+import sys
 import json
 import time
 from multiprocessing import Process, Lock, Value
@@ -58,15 +59,14 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 			print(n.value)
 			if n.value == True:
 				timer(n, lock,ii,fin_tiempo,window)
-	funciones.cargar(puntajeU,name,nivel)
+	#funciones.cargar(puntajeU,name,nivel) # ya no lo uso
 	window.hide()
-	funciones.mostrar_fin_partida(puntajeU,puntajeM)
+	funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel)
 
 global name
 if __name__ == '__main__':
 	turno=['compu','usuario']
 	turno = random.choice(turno)
-	name = sg.popup_get_text('Ingresa tu nombre para jugar', 'ScrabbleAR')
 	executor = Executor()
 	n = Value(c_bool, False) # Mensaje de robots para comenzar o parar timer
 	lock = Lock()
@@ -125,7 +125,7 @@ if __name__ == '__main__':
 		[sg.Column([[sg.Text('', text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
 		[sg.Image(os.path.join(cwd,'imagenes','jugador.png')), sg.Text(text='Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
 		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True)],
-		[sg.Button(image_filename=os.path.join(cwd,'imagenes','terminar.png'), key='exit', border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join(cwd,'imagenes','posponer.png'), key='posponer', border_width=0)]
+		[sg.Button(image_filename=os.path.join(cwd,'imagenes','terminar.png'), key='exit',disabled=True, border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join(cwd,'imagenes','posponer.png'), key='posponer', border_width=0,disabled=True)]
 	]
 	
 	intercambiar = [
@@ -179,6 +179,7 @@ if __name__ == '__main__':
 	#turno= 'usuario' aca iba antes
 	tableroIm = dict()
 	# llama a elegirNivel me permite poder ver la configuracion predeterminada de los niveles en la interfaz
+	name = ' '
 	if(name!=None):
 		event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
 		texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando fichas de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio \n Boton validar palabra: comprueba si es correcta la palabra formada \n Intercambiar: Debes seleccionar cuales quieres intercambiar!  \n  ----------------------------------------- \n'
@@ -268,8 +269,8 @@ if __name__ == '__main__':
 						with lock:   # que termine el timer
 							n.value = False
 						window.close()
-						funciones.cargar(puntajeU, name, nivel)
-						funciones.mostrar_fin_partida(puntajeU,puntajeM)
+						#funciones.cargar(puntajeU, name, nivel)
+						funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel)
 				elif(event == 'terminar'):
 					window.close()
 				else:
@@ -315,3 +316,6 @@ if __name__ == '__main__':
 					sg.popup('Archivo de puntajes no encontrado')
 		with lock:   # que termine el timer
 			n.value = False
+		window.hide()
+		funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel)
+		sys.exit()

@@ -4,6 +4,8 @@ import os
 import PySimpleGUI as sg
 import json
 from datetime import date
+import time
+import sys
 
 cwd = os.getcwd()
 
@@ -140,6 +142,8 @@ def activarBotones(window):
 	window["u4"].Update(disabled=False)
 	window["u5"].Update(disabled=False)
 	window["u6"].Update(disabled=False)
+	window["exit"].Update(disabled=False)
+	window["posponer"].Update(disabled=False)
 	window.FindElement("intercambiar").Widget.config(cursor="exchange")
 	window.FindElement("palabra").Widget.config(cursor="heart")
 	window.FindElement("sacar").Widget.config(cursor="pirate")
@@ -216,15 +220,9 @@ def cargar(puntajeU,name,nivel):
 	else:
 		quedotop10 = False
 		print('FALSOO')
-
-	if quedotop10 == True:
-		with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
-			print('LEEE 1111')
-			puntajes[0][0] = name
-			puntajes[0][2] = nivel
-			json.dump(puntajes, arc2)
 	  
-def mostrar_fin_partida(puntajeU,puntajeM):
+def mostrar_fin_partida(puntajeU,puntajeM,name,nivel):
+	cargar(puntajeU,name,nivel)
 	"""
 	Recibe algunos datos de la partida para colocar en el top10 en caso de superar
 	el puntaje del que esta ultimo. (Con json una lista verificando el ultimo elemento)
@@ -246,14 +244,6 @@ def mostrar_fin_partida(puntajeU,puntajeM):
 		quedotop10 = True
 	else:
 		quedotop10 = False
-
-	if quedotop10 == True:
-		with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
-			print('LEEE 222')
-			today = date.today()
-			puntajes[0][1] = puntajeU      # puntaje
-			puntajes[0][3] = str(today)    #fecha
-			json.dump(puntajes, arc2)
 
 	# agrego el nuevo puntaje una vez que lo haya escrito y toco el boton OK
 	#puntajes.append = ["juuuu",  999, "easy", "3/3/2050"]
@@ -281,15 +271,29 @@ def mostrar_fin_partida(puntajeU,puntajeM):
 		[sg.Text('',background_color= 'White')],
 		[sg.Text('Puntuacion Usuario    :', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeU), font=('Fixedsys', 20),text_color=color_usuario, background_color='white')],
 		[sg.Text('Puntuacion Computadora:', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeM), font=('Fixedsys', 20),text_color=color_compu, background_color='white')],
-		[sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', background_color='white', visible= False),sg.Input(size=(12,8),font=('Fixedsys', 17),visible= False),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='volver',visible= False)],
-		[sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=False)],
+		[sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', key='-NOMBRE-', background_color='white', visible= quedotop10),sg.Input(size=(12,8),font=('Fixedsys', 17),key='-INPUT-',visible= quedotop10),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='-OK-',visible= quedotop10)],
+		[sg.Text('            datos cargados!', font=('Fixedsys', 20),text_color='green', background_color='white',key='-CARGADO-',visible=False)],
+		[sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=True)],
 			]
 
 	fin_partida = sg.Window("fin", layout, resizable=True,finalize=True)
 	while True:
-		event, values = fin_partida.read()
+		event, values = fin_partida.read(10)
 		fin_partida.UnHide()
-		print(event,values)
+		if event == '-OK-':
+			fin_partida['-OK-'].update(visible=False)
+			fin_partida['-INPUT-'].update(visible=False)
+			fin_partida['-NOMBRE-'].update(visible=False)
+			fin_partida['-CARGADO-'].update(visible=True)
+			if quedotop10 == True:
+				today = date.today()
+				with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
+					puntajes[0][0] = values['-INPUT-']
+					puntajes[0][2] = nivel
+					puntajes[0][1] = puntajeU      # puntaje
+					puntajes[0][3] = str(today)    #fecha
+					json.dump(puntajes, arc2)
 		if event == 'salir2' or event == None:
 			break
 	fin_partida.Close()
+	sys.exit()
