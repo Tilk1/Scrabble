@@ -45,14 +45,19 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 	while n.value == False:  # ESPERA EL MENSAJE DE ROBOT1
 		time.sleep(0.10) 
 	comienza = n.value
-	while comienza == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
-		time.sleep(0.01) 
-		window['temporizador'].update('{:02d}:{:02d}'.format((ii // 100) // 60, (ii // 100) % 60))
-		ii = ii - 1
-		image3.update_animation(os.path.join(cwd,'imagenes','relojito.gif'), 150)
-		if ii == 0:
-			fin_tiempo = True
-			break
+	try:
+		while comienza == True:  #  RECIBO MENSAJE ENTONCES COMIENZO
+			time.sleep(0.01) 
+			window['temporizador'].update('{:02d}:{:02d}'.format((ii // 100) // 60, (ii // 100) % 60))
+			ii = ii - 1
+			image3.update_animation(os.path.join(cwd,'imagenes','relojito.gif'), 150)
+			if ii == 0:
+				fin_tiempo = True
+				break
+	except:
+			print(n.value)
+			if n.value == True:
+				timer(n, lock,ii,fin_tiempo,window)
 	funciones.cargar(puntajeU,name,nivel)
 	window.hide()
 	funciones.mostrar_fin_partida(puntajeU,puntajeM)
@@ -260,6 +265,8 @@ if __name__ == '__main__':
 							estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 					if(estadoBolsa=='vacio'):
 						sg.popup('No quedan mas fichas en la bolsa, fin del juego')
+						with lock:   # que termine el timer
+							n.value = False
 						window.close()
 						funciones.cargar(puntajeU, name, nivel)
 						funciones.mostrar_fin_partida(puntajeU,puntajeM)
@@ -285,6 +292,8 @@ if __name__ == '__main__':
 				configB=True
 				texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
 			elif(event=='posponer'):
+				with lock:   # que termine el timer
+					n.value = False
 				with open('posponer.txt','w') as archivo:
 					tb=funciones.tuplasString(tableroIm)
 					tF=funciones.tuplasString(tableroFichas)
@@ -304,3 +313,5 @@ if __name__ == '__main__':
 
 				except FileNotFoundError:
 					sg.popup('Archivo de puntajes no encontrado')
+		with lock:   # que termine el timer
+			n.value = False
