@@ -66,6 +66,7 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 
 global name
 if __name__ == '__main__':
+	novatoide = False
 	ingresoxtimer = False
 	turno=['compu','usuario']
 	turno = random.choice(turno)
