@@ -229,14 +229,15 @@ if __name__ == '__main__':
 								puntajeU=datos['puntajeU']
 								texto_reporte=datos['texto_reporte']
 						except FileNotFoundError:
-							sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva')
+							sg.popup('No se han guardado partidas anteriormente, comenzará una partida nueva',keep_on_top=True)
 					elif(event=='nuevaP'):
 						inicio, window=con.cofigtab(tab,column1,tableroIm)
 						viejaP=False
 					partidaW.close()
 				else:
 					configuracion.close()
-				event, values = window.read()
+				while event != 'comenzar':
+					event, values = window.read(2)
 				if(event == 'comenzar'):
 					if(viejaP):
 						for x in tableroFichas:
@@ -267,7 +268,7 @@ if __name__ == '__main__':
 							estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia,nivel)
 							estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 					if(estadoBolsa=='vacio'):
-						sg.popup('No quedan mas fichas en la bolsa, fin del juego')
+						sg.popup('No quedan mas fichas en la bolsa, fin del juego',keep_on_top=True)
 						with lock:   # que termine el timer
 							n.value = False
 						window.close()
@@ -308,14 +309,14 @@ if __name__ == '__main__':
 					with open((os.path.join(cwd,"puntajes.json"))) as arc:
 						datos = json.load(arc)
 						if not datos:
-							sg.popup('Archivo de puntajes no encontrado')
+							sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
 						else:
 							puntajes = sorted(datos, reverse=True, key=lambda x: x[1])
 							hideTop10,event=funciones.mostrar_top10(hideTop10,puntajes,menu)
 							print('hola')
 
 				except FileNotFoundError:
-					sg.popup('Archivo de puntajes no encontrado')
+					sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
 		with lock:   # que termine el timer
 			n.value = False
 		if event != None:

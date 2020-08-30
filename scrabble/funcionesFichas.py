@@ -76,7 +76,7 @@ def intercambiarFichas(letras, bolsa, copia, window, cant):
 
     """
 	if(bolsa=={}):
-		sg.popup('No quedan mas fichas en la bolsa, no se ha podido realizar el intercambio')
+		sg.popup('No quedan mas fichas en la bolsa, no se ha podido realizar el intercambio',keep_on_top=True)
 	else:
 		letra=''
 		x=0
@@ -109,9 +109,9 @@ def intercambiarFichas(letras, bolsa, copia, window, cant):
 							x=x+1
 						sigo=False
 		if(letra=='vacio'):
-			sg.popup('No quedan mas fichas en la bolsa, se han intercambiado las posibles')
+			sg.popup('No quedan mas fichas en la bolsa, se han intercambiado las posibles',keep_on_top=True)
 		elif(q=='u'):   
-			sg.popup('Intercambio realizado!')
+			sg.popup('Intercambio realizado!',keep_on_top=True)
 
 
 def ponerFicha(window,letra, puestas, event):
@@ -185,9 +185,9 @@ def colocarFicha(inter,tableroI,tableroF,letras, window, colores,coordPlay, bols
 		elif(isinstance(event, tuple)):    							#Si toco el tablero
 			if(poner and letra!=''):    							#Si tengo una ficha en mano (poner=True) y (letra!='')
 				if(event in tableroF):    													#Si estoy intentando poner la ficha arriba de una de otra partida
-					sg.popup('No puede colocar una ficha sobre una de una jugada anterior')
+					sg.popup('No puede colocar una ficha sobre una de una jugada anterior',keep_on_top=True)
 				elif(event in puestas):
-					sg.popup('No puede colocar la letra en un lugar ocupado, retirela si lo desea')   	#Si intento poner una ficha sobre las ya puestas en esa jugada
+					sg.popup('No puede colocar la letra en un lugar ocupado, retirela si lo desea',keep_on_top=True)   	#Si intento poner una ficha sobre las ya puestas en esa jugada
 				else: 									
 					correcta=True											#correcta me dice si elegi un lugar del tablero correcto para poner la ficha
 					if(nro==0):      										#La primera es en caso de cuando no es la primera jugada de toda la partida
@@ -214,7 +214,7 @@ def colocarFicha(inter,tableroI,tableroF,letras, window, colores,coordPlay, bols
 						letra=''
 			else:                            
 				if((event in puestas) and (event==ficha)):        													#Si no tengo una ficha en mano, pero toco una ficha colocada en el tablero
-					s1=sg.popup_yes_no('Quiere sacar la ficha?')
+					s1=sg.popup_yes_no('Quiere sacar la ficha?',keep_on_top=True)
 					if(s1=='Yes'):    														#Si quiero sacar la ficha
 						sacarFicha(tableroI, puestas, originales,letras, event, window)
 						if(direc=='izq'):      																#la pos del tablero en donde podes poner va a ser -1 ya que en donde estaba la ficha ya no esta
@@ -223,20 +223,20 @@ def colocarFicha(inter,tableroI,tableroF,letras, window, colores,coordPlay, bols
 							ficha=(ficha[0]-1,ficha[1])
 						nro=nro-1																			#Como saco una ficha, el nro de ficha puesto es -1, de esta forma puedo volver a elegir la direccion si saco la 2da ficha de la palabra y si saco la primera ficha, poder seguir poniendo fichas(Si saco la primera y nro es >2 va  asuponer que hay una direccion o que habia una ficha previa puesta con la cual calcularla)
 				elif(not event in (tableroF, puestas)):      												#Si no tenes una letra en mano y estas tocando un lugar en donde no hay nada
-					sg.popup('No ha seleccionado una ficha para colocar')
+					sg.popup('No ha seleccionado una ficha para colocar',keep_on_top=True)
 		elif(event=='sacar'):
-			s2=sg.popup_yes_no('Quiere sacar todas las fichas?')
+			s2=sg.popup_yes_no('Quiere sacar todas las fichas?',keep_on_top=True)
 			if(s2=='Yes'): 
 				sacarFicha(tableroI, puestas, originales, letras, event, window)
 				nro=0
 		elif(event=='intercambiar'):   #Si intento intercambiar fichas durante la jugada, tienen que estar todas las fichas en el atril, no puede haber puestas. UNa vez que saque todas puedo hacer el intercambio y vuelvo a empezar a colocar
 			if(inter>=3):
-				sg.popup('el numero máximo de intercambios es 3, ha llegado al límite')
+				sg.popup('el numero máximo de intercambios es 3, ha llegado al límite',keep_on_top=True)
 			else:
 				if(puestas=={}):
 					salir=True
 				else:
-					sg.popup('Para hacer un intercambio no puede haber fichas colocadas en el tablero de la jugada actual, saquelas para poder hacerlo, pero perdera el turno')		
+					sg.popup('Para hacer un intercambio no puede haber fichas colocadas en el tablero de la jugada actual, saquelas para poder hacerlo, pero perdera el turno',keep_on_top=True)		
 		elif(event=='palabra'):                                                     #Si toco el boton 'palabra', entonces significa que analizo si existe o no lo que forme en el tablero
 			ponerpal=True
 			if(tableroF=={}):
@@ -252,11 +252,11 @@ def colocarFicha(inter,tableroI,tableroF,letras, window, colores,coordPlay, bols
 						tableroF[x]=puestas[x]                     #agrego las fichas que se confirmaron forman una palbra en el diccionario de toda las fichas del juego, no de solo esa partida
 					salir=True
 				else:
-					sg.popup('No existe esa palabra, vuelva a intentarlo')
+					sg.popup('No existe esa palabra, vuelva a intentarlo',keep_on_top=True)
 					sacarFicha(tableroI, puestas, originales, letras, 'sacar', window)     #saco todas las fichas porque esa palabra no existe, no termina la jugada, vuelvo a intentar
 					nro=0
 			else:
-				sg.popup('La primera palabra del juego debe pasar por el inicio')
+				sg.popup('La primera palabra del juego debe pasar por el inicio',keep_on_top=True)
 				sacarFicha(tableroI, puestas, originales, letras, 'sacar', window)     #saco todas las fichas porque esa palabra no existe, no termina la jugada, vuelvo a intentar
 				nro=0
 		if(salir!=True):   

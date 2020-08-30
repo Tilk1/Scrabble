@@ -209,12 +209,12 @@ def cargar(puntajeU,name,nivel):
 		with open(os.path.join(cwd,"puntajes.json")) as arc:
 			datos = json.load(arc)
 			if not datos:
-				sg.popup('Archivo de puntajes no encontrado')
+				sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
 			else:
 				puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
 
 	except FileNotFoundError:
-		sg.popup('Archivo de puntajes no encontrado')
+		sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
 	
 	if puntajeU > puntajes[0][1]:
 		quedotop10 = True
@@ -235,12 +235,12 @@ def mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer):
 		with open((os.path.join(cwd,"puntajes.json"))) as arc:
 			datos = json.load(arc)
 			if not datos:
-				sg.popup('Archivo de puntajes no encontrado')
+				sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
 			else:
 				puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
 
 	except FileNotFoundError:
-		sg.popup('Archivo de puntajes no encontrado')
+		sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
 
 	# me fijo si supera al mas bajo de todos para quedar en el top 10
 	if puntajeU > puntajes[0][1]:
