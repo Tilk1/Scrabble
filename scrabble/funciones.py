@@ -6,6 +6,7 @@ import json
 from datetime import date
 import time
 import sys
+import getpass
 
 cwd = os.getcwd()
 
@@ -221,8 +222,9 @@ def cargar(puntajeU,name,nivel):
 		quedotop10 = False
 		print('FALSOO')
 	  
-def mostrar_fin_partida(puntajeU,puntajeM,name,nivel):
+def mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer):
 	cargar(puntajeU,name,nivel)
+	print(ingresoxtimer)
 	"""
 	Recibe algunos datos de la partida para colocar en el top10 en caso de superar
 	el puntaje del que esta ultimo. (Con json una lista verificando el ultimo elemento)
@@ -261,6 +263,18 @@ def mostrar_fin_partida(puntajeU,puntajeM,name,nivel):
 		imagen_ganador = 'robot.gif'
 		color_compu = 'green'
 
+	datos_automaticos = False
+	if ingresoxtimer == True:  # esto es pq ya no me deja ingresar mas nada
+		if quedotop10 == True:
+			today = date.today()
+			datos_automaticos = True
+			with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
+				username = getpass.getuser()
+				puntajes[0][0] = username
+				puntajes[0][2] = nivel
+				puntajes[0][1] = puntajeU      # puntaje
+				puntajes[0][3] = str(today)    #fecha
+				json.dump(puntajes, arc2)
 
 	layout = [
 		[sg.Text('¡La partida ha terminado!', font=('Fixedsys', 30),text_color='salmon', background_color='white')],
@@ -271,9 +285,11 @@ def mostrar_fin_partida(puntajeU,puntajeM,name,nivel):
 		[sg.Text('',background_color= 'White')],
 		[sg.Text('Puntuacion Usuario    :', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeU), font=('Fixedsys', 20),text_color=color_usuario, background_color='white')],
 		[sg.Text('Puntuacion Computadora:', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeM), font=('Fixedsys', 20),text_color=color_compu, background_color='white')],
-		[sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', key='-NOMBRE-', background_color='white', visible= quedotop10),sg.Input(size=(12,8),font=('Fixedsys', 17),key='-INPUT-',visible= quedotop10),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='-OK-',visible= quedotop10)],
+		[sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', key='-NOMBRE-', background_color='white', visible= quedotop10),sg.Input(size=(12,8),font=('Fixedsys', 17),key='-INPUT-',visible= quedotop10,disabled=datos_automaticos),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='-OK-',visible= quedotop10,disabled=datos_automaticos)],
 		[sg.Text('            datos cargados!', font=('Fixedsys', 20),text_color='green', background_color='white',key='-CARGADO-',visible=False)],
-		[sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=True)],
+		[sg.Text(username, font=('Fixedsys', 17),text_color='green', background_color='white',key='-CARGADO-',visible=datos_automaticos)],
+		[sg.Text('tus datos han sido cargados automaticamente, no necesitas ingresar nada. Uf que alivio!', font=('Fixedsys', 15),text_color='green', background_color='white',key='-CARGADO-',visible=datos_automaticos)],
+		[sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=False)],
 			]
 
 	fin_partida = sg.Window("fin", layout, resizable=True,finalize=True)

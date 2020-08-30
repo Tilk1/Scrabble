@@ -61,10 +61,12 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 				timer(n, lock,ii,fin_tiempo,window)
 	#funciones.cargar(puntajeU,name,nivel) # ya no lo uso
 	window.hide()
-	funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel)
+	ingresoxtimer = True
+	funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer)
 
 global name
 if __name__ == '__main__':
+	ingresoxtimer = False
 	turno=['compu','usuario']
 	turno = random.choice(turno)
 	executor = Executor()
@@ -122,7 +124,7 @@ if __name__ == '__main__':
 		[sg.Image(os.path.join(cwd,'imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'),sg.Image(os.path.join(cwd,'imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Button(image_filename=os.path.join(cwd,'imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
 		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
 		[sg.Column([[sg.Text('', text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
-		[sg.Image(os.path.join(cwd,'imagenes','jugador.png')), sg.Text(text='Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU')],
+		[sg.Image(os.path.join(cwd,'imagenes','jugador.png')), sg.Text(text='Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU'), sg.Text(text='Turno: Usuario', font=('Fixedsys', 15), text_color='red', background_color='white', key='-TURNO-')],
 		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True)],
 		[sg.Button(image_filename=os.path.join(cwd,'imagenes','terminar.png'), key='exit',disabled=True, border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join(cwd,'imagenes','posponer.png'), key='posponer', border_width=0,disabled=True)]
 	]
@@ -236,6 +238,7 @@ if __name__ == '__main__':
 					configuracion.close()
 				event, values = window.read()
 				if(event == 'comenzar'):
+					print('HA COMENZADOOOO')
 					if(viejaP):
 						for x in tableroFichas:
 							window[x].update(image_filename=os.path.join(cwd,'imagenes',tableroFichas[x]))
@@ -258,6 +261,7 @@ if __name__ == '__main__':
 					funciones.activarBotones(window)
 					while(not event in (None, 'exit','posponer') and estadoBolsa=='sigo'):
 						if(turno=='usuario'):
+							
 							estadoBolsa,event,puntajeU,texto_reporte,hide,cantIntercambios=usuario(cantIntercambios,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window)
 							estadoBolsa,puntajeM,texto_reporte=compu.turno_maquina(texto_reporte,puntajeM,inicio,tableroIm, tableroFichas, letrasM, window, colores, bolsa, bolsaCopia,nivel)
 						else:
@@ -269,7 +273,7 @@ if __name__ == '__main__':
 							n.value = False
 						window.close()
 						#funciones.cargar(puntajeU, name, nivel)
-						funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel)
+						funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer)
 				elif(event == 'terminar'):
 					window.close()
 				else:
@@ -315,14 +319,15 @@ if __name__ == '__main__':
 					sg.popup('Archivo de puntajes no encontrado')
 		with lock:   # que termine el timer
 			n.value = False
-		window.hide()
-		if not event in 'posponer':
-			funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel)
-		else:
-				guardada = [
-							[sg.Text('Partida guardada!', font=('Fixedsys', 17), text_color='salmon', background_color='white')]  
-							]
-				guarda = sg.Window('Adios',guardada)
-				guarda.read(2)
-				
+		if event != None:
+			window.hide()
+			if not event in 'posponer':
+				funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer)
+			else:
+					guardada = [
+								[sg.Text('Partida guardada! Hasta luego', font=('Fixedsys', 17), text_color='salmon', background_color='white')]  
+								]
+					guarda = sg.Window('Adios',guardada)
+					guarda.read(2)
+					
 		sys.exit()

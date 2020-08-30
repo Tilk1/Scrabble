@@ -34,7 +34,7 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 	"""
 	botones_disable = True
 	funciones.activar_desactivar_Botones_basicos(window, botones_disable)
-
+	window['-TURNO-'].update('Turno:Compu')
 	if nivel == 'Nivel fácil': # estos intentos deben setearse segun la dificultad
 		intentos_formar = 3  
 		intentos_ubicar = 5
@@ -145,4 +145,5 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 
 	# vuelve a robar fichas de a cuerdo a las que le faltan
 	fin = funcionesFichas.repartir(letrasM, bolsa, window)
+	window['-TURNO-'].update('Turno:Usuario')
 	return fin,puntaje, tr
