@@ -223,6 +223,7 @@ def cargar(puntajeU,name,nivel):
 		print('FALSOO')
 	  
 def mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer):
+	username = getpass.getuser()
 	cargar(puntajeU,name,nivel)
 	print(ingresoxtimer)
 	"""
@@ -269,7 +270,6 @@ def mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer):
 			today = date.today()
 			datos_automaticos = True
 			with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
-				username = getpass.getuser()
 				puntajes[0][0] = username
 				puntajes[0][2] = nivel
 				puntajes[0][1] = puntajeU      # puntaje
