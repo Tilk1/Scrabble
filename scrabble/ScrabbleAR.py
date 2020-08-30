@@ -236,11 +236,8 @@ if __name__ == '__main__':
 					partidaW.close()
 				else:
 					configuracion.close()
-				while event != 'comenzar':
-					event, values = window.read(5)
-				#event, values = window.read()
+				event, values = window.read()
 				if(event == 'comenzar'):
-					print('HA COMENZADOOOO')
 					if(viejaP):
 						for x in tableroFichas:
 							window[x].update(image_filename=os.path.join(cwd,'imagenes',tableroFichas[x]))
