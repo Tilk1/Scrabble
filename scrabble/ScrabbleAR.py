@@ -200,7 +200,7 @@ if __name__ == '__main__':
 		else:
 			configB=False
 		while(not event in (None, 'exit') and estadoBolsa=='sigo' and posponer):
-			print(event)
+			#print(event)
 			if(event=='volver'):
 				menu.UnHide()
 				event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
@@ -236,7 +236,9 @@ if __name__ == '__main__':
 					partidaW.close()
 				else:
 					configuracion.close()
-				event, values = window.read()
+				while event != 'comenzar':
+					event, values = window.read(5)
+				#event, values = window.read()
 				if(event == 'comenzar'):
 					print('HA COMENZADOOOO')
 					if(viejaP):
