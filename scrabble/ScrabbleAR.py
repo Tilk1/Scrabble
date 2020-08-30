@@ -116,17 +116,17 @@ if __name__ == '__main__':
 			'm3': '', 'm4': '', 'm5': '', 'm6': ''}
 	columna = [
 		[sg.Text('', background_color='white')],
-		[sg.Button(image_filename=(os.path.join(cwd,'imagenes','bolsachica.png')), border_width=0,key='intercambiar', disabled=True)],
-		[sg.Button(image_filename=(os.path.join(cwd,'imagenes','palabra.png')), border_width=0,key='palabra', disabled=True)],
-		[sg.Button(image_filename=(os.path.join(cwd,'imagenes','sacar.png')), border_width=0,key='sacar', disabled=True)]
+		[sg.Button(image_filename=(os.path.join(cwd,'imagenes','bolsachica.png')), border_width=0,key='intercambiar', disabled=True,tooltip='Permite intercambiar las fichas \n de tu atril. Una vez\n seleccionada la cantidad \nde fichas a intercambiar debes \nseleccionar cuales\n quieres cambiar')],
+		[sg.Button(image_filename=(os.path.join(cwd,'imagenes','palabra.png')), border_width=0,key='palabra', disabled=True,tooltip='Verifica si la palabra ingresada es\ncorrecta. Luego de eso pasa al\n turno de la computadora')],
+		[sg.Button(image_filename=(os.path.join(cwd,'imagenes','sacar.png')), border_width=0,key='sacar', disabled=True,tooltip='Saca todas las fichas\n que has colocado en este turno')]
 	]
 	column1 = [
-		[sg.Image(os.path.join(cwd,'imagenes','robot.gif'), key = 'gifcompu'), sg.Text('Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'),sg.Image(os.path.join(cwd,'imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Button(image_filename=os.path.join(cwd,'imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
+		[sg.Image(os.path.join(cwd,'imagenes','robot.gif'), key = 'gifcompu',tooltip='No te engañes por esa sonrisa \n Es fria y calculadora..'), sg.Text('Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'),sg.Image(os.path.join(cwd,'imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Button(image_filename=os.path.join(cwd,'imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
 		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
 		[sg.Column([[sg.Text('', text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
-		[sg.Image(os.path.join(cwd,'imagenes','jugador.png')), sg.Text(text='Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU'), sg.Text(text='Turno: Usuario', font=('Fixedsys', 15), text_color='red', background_color='white', key='-TURNO-')],
-		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True)],
-		[sg.Button(image_filename=os.path.join(cwd,'imagenes','terminar.png'), key='exit',disabled=True, border_width=0), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join(cwd,'imagenes','posponer.png'), key='posponer', border_width=0,disabled=True)]
+		[sg.Image(os.path.join(cwd,'imagenes','jugador.png'),tooltip='Eso es un barbijo o una sonrisa?'), sg.Text(text='Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU'), sg.Text(text='Turno: Usuario', font=('Fixedsys', 15), text_color='red', background_color='white', key='-TURNO-')],
+		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True,tooltip='Clickea aqui y \n luego en el tablero')],
+		[sg.Button(image_filename=os.path.join(cwd,'imagenes','terminar.png'), key='exit',disabled=True, border_width=0,tooltip='Salir de la partida'), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join(cwd,'imagenes','posponer.png'), key='posponer', border_width=0,disabled=True,tooltip='Guarda la partida')]
 	]
 	
 	intercambiar = [
@@ -165,7 +165,9 @@ if __name__ == '__main__':
 	]   
 	# parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
 	menuJugar = [
-		[sg.Button('Nueva Partida', font=('Fixedsys', 18), button_color=('orange', 'White'), key='nuevaP'),sg.Button('Partida Vieja', font=('Fixedsys', 18), button_color=('Salmon', 'White'), key='viejaP')]   
+		[sg.Button('Nueva Partida', font=('Fixedsys', 18), button_color=('orange', 'White'), key='nuevaP'),sg.Button('Partida Vieja', font=('Fixedsys', 18), button_color=('Salmon', 'White'), key='viejaP')],
+		[sg.Text('Es tu primera vez jugando?  ', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Button('Si, Muestrame consejos antes de iniciar', font=('Fixedsys', 16), button_color=('green', 'White'), key='-NOVATO-')],
+		   
 	]
 	# parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
 	colores = ['color1.png','color2.png',
@@ -183,7 +185,7 @@ if __name__ == '__main__':
 	name = ' '
 	if(name!=None):
 		event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
-		texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando fichas de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio \n Boton validar palabra: comprueba si es correcta la palabra formada \n Intercambiar: Debes seleccionar cuales quieres intercambiar!  \n  ----------------------------------------- \n'
+		texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+ ' \n  \n No olvides pasar el cursor sobre \n los botones para saber que hacen \n ----------------------------------------- \n'
 		menu.Hide()
 		bolsaCopia=bolsa.copy()
 		palabras=palabras.split('/')
@@ -204,11 +206,16 @@ if __name__ == '__main__':
 			if(event=='volver'):
 				menu.UnHide()
 				event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
-				texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
+				texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n No olvides pasar el cursor sobre \n los botones para saber que hacen  \n ----------------------------------------- \n'
 				menu.Hide()
 			elif(event == 'jugar'):
 				if(configB!=True):
 					event, values = partidaW.read()
+					if(event=='-NOVATO-'):
+						inicio, window=con.cofigtab(tab,column1,tableroIm)
+						viejaP=False
+						partidaW.close()
+						novatoide = True
 					if(event=='viejaP'):
 						viejaP=True
 						try:
@@ -238,6 +245,8 @@ if __name__ == '__main__':
 					configuracion.close()
 				while event != 'comenzar':
 					event, values = window.read(2)
+				if novatoide:
+					sg.popup('El Consejo mas importante que voy a darte es que pases el mouse sobre los botones para saber lo que hacen. Ahora que sabes eso te dire en que consiste el juego: Tienes que formar palabras en el tablero usando las fichas de tu atril. Para ello haz click en una letra cualquiera  de abajo a la derecha y luego en el tablero.  Puedes intercambiar fichas si ninguna te gusta, pero cuidado! Tienes solo 3 intentos para intercambiar Cada vez que lo hagas pasaras el turno. Debes vencer a la computadora y lograr la mayor cantidad de puntos. Presta atencion a las casillas especiales, pueden restar o sumar puntos adicionales. Puede que te toque empezar a ti o ala compu. Si te toca ati entonces la primera palabra debera pasar por el inicio. El inicio es la casilla del medio de todo el tablero. Similar a un boton "play" Buena suerte!',keep_on_top=True)
 				if(event == 'comenzar'):
 					if(viejaP):
 						for x in tableroFichas:
@@ -294,7 +303,7 @@ if __name__ == '__main__':
 				bolsaCopia=bolsa.copy()
 				estadoBolsa='sigo'
 				configB=True
-				texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n Tienes que formar palabras	\n en el tablero usando las fichas	\n de tu atril.\n Tienes solo 3 intentos para intercambiar\n Cada vez que lo hagas pasaras\n el turno.\n Debes vencer a la computadora\n y lograr la mayor cantidad de\n puntos. Presta atencion a las\n casillas especiales, pueden\n restar o sumar puntos adicionales.\n La primera palabra debera pasar\n por el inicio\n ----------------------------------------- \n'
+				texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n No olvides pasar el cursor sobre \n los botones para saber que hacen \n----------------------------------------- \n'
 			elif(event=='posponer'):
 				with lock:   # que termine el timer
 					n.value = False
