@@ -334,7 +334,10 @@ def mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer):
             if quedotop10 == True:
                 today = date.today()
                 with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
-                    puntajes[0][0] = values['-INPUT-']
+                    if (values['-INPUT-']) == '':   #en el caso q no ingreso nada, le toma el usuario
+                        puntajes[0][0] = getpass.getuser()
+                    else:
+                        puntajes[0][0] = values['-INPUT-']
                     puntajes[0][2] = nivel
                     puntajes[0][1] = puntajeU      # puntaje
                     puntajes[0][3] = str(today)    #fecha
