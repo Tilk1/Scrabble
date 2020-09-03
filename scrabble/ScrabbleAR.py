@@ -187,7 +187,8 @@ if __name__ == '__main__':
 	if(name!=None):
 		event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
 		texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+ ' \n  \n No olvides pasar el cursor sobre \n los botones para saber que hacen \n ----------------------------------------- \n'
-		menu.Hide()
+		if event != None:
+			menu.Hide()
 		bolsaCopia=bolsa.copy()
 		palabras=palabras.split('/')
 		posponer=True
