@@ -209,7 +209,8 @@ if __name__ == '__main__':
 				menu.UnHide()
 				event,t,palabras,tab,nivel = con.elegirNivel(menu, bolsa)
 				texto_reporte = '¡Bienvenido a ScrabbleAR! \n'+str(nivel)+ '\n Tiempo: '+str(t)+'\n Palabras validas: '+str(palabras)+'\n No olvides pasar el cursor sobre \n los botones para saber que hacen  \n ----------------------------------------- \n'
-				menu.Hide()
+				if event != None:
+					menu.Hide()
 			elif(event == 'jugar'):
 				if(configB!=True):
 					event, values = partidaW.read()
