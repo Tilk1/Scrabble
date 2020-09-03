@@ -318,15 +318,19 @@ if __name__ == '__main__':
 				try:
 					with open((os.path.join(cwd,"puntajes.json"))) as arc:
 						datos = json.load(arc)
-						if not datos:
-							sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
-						else:
-							puntajes = sorted(datos, reverse=True, key=lambda x: x[1])
-							hideTop10,event=funciones.mostrar_top10(hideTop10,puntajes,menu)
-							print('hola')
+						#if not datos:
+						#	sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
+						puntajes = sorted(datos, reverse=True, key=lambda x: x[1])
+						hideTop10,event=funciones.mostrar_top10(hideTop10,puntajes,menu)
+						print('hola')
 
 				except FileNotFoundError:
-					sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
+					sg.popup('Archivo de puntajes no encontrado, creando uno nuevo vacio',keep_on_top=True)
+					datos = [["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""]]
+					with open((os.path.join(cwd,"puntajes.json")), "w") as arc:
+						json.dump(datos,arc)
+					puntajes = sorted(datos, reverse=True, key=lambda x: x[1])
+					hideTop10,event=funciones.mostrar_top10(hideTop10,puntajes,menu)
 		with lock:   # que termine el timer
 			n.value = False
 		if event != None:
