@@ -4,6 +4,7 @@ import combinaciones
 import funcionesFichas
 import os
 import funciones
+import sys
 
 cwd = os.getcwd()
 
@@ -33,7 +34,13 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 
 	"""
 	botones_disable = True
-	funciones.activar_desactivar_Botones_basicos(window, botones_disable)
+	try:
+		funciones.activar_desactivar_Botones_basicos(window, botones_disable)
+	except:
+		print('cerrando desde la IA')
+		window.close()
+		sys.exit()
+		
 	window['-TURNO-'].update('Turno:Compu')
 	if nivel == 'Nivel fácil': # estos intentos deben setearse segun la dificultad
 		intentos_formar = 3  

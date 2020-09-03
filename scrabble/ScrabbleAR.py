@@ -248,6 +248,8 @@ if __name__ == '__main__':
 					configuracion.close()
 				while event != 'comenzar':
 					event, values = window.read(2)
+					if event == None:  #me aseguro q se cierre
+						sys.exit()
 				if novatoide:
 					sg.popup('El Consejo mas importante que voy a darte es que pases el mouse sobre los botones para saber lo que hacen. Ahora que sabes eso te dire en que consiste el juego: Tienes que formar palabras en el tablero usando las fichas de tu atril. Para ello haz click en una letra cualquiera  de abajo a la derecha y luego en el tablero.  Puedes intercambiar fichas si ninguna te gusta, pero cuidado! Tienes solo 3 intentos para intercambiar Cada vez que lo hagas pasaras el turno. Debes vencer a la computadora y lograr la mayor cantidad de puntos. Presta atencion a las casillas especiales, pueden restar o sumar puntos adicionales. Puede que te toque empezar a ti o ala compu. Si te toca ati entonces la primera palabra debera pasar por el inicio. El inicio es la casilla del medio de todo el tablero. Similar a un boton "play" Buena suerte!',keep_on_top=True)
 				if(event == 'comenzar'):
@@ -336,6 +338,10 @@ if __name__ == '__main__':
 					hideTop10,event=funciones.mostrar_top10(hideTop10,puntajes,menu)
 		with lock:   # que termine el timer
 			n.value = False
+		try:
+			window.close()
+		except:
+			print('Cerrando todo loq quedo abierto desde el final')
 		if event != None:
 			window.hide()
 			if not event in 'posponer':
