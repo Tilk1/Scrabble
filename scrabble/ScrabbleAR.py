@@ -60,7 +60,8 @@ def timer(n, lock,tiempo_dificultad,fin_tiempo,window):
 			if n.value == True:
 				timer(n, lock,ii,fin_tiempo,window)
 	#funciones.cargar(puntajeU,name,nivel) # ya no lo uso
-	window.hide()
+	window.Close()
+	del window
 	ingresoxtimer = True
 	funciones.mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer)
 
