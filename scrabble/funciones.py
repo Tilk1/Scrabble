@@ -201,7 +201,7 @@ def mostrar_top10(hide,puntajes, configuracion):
 			'VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='volver')],
 	]
 	top10 = sg.Window("TOP 10", layout, resizable=True,
-					   finalize=True).Finalize()
+					   finalize=True, disable_close = True).Finalize()
 	if(hide):
 		top10.UnHide()
 	while True:
