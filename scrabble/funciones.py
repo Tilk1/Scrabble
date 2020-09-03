@@ -4,6 +4,10 @@ import os
 import PySimpleGUI as sg
 import json
 from datetime import date
+import time
+import sys
+import getpass
+import random
 
 cwd = os.getcwd()
 
@@ -140,6 +144,8 @@ def activarBotones(window):
 	window["u4"].Update(disabled=False)
 	window["u5"].Update(disabled=False)
 	window["u6"].Update(disabled=False)
+	window["exit"].Update(disabled=False)
+	window["posponer"].Update(disabled=False)
 	window.FindElement("intercambiar").Widget.config(cursor="exchange")
 	window.FindElement("palabra").Widget.config(cursor="heart")
 	window.FindElement("sacar").Widget.config(cursor="pirate")
@@ -161,11 +167,36 @@ def mostrar_top10(hide,puntajes, configuracion):
 	columna = [
 		[sg.Image(os.path.join(cwd,'imagenes','rankings.png'))],
 	]
+
+	bcols = ['salmon','orange','salmon','orange','salmon','orange','salmon','orange','salmon','orange']
+	mysize = (2,1)
+	BAR_WIDTH = 65
+	BAR_SPACING = 70
+	EDGE_OFFSET = 3
+	GRAPH_SIZE = (452,150)
+	#tomo como el elemento mas grande de referencia
+	puntaje_mayor = (puntajes[0][1])
+	DATA_SIZE = (700,puntaje_mayor+1) #le sumo uno xq sino no entra
+	graph = sg.Graph(GRAPH_SIZE, (0,0), DATA_SIZE)
+	mysize = (4,1)
+	myfont = "Fixedsys"
 	layout = [
-		[sg.Text('   TOP PUNTAJES ALTOS', font=('Fixedsys', 20),
+		[sg.Text('   TOP PUNTAJES ALTOS', font=('Fixedsys', 20), 
 				 text_color='salmon', background_color='white'), sg.Image(os.path.join(cwd, 'imagenes','trofeo.png'))],
 		[sg.Column(columna, ""), sg.Table(puntajes, headings, select_mode="none", col_widths=ancho_columnas,
 										  num_rows=10, text_color="black", auto_size_columns=True, font=('Fixedsys', 6))],
+		[sg.Text('Comparativa grafica', size=(60,1),justification='center', text_color='black',font=('Fixedsys', 15), background_color='white')], 
+										  [graph],
+		[sg.Text('1°',text_color=bcols[0],font=myfont,size= mysize,justification='center', background_color='white' ),
+		sg.Text('2°',text_color=bcols[1],font=myfont,size= mysize,justification='center', background_color='white' ),
+		sg.Text('3°',text_color=bcols[2],font=myfont,size= mysize,justification='center', background_color='white'),
+		sg.Text('4°',text_color=bcols[2],font=myfont,size= mysize,justification='center', background_color='white'),
+		sg.Text('5°',text_color=bcols[2],font=myfont,size= mysize,justification='center', background_color='white'),
+		sg.Text('6°',text_color=bcols[2],font=myfont,size= mysize,justification='center', background_color='white'),
+		sg.Text('7°',text_color=bcols[2],font=myfont,size= mysize,justification='center', background_color='white'),
+		sg.Text('8°',text_color=bcols[2],font=myfont,size= mysize,justification='center', background_color='white'),
+		sg.Text('9°',text_color=bcols[2],font=myfont,size= mysize,justification='center', background_color='white'),
+		sg.Text('10°',text_color=bcols[2],font=myfont,size= mysize,justification='center', background_color='white')],
 		[sg.Text('         ', font=('Fixedsys', 18), background_color='white'), sg.Button(
 			'VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='volver')],
 	]
@@ -174,7 +205,11 @@ def mostrar_top10(hide,puntajes, configuracion):
 	if(hide):
 		top10.UnHide()
 	while True:
-		event, values = top10.read()
+		event, values = top10.read(2000)
+		for i in range(10):
+			graph_value = puntajes[i][1]
+			graph.draw_rectangle(top_left=(i * BAR_SPACING + EDGE_OFFSET, graph_value),
+			bottom_right=(i * BAR_SPACING + EDGE_OFFSET + BAR_WIDTH, 0), fill_color=bcols[i])
 		print(event, values)
 		if event == 'volver' or event == None:
 			break
@@ -203,28 +238,25 @@ def cargar(puntajeU,name,nivel):
 	try:
 		with open(os.path.join(cwd,"puntajes.json")) as arc:
 			datos = json.load(arc)
-			if not datos:
-				sg.popup('Archivo de puntajes no encontrado')
-			else:
-				puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
+			puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
 
 	except FileNotFoundError:
-		sg.popup('Archivo de puntajes no encontrado')
+		sg.popup('Archivo de puntajes no encontrado, creando uno nuevo vacio',keep_on_top=True)
+		datos = [["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""], ["", 0, "", ""]]
+		with open((os.path.join(cwd,"puntajes.json")), "w") as arc:
+			json.dump(datos,arc)
+			puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
 	
 	if puntajeU > puntajes[0][1]:
 		quedotop10 = True
 	else:
 		quedotop10 = False
 		print('FALSOO')
-
-	if quedotop10 == True:
-		with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
-			print('LEEE 1111')
-			puntajes[0][0] = name
-			puntajes[0][2] = nivel
-			json.dump(puntajes, arc2)
 	  
-def mostrar_fin_partida(puntajeU,puntajeM):
+def mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer):
+	username = getpass.getuser()
+	cargar(puntajeU,name,nivel)
+	print(ingresoxtimer)
 	"""
 	Recibe algunos datos de la partida para colocar en el top10 en caso de superar
 	el puntaje del que esta ultimo. (Con json una lista verificando el ultimo elemento)
@@ -234,26 +266,18 @@ def mostrar_fin_partida(puntajeU,puntajeM):
 		with open((os.path.join(cwd,"puntajes.json"))) as arc:
 			datos = json.load(arc)
 			if not datos:
-				sg.popup('Archivo de puntajes no encontrado')
+				sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
 			else:
 				puntajes = sorted(datos, reverse=False, key=lambda x: x[1])
 
 	except FileNotFoundError:
-		sg.popup('Archivo de puntajes no encontrado')
+		sg.popup('Archivo de puntajes no encontrado',keep_on_top=True)
 
 	# me fijo si supera al mas bajo de todos para quedar en el top 10
 	if puntajeU > puntajes[0][1]:
 		quedotop10 = True
 	else:
 		quedotop10 = False
-
-	if quedotop10 == True:
-		with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
-			print('LEEE 222')
-			today = date.today()
-			puntajes[0][1] = puntajeU      # puntaje
-			puntajes[0][3] = str(today)    #fecha
-			json.dump(puntajes, arc2)
 
 	# agrego el nuevo puntaje una vez que lo haya escrito y toco el boton OK
 	#puntajes.append = ["juuuu",  999, "easy", "3/3/2050"]
@@ -271,6 +295,17 @@ def mostrar_fin_partida(puntajeU,puntajeM):
 		imagen_ganador = 'robot.gif'
 		color_compu = 'green'
 
+	datos_automaticos = False
+	if ingresoxtimer == True:  # esto es pq ya no me deja ingresar mas nada
+		if quedotop10 == True:
+			today = date.today()
+			datos_automaticos = True
+			with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
+				puntajes[0][0] = username
+				puntajes[0][2] = nivel
+				puntajes[0][1] = puntajeU      # puntaje
+				puntajes[0][3] = str(today)    #fecha
+				json.dump(puntajes, arc2)
 
 	layout = [
 		[sg.Text('¡La partida ha terminado!', font=('Fixedsys', 30),text_color='salmon', background_color='white')],
@@ -281,15 +316,34 @@ def mostrar_fin_partida(puntajeU,puntajeM):
 		[sg.Text('',background_color= 'White')],
 		[sg.Text('Puntuacion Usuario    :', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeU), font=('Fixedsys', 20),text_color=color_usuario, background_color='white')],
 		[sg.Text('Puntuacion Computadora:', font=('Fixedsys', 17),text_color='salmon', background_color='white'),sg.Text(str(puntajeM), font=('Fixedsys', 20),text_color=color_compu, background_color='white')],
-		[sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', background_color='white', visible= False),sg.Input(size=(12,8),font=('Fixedsys', 17),visible= False),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='volver',visible= False)],
+		[sg.Text('Escribe tu nombre', font=('Fixedsys', 20),text_color='salmon', key='-NOMBRE-', background_color='white', visible= quedotop10),sg.Input(size=(12,8),font=('Fixedsys', 17),key='-INPUT-',visible= quedotop10,disabled=datos_automaticos),sg.Button('OK', size=(5,2), font=('Fixedsys', 15), button_color=('orange', 'White'), key='-OK-',visible= quedotop10,disabled=datos_automaticos)],
+		[sg.Text('            datos cargados!', font=('Fixedsys', 20),text_color='green', background_color='white',key='-CARGADO-',visible=False)],
+		[sg.Text(username, font=('Fixedsys', 17),text_color='green', background_color='white',key='-CARGADO-',visible=datos_automaticos)],
+		[sg.Text('tus datos han sido cargados automaticamente, no necesitas ingresar nada. Uf que alivio!', font=('Fixedsys', 15),text_color='green', background_color='white',key='-CARGADO-',visible=datos_automaticos)],
 		[sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=False)],
 			]
 
 	fin_partida = sg.Window("fin", layout, resizable=True,finalize=True)
 	while True:
-		event, values = fin_partida.read()
+		event, values = fin_partida.read(10)
 		fin_partida.UnHide()
-		print(event,values)
+		if event == '-OK-':
+			fin_partida['-OK-'].update(visible=False)
+			fin_partida['-INPUT-'].update(visible=False)
+			fin_partida['-NOMBRE-'].update(visible=False)
+			fin_partida['-CARGADO-'].update(visible=True)
+			if quedotop10 == True:
+				today = date.today()
+				with open(os.path.join(cwd,'puntajes.json'),'w') as arc2:  #quito al ultimo
+					if (values['-INPUT-']) == '':   #en el caso q no ingreso nada, le toma el usuario
+						puntajes[0][0] = getpass.getuser()
+					else:
+						puntajes[0][0] = values['-INPUT-']
+					puntajes[0][2] = nivel
+					puntajes[0][1] = puntajeU      # puntaje
+					puntajes[0][3] = str(today)    #fecha
+					json.dump(puntajes, arc2)
 		if event == 'salir2' or event == None:
 			break
 	fin_partida.Close()
+	sys.exit()
