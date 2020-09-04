@@ -201,7 +201,7 @@ def mostrar_top10(hide,puntajes, configuracion):
 			'VOLVER', font=('Fixedsys', 18), button_color=('orange', 'White'), key='volver')],
 	]
 	top10 = sg.Window("TOP 10", layout, resizable=True,
-					   finalize=True).Finalize()
+					   finalize=True,grab_anywhere= True).Finalize()
 	if(hide):
 		top10.UnHide()
 	while True:
@@ -323,7 +323,7 @@ def mostrar_fin_partida(puntajeU,puntajeM,name,nivel,ingresoxtimer):
 		[sg.Text('      ', font=('Fixedsys', 45),background_color= 'White'), sg.Button('SALIR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='salir2',visible=False)],
 			]
 
-	fin_partida = sg.Window("fin", layout, resizable=True,finalize=True)
+	fin_partida = sg.Window("fin", layout, resizable=True,finalize=True,grab_anywhere= True)
 	while True:
 		event, values = fin_partida.read(10)
 		fin_partida.UnHide()
