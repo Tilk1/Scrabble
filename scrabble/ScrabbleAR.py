@@ -122,7 +122,7 @@ if __name__ == '__main__':
 		[sg.Button(image_filename=(os.path.join(cwd,'imagenes','sacar.png')), border_width=0,key='sacar', disabled=True,tooltip='Saca todas las fichas\n que has colocado en este turno')]
 	]
 	column1 = [
-		[sg.Image(os.path.join(cwd,'imagenes','robot.gif'), key = 'gifcompu',tooltip='No te engañes por esa sonrisa \n Es fria y calculadora..'), sg.Text('Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'),sg.Image(os.path.join(cwd,'imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Button(image_filename=os.path.join(cwd,'imagenes','inicio.png'), border_width=0, key='comenzar'), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
+		[sg.Image(os.path.join(cwd,'imagenes','robot.gif'), key = 'gifcompu',tooltip='No te engañes por esa sonrisa \n Es fria y calculadora..'), sg.Text('Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'),sg.Image(os.path.join(cwd,'imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Button(image_filename=os.path.join(cwd,'imagenes','inicio.png'), border_width=0, key='comenzar',focus=True), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
 		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
 		[sg.Column([[sg.Text('', text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
 		[sg.Image(os.path.join(cwd,'imagenes','jugador.png'),tooltip='Eso es un barbijo o una sonrisa?'), sg.Text(text='Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU'), sg.Text(text='Turno: Usuario', font=('Fixedsys', 15), text_color='red', background_color='white', key='-TURNO-')],
@@ -174,10 +174,10 @@ if __name__ == '__main__':
 	colores = ['color1.png','color2.png',
 			'color3.png','color4.png','color5.png']
 
-	popinter = sg.Window('intercambio', intercambiar, force_toplevel= True, disable_close = True)
-	menu = sg.Window('MENU', layoutmenu)
-	configuracion = sg.Window('config', config)
-	partidaW = sg.Window('partida',menuJugar, disable_close = True)
+	popinter = sg.Window('intercambio', intercambiar, force_toplevel= True, disable_close = True,grab_anywhere= True)
+	menu = sg.Window('MENU', layoutmenu,grab_anywhere= True)
+	configuracion = sg.Window('config', config,grab_anywhere= True)
+	partidaW = sg.Window('partida',menuJugar, disable_close = True,grab_anywhere= True)
 	
 
 	#turno= 'usuario' aca iba antes
