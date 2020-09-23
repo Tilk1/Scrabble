@@ -124,7 +124,7 @@ if __name__ == '__main__':
 	column1 = [
 		[sg.Image(os.path.join(cwd,'imagenes','robot.gif'), key = 'gifcompu',tooltip='No te engañes por esa sonrisa \n Es fria y calculadora..'), sg.Text('Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntM'),sg.Image(os.path.join(cwd,'imagenes','relojito.gif'), key='relojito', background_color= 'White', visible= True), sg.Button(image_filename=os.path.join(cwd,'imagenes','inicio.png'), border_width=0, key='comenzar',focus=True), sg.Text('00:00', font=('Fixedsys', 30), justification='center', text_color='orange',key='temporizador', background_color='white',visible= False)],
 		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m0', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m1', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='m2', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='m3', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='m4', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='m5', disabled=True), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='m6', disabled=True)],
-		[sg.Column([[sg.Text('', text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
+		[sg.Column([[sg.Text('CLICK EN INICIO \n PARA COMENZAR', text_color='black', key='reporte',justification= 'center', background_color='lightblue', size=(30, 500))]], scrollable= True, vertical_scroll_only= True, size = (250,400)), sg.Column(columna)],
 		[sg.Image(os.path.join(cwd,'imagenes','jugador.png'),tooltip='Eso es un barbijo o una sonrisa?'), sg.Text(text='Puntaje:0  ', font=('Fixedsys', 17), text_color='orange', background_color='white', key='puntU'), sg.Text(text='Turno: Usuario', font=('Fixedsys', 15), text_color='red', background_color='white', key='-TURNO-')],
 		[sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u0', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u1', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color3.png'), image_size=(46, 46), key='u2', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color4.png'), image_size=(46, 46), key='u3', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color5.png'), image_size=(46, 46), key='u4', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color1.png'), image_size=(46, 46), key='u5', disabled=True,tooltip='Clickea aqui y \n luego en el tablero'), sg.Button('', image_filename=os.path.join(cwd,'imagenes','color2.png'), image_size=(46, 46), key='u6', disabled=True,tooltip='Clickea aqui y \n luego en el tablero')],
 		[sg.Button(image_filename=os.path.join(cwd,'imagenes','terminar.png'), key='exit',disabled=True, border_width=0,tooltip='Salir de la partida'), sg.Text('  ', background_color='white'), sg.Button(image_filename=os.path.join(cwd,'imagenes','posponer.png'), key='posponer', border_width=0,disabled=True,tooltip='Guarda la partida')]
@@ -170,6 +170,22 @@ if __name__ == '__main__':
 		[sg.Text('Es tu primera vez jugando?  ', font=('Fixedsys', 15), text_color='purple', background_color='white'),sg.Button('Si, Muestrame consejos antes de iniciar', font=('Fixedsys', 16), button_color=('green', 'White'), key='-NOVATO-')],
 		   
 	]
+	tutorial1 = [
+		[sg.Text('Algunos consejos..', font=('Fixedsys', 16), text_color='purple', background_color='white',justification='center',size=(40,1))],
+		[sg.Image(os.path.join(cwd,'imagenes','hints.gif'), key='-HINTS-', background_color= 'White', visible= True),sg.Button('>',font=('Fixedsys', 18),key='-TIP_NEXT-')],
+		[sg.Text('Puedes ver que hace cada boton pasando el puntero', font=('Fixedsys', 14), size=(40,3), text_color='purple', background_color='white',key= '-TIP-')], 
+	]
+	tutorial2 = [
+		[sg.Text('Algunos consejos..', font=('Fixedsys', 16), text_color='purple', background_color='white',justification='center',size=(40,1))],
+		[sg.Image(os.path.join(cwd,'imagenes','colocar.gif'), key='-HINTS-', background_color= 'White', visible= True),sg.Button('>',font=('Fixedsys', 18),key='-TIP_NEXT-')],
+		[sg.Text('Para formar palabras debes clickear en tu atril y luego en el tablero', size=(40,3),font=('Fixedsys', 14), text_color='purple', background_color='white',key= '-TIP-')], 
+	]
+	tutorial3 = [
+		[sg.Text('Algunos consejos..', font=('Fixedsys', 16), text_color='purple', background_color='white',justification='center',size=(40,1))],
+		[sg.Image(os.path.join(cwd,'imagenes','formar.gif'), key='-HINTS-', background_color= 'White', visible= True),sg.Button('>',font=('Fixedsys', 18),key='-TIP_NEXT-')],
+		[sg.Text('Una vez formada la palabra usas validar y pum! Se sumara a tus puntos', font=('Fixedsys', 14), size=(40,3), text_color='purple', background_color='white',key= '-TIP-')], 
+	]
+
 	# parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
 	colores = ['color1.png','color2.png',
 			'color3.png','color4.png','color5.png']
@@ -178,6 +194,9 @@ if __name__ == '__main__':
 	menu = sg.Window('MENU', layoutmenu,grab_anywhere= True)
 	configuracion = sg.Window('config', config,grab_anywhere= True)
 	partidaW = sg.Window('partida',menuJugar, disable_close = True,grab_anywhere= True)
+	tutorial_menu = sg.Window('Tutorial', tutorial1, grab_anywhere = True, force_toplevel= True,disable_close=True)
+	tutorial_menu2 = sg.Window('Tutorial', tutorial2, grab_anywhere = True, force_toplevel= True,disable_close=True)
+	tutorial_menu3 = sg.Window('Tutorial', tutorial3, grab_anywhere = True, force_toplevel= True,disable_close=True)
 	
 
 	#turno= 'usuario' aca iba antes
@@ -248,7 +267,31 @@ if __name__ == '__main__':
 				while event != 'comenzar':
 					event, values = window.read(2)
 				if novatoide:
-					sg.popup('El Consejo mas importante que voy a darte es que pases el mouse sobre los botones para saber lo que hacen. Ahora que sabes eso te dire en que consiste el juego: Tienes que formar palabras en el tablero usando las fichas de tu atril. Para ello haz click en una letra cualquiera  de abajo a la derecha y luego en el tablero.  Puedes intercambiar fichas si ninguna te gusta, pero cuidado! Tienes solo 3 intentos para intercambiar Cada vez que lo hagas pasaras el turno. Debes vencer a la computadora y lograr la mayor cantidad de puntos. Presta atencion a las casillas especiales, pueden restar o sumar puntos adicionales. Puede que te toque empezar a ti o ala compu. Si te toca ati entonces la primera palabra debera pasar por el inicio. El inicio es la casilla del medio de todo el tablero. Similar a un boton "play" Buena suerte!',keep_on_top=True)
+					while True:  ##gifs animados tutorial
+						event, values = tutorial_menu.read(100)
+						image10 = tutorial_menu['-HINTS-']
+						image10.update_animation(os.path.join(cwd,'imagenes','hints.gif'), 100)
+						if event == ('-TIP_NEXT-'):
+							tutorial_menu.close()
+							event = 'comenzar'
+							break
+					while True:  ##gifs animados tutorial
+						event, values = tutorial_menu2.read(100)
+						image10 = tutorial_menu2['-HINTS-']
+						image10.update_animation(os.path.join(cwd,'imagenes','colocar.gif'), 100)
+						if event == ('-TIP_NEXT-'):
+							tutorial_menu2.close()
+							event = 'comenzar'
+							break
+					while True:  ##gifs animados tutorial
+						event, values = tutorial_menu3.read(100)
+						image10 = tutorial_menu3['-HINTS-']
+						image10.update_animation(os.path.join(cwd,'imagenes','formar.gif'), 100)
+						if event == ('-TIP_NEXT-'):
+							tutorial_menu3.close()
+							event = 'comenzar'
+							break
+					#sg.popup('El Consejo mas importante que voy a darte es que pases el mouse sobre los botones para saber lo que hacen. Ahora que sabes eso te dire en que consiste el juego: Tienes que formar palabras en el tablero usando las fichas de tu atril. Para ello haz click en una letra cualquiera  de abajo a la derecha y luego en el tablero.  Puedes intercambiar fichas si ninguna te gusta, pero cuidado! Tienes solo 3 intentos para intercambiar Cada vez que lo hagas pasaras el turno. Debes vencer a la computadora y lograr la mayor cantidad de puntos. Presta atencion a las casillas especiales, pueden restar o sumar puntos adicionales. Puede que te toque empezar a ti o ala compu. Si te toca ati entonces la primera palabra debera pasar por el inicio. El inicio es la casilla del medio de todo el tablero. Similar a un boton "play" Buena suerte!',keep_on_top=True)
 				if(event == 'comenzar'):
 					if(viejaP):
 						for x in tableroFichas:
