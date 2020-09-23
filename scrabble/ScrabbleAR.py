@@ -194,9 +194,9 @@ if __name__ == '__main__':
 	menu = sg.Window('MENU', layoutmenu,grab_anywhere= True)
 	configuracion = sg.Window('config', config,grab_anywhere= True)
 	partidaW = sg.Window('partida',menuJugar, disable_close = True,grab_anywhere= True)
-	tutorial_menu = sg.Window('Tutorial', tutorial1, grab_anywhere = False, force_toplevel= False)
-	tutorial_menu2 = sg.Window('Tutorial', tutorial2, grab_anywhere = False, force_toplevel= False)
-	tutorial_menu3 = sg.Window('Tutorial', tutorial3, grab_anywhere = False, force_toplevel= False)
+	tutorial_menu = sg.Window('Tutorial', tutorial1, grab_anywhere = True, force_toplevel= True)
+	tutorial_menu2 = sg.Window('Tutorial', tutorial2, grab_anywhere = True, force_toplevel= True)
+	tutorial_menu3 = sg.Window('Tutorial', tutorial3, grab_anywhere = True, force_toplevel= True)
 	
 
 	#turno= 'usuario' aca iba antes
