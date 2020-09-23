@@ -171,19 +171,19 @@ if __name__ == '__main__':
 		   
 	]
 	tutorial1 = [
-		[sg.Text('Algunos consejos..', font=('Fixedsys', 16), text_color='purple', background_color='white',justification='center',size=(50,1))],
+		[sg.Text('Algunos consejos..', font=('Fixedsys', 16), text_color='purple', background_color='white',justification='center',size=(40,1))],
 		[sg.Image(os.path.join(cwd,'imagenes','hints.gif'), key='-HINTS-', background_color= 'White', visible= True),sg.Button('>',font=('Fixedsys', 18),key='-TIP_NEXT-')],
 		[sg.Text('Puedes ver que hace cada boton pasando el puntero', font=('Fixedsys', 14), size=(40,3), text_color='purple', background_color='white',key= '-TIP-')], 
 	]
 	tutorial2 = [
-		[sg.Text('Algunos consejos..', font=('Fixedsys', 16), text_color='purple', background_color='white',justification='center',size=(50,1))],
+		[sg.Text('Algunos consejos..', font=('Fixedsys', 16), text_color='purple', background_color='white',justification='center',size=(40,1))],
 		[sg.Image(os.path.join(cwd,'imagenes','colocar.gif'), key='-HINTS-', background_color= 'White', visible= True),sg.Button('>',font=('Fixedsys', 18),key='-TIP_NEXT-')],
 		[sg.Text('Para formar palabras debes clickear en tu atril y luego en el tablero', size=(40,3),font=('Fixedsys', 14), text_color='purple', background_color='white',key= '-TIP-')], 
 	]
 	tutorial3 = [
-		[sg.Text('Algunos consejos..', font=('Fixedsys', 16), text_color='purple', background_color='white',justification='center',size=(50,1))],
+		[sg.Text('Algunos consejos..', font=('Fixedsys', 16), text_color='purple', background_color='white',justification='center',size=(40,1))],
 		[sg.Image(os.path.join(cwd,'imagenes','formar.gif'), key='-HINTS-', background_color= 'White', visible= True),sg.Button('>',font=('Fixedsys', 18),key='-TIP_NEXT-')],
-		[sg.Text('Una vez formada la palabra usas validar', font=('Fixedsys', 14), size=(40,3), text_color='purple', background_color='white',key= '-TIP-')], 
+		[sg.Text('Una vez formada la palabra usas validar y pum! Se sumara a tus puntos', font=('Fixedsys', 14), size=(40,3), text_color='purple', background_color='white',key= '-TIP-')], 
 	]
 
 	# parte de abajo de las fichas, cuando comieza el juego o se quito la ficha para usarla
@@ -194,9 +194,9 @@ if __name__ == '__main__':
 	menu = sg.Window('MENU', layoutmenu,grab_anywhere= True)
 	configuracion = sg.Window('config', config,grab_anywhere= True)
 	partidaW = sg.Window('partida',menuJugar, disable_close = True,grab_anywhere= True)
-	tutorial_menu = sg.Window('Tutorial', tutorial1, grab_anywhere = True, force_toplevel= True)
-	tutorial_menu2 = sg.Window('Tutorial', tutorial2, grab_anywhere = True, force_toplevel= True)
-	tutorial_menu3 = sg.Window('Tutorial', tutorial3, grab_anywhere = True, force_toplevel= True)
+	tutorial_menu = sg.Window('Tutorial', tutorial1, grab_anywhere = True, force_toplevel= True,disable_close=True)
+	tutorial_menu2 = sg.Window('Tutorial', tutorial2, grab_anywhere = True, force_toplevel= True,disable_close=True)
+	tutorial_menu3 = sg.Window('Tutorial', tutorial3, grab_anywhere = True, force_toplevel= True,disable_close=True)
 	
 
 	#turno= 'usuario' aca iba antes
