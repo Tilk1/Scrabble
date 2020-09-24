@@ -179,13 +179,13 @@ def mostrar_top10(hide,puntajes, configuracion):
 	DATA_SIZE = (700,puntaje_mayor+1) #le sumo uno xq sino no entra
 	graph = sg.Graph(GRAPH_SIZE, (0,0), DATA_SIZE)
 	mysize = (4,1)
-	myfont = "Fixedsys"
+	myfont = ("Helvitica",10)
 	layout = [
 		[sg.Text('   TOP PUNTAJES ALTOS', font=('Fixedsys', 20), 
 				 text_color='salmon', background_color='white'), sg.Image(os.path.join(cwd, 'imagenes','trofeo.png'))],
 		[sg.Column(columna, ""), sg.Table(puntajes, headings, select_mode="none", col_widths=ancho_columnas,
 										  num_rows=10, text_color="black", auto_size_columns=True, font=('Fixedsys', 6))],
-		[sg.Text('Comparativa grafica', size=(60,1),justification='center', text_color='black',font=('Fixedsys', 15), background_color='white')], 
+		[sg.Text('Comparativa grafica', size=(40,1),justification='center', text_color='black',font=('Fixedsys', 15), background_color='white')], 
 										  [graph],
 		[sg.Text('1°',text_color=bcols[0],font=myfont,size= mysize,justification='center', background_color='white' ),
 		sg.Text('2°',text_color=bcols[1],font=myfont,size= mysize,justification='center', background_color='white' ),
