@@ -27,7 +27,7 @@ una que funcione. Aqui estan los pasos que me han funcionado:
 3. Instalar pattern por medio de pip install pattern
 4. Correr dentro de la carpeta scrabble  el archivo  ScrabbleAR.py
 
-## Windows .exe (sin instalar nada)
+## Ejecutable .exe (sin instalar nada)
 1. Descargar https://github.com/Tilk1/ScrabblleUNLPAgusSanti/archive/0.9.zip
 2. Correr ScrabbleAR.exe
 
