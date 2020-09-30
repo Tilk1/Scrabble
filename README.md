@@ -18,23 +18,20 @@ una que funcione. Aqui estan los pasos que me han funcionado:
 1. En primer lugar utilizar la version 3.6.3 de python como interprete
 2. Ir a /usr/local/lib/python3.6/dist-packages y borrar la carpeta PySimpleGUI. Reemplazarla por la que se puede decargar de aqui: https://github.com/Tilk1/seminario_python
 (Es posible que tambien funcione borrando la carpeta y volviendo a hacer un pip install PySimpleGUI)
-3. A jugar!
+3. Correr dentro de la carpeta scrabble  el archivo  ScrabbleAR.py
+4. A jugar!
 
-## Instrucciones Windows para jugar rapido sin instalar nada:
+## Instrucciones Windows
+1. Instalar esta version de python 3.6 (Link: (https://www.python.org/ftp/python/3.6.4/python-3.6.4.exe))
+2. Instalar PySimpleGUI (Libreria) 4.16.0  por medio de la consola de comandos,  pip install pysimplegui. Para ello se recomienda setear las variables de entorno de python
+3. Instalar pattern por medio de pip install pattern
+4. Correr dentro de la carpeta scrabble  el archivo  ScrabbleAR.py
 
+## Windows .exe (sin instalar nada)
 1. Descargar https://github.com/Tilk1/ScrabblleUNLPAgusSanti/archive/0.9.zip
 2. Correr ScrabbleAR.exe
 
-Nota: Esta version esta en fase de desarrollo y tiene menos funcionalidades.
-
-## Instrucciones opcionales para desarrolladores
-
-0. El primer paso seria descargar la ultima version de master zip, o clonando el repositorio
-Hay dos opciones de correr el juego:
-1. La primera por medio de un IDE, seleccionando abrir carpeta ScrabblleUNLPAgusSanti y luego ejecutando ScrabbleAR.py
-2. La segunda opcion es desde la branch version_JUGAR. O la ultima release Version jugar 1.1. Esta version incluye directamente un pyw que se ejecuta sin necesidad
-de ningun IDE y tampoco muestra ninguna consola. Los requisitos siguen siendo los mismos. Se debe tener por defecto la version
-3.6 de python(con el comando "py -0" podemos saber nuestra version por defecto), la libreria de pattern y la libreria de pySimpleGUI
+Nota: Esta version esta en fase de desarrollo y tiene menos funcionalidades. Tambien presenta bugs y no cuenta con pattern aun
 
 ## Jugando. Algunas reglas
 
