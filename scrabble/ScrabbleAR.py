@@ -14,6 +14,11 @@ from concurrent.futures import ThreadPoolExecutor as Executor
 cwd = os.getcwd()
 
 
+sistema_operativo = (sys.platform) 
+if 'win' not in sistema_operativo:  #pregunta el sistema operativo para que las letras de config no se vean corridas
+	letras_configuracion = 'letras_linux.png'
+else:
+	letras_configuracion = 'letras.png'
 
 def usuario(cantInter,hide,texto_reporte,puntajeU,estadoBolsa,tableroIm, tableroFichas, letrasU, colores, inicio, bolsa, bolsaCopia, palabras, popinter, window):
 	"""
@@ -148,7 +153,7 @@ if __name__ == '__main__':
 		[sg.Text('Tablero: ', font=('Fixedsys', 15), text_color='purple', background_color='white'), sg.Text('15x15', key='tab', font=('Fixedsys', 15), text_color='lightblue4', background_color='white')],
 		[sg.Button('JUGAR', font=('Fixedsys', 18), button_color=('orange', 'White'), key='jugar'), sg.Button('CONFIGURAR', font=('Fixedsys', 18), button_color=('salmon', 'White'), key='configurar'), sg.Button('TOP10', font=('Fixedsys', 18), button_color=('lightblue', 'White'), key='top10')]
 	]
-	row1 = [sg.Text('    ',font=('Fixedsys',12),text_color='white', background_color='white'),sg.Image(os.path.join(cwd,'imagenes','letras.png'), background_color='white')]
+	row1 = [sg.Text('    ',font=('Fixedsys',12),text_color='white', background_color='white'),sg.Image(os.path.join(cwd,'imagenes',letras_configuracion), background_color='white')]
 	row2 = [sg.Text('valor',font=('Fixedsys',12),text_color='pink3', background_color='white')]
 	row3 = [sg.Text('cant ',font=('Fixedsys',12),text_color='lightblue', background_color='white')]
 	for y in val.keys():
