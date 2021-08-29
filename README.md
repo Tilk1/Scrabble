@@ -1,5 +1,4 @@
 # ScrabblleAR
-![](https://i.imgur.com/O7vRM8o.png)
 
 ## Capturas de pantalla del juego
 
