@@ -1,6 +1,16 @@
 # ScrabblleAR
 ![](https://i.imgur.com/O7vRM8o.png)
 
+## Capturas de pantalla del juego
+
+![](https://i.imgur.com/qOjQ1NO.png)
+![](https://i.imgur.com/45gNJkF.png)
+![](https://i.imgur.com/VVULFtw.png)
+
+
+
+
+###### (Nota: Las imagenes podrian tener diferencias con la version final)
 
 ## Requisitos
 
@@ -33,26 +43,8 @@ una que funcione. Aqui estan los pasos que me han funcionado:
 
 Nota: Esta version esta en fase de desarrollo y tiene menos funcionalidades. Tambien presenta bugs y no cuenta con pattern aun
 
-## Jugando. Algunas reglas
-
-Para comenzar la partida se debe ingresar un nombre luego tocar la opcion Jugar, y finalmente 'iniciar'. Es opcional entrar
-a configuraciones.
-La primera palabra debe pasar por el centro del tablero.
-Las casillas especiales tienen bonus positivos o negativos de puntos
-Al colocar las fichas en el tablero estas se pueden quitar individualmente tocando sobre la ultima colocada, en caso de querer sacar todas se usa el botón 'sacar todas' como antes dicho. En el caso de tener una ficha en mano y arrepentirse de colocarla en el tablero, si se presiona la posición de la ficha en donde estaba en el átril, esta vuelve a donde estaba. 
 
 
-
-## Capturas de pantalla del juego
-
-![](https://i.imgur.com/qOjQ1NO.png)
-![](https://i.imgur.com/45gNJkF.png)
-![](https://i.imgur.com/VVULFtw.png)
-
-
-
-
-###### (Nota: Las imagenes podrian tener diferencias con la version final)
 
 ## Participantes
 
