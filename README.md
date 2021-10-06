@@ -47,5 +47,5 @@ Nota: Esta version esta en fase de desarrollo y tiene menos funcionalidades. Tam
 
 ## Participantes
 
-Maria Agustina Gonzalez y Santiago Jose Lizondo Colomes.
+Agustina y Santiago
 
