@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-import tableros 
+from scrabble import tableros 
 
 def configLetras(c, a, bolsa): #agrega los cambios a la bolsa
     """

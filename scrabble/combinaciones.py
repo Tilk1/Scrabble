@@ -1,7 +1,7 @@
 from itertools import permutations
 #from pattern.es import verbs, tag, spelling, lexicon
 #from pattern.web import Wiktionary
-import funciones
+from scrabble import funciones
 from random import randrange
 import pickle
 import os

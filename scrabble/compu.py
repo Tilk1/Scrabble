@@ -1,9 +1,7 @@
-import time
-import random
-import combinaciones
-import funcionesFichas
+from scrabble import combinaciones
+from scrabble import funcionesFichas
 import os
-import funciones
+from scrabble import funciones
 
 cwd = os.getcwd()
 
@@ -17,7 +15,7 @@ def colocar(coord_x, coord_y, tamaño, window, tF, formada):
 	for i in range(tamaño):
 		coord = coord_x, i + coord_y
 		window[(coord)].update(image_filename=(
-			os.path.join(cwd, (formada[i] + '.png'))))
+			os.path.join(cwd, ('./imagenes/'+formada[i] + '.png'))))
 		tF.update({coord:formada[i] + '.png'})
 		puestas[coord]=formada[i]+'.png'
 	return puestas
@@ -64,14 +62,14 @@ def turno_maquina(tr,puntaje,coordPlay, tableroIm, tableroFichas, letrasM, windo
 	for x in range(intentos_formar):  # intento 20 veces formar palabras
 		window.read(1)
 		# carga el gif porq esto puede ser lento
-		image.update_animation(os.path.join(cwd, 'robot.gif'), 150)
+		image.update_animation(os.path.join(cwd,'./imagenes/'+ 'robot.gif'), 150)
 		formada = (combinaciones.intenta_las_combinaciones_quitando_una_letra(string_letras_maquina))
 		if formada != 'no_encontro':
 			palabras_candidatas.append(formada)
 		print('INTENTO NUMERO:', x)
 
 	# deja la imagen estatica de la compu carita feliz
-	image.update(os.path.join(cwd, 'robot.gif'))
+	image.update(os.path.join(cwd,'./imagenes/'+ 'robot.gif'))
 	print(palabras_candidatas)
 	if not palabras_candidatas:  # si esta vacia la lista es porq no pudimos formar nada
 		formada = 'no_encontro'
